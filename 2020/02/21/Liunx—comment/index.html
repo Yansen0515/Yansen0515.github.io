@@ -1,0 +1,179 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="John Doe"><meta name="renderer" content="webkit"><meta name="copyright" content="John Doe"><meta name="keywords" content="Hexo"><meta name="description" content=""><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>Liunx · Animal Genetic</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 4.2.0"></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="/img/assets/cat.png"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">Animal Genetic</div><div class="profile-signature">LOVE</div><div class="friends"><div>FRIENDS</div><span><a href="//github.com/Yansen0515" target="_black">friendA</a></span><span><a href="//github.com/" target="_black">friendB</a></span><span><a href="//github.com/" target="_black">friendC</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/">Yan&amp;Qing</a></div><div class="intro-nav-label-box"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a><a href="/categories/">Categories</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a><a href="/categories/">Categories</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">Liunx</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-edit"></i><span>2020-02-21 21:17:59</span></span><span class="post-intro-tags"><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="Liunx"> Liunx</a></span></div><div class="post-intro-read"><span> Word count: <span class="post-count">2.1k</span> | Reading time: <span class="post-count">13</span>min</span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><p>Commandes Linux</p>
+<p>Linux is an operating system’s kernel. You might have heard of UNIX. Well, Linux is a UNIX clone. But it was actually created by Linus Torvalds from Scratch. Linux is free and open-source, that means that you can simply change anything in Linux and redistribute it in your own name! There are several Linux Distributions, commonly called ��distros��.</p>
+<p>Ubuntu Linux<br>Red Hat Enterprise Linux<br>Linux Mint<br>Debian<br>Fedora<br>Linux is Mainly used in servers. About 90% of the internet is powered by Linux servers. This is because Linux is fast, secure, and free! The main problem of using Windows servers are their cost. This is solved by using Linux servers. The OS that runs in about 80% of the smartphones in the world, Android, is also made from the Linux kernel. Most of the viruses in the world run on Windows, but not on Linux!</p>
+<p>Linux Shell or ��Terminal��</p>
+<p>So, basically, a shell is a program that receives commands from the user and gives it to the OS to process, and it shows the output. Linux’s shell is its main part. Its distros come in GUI (graphical user interface), but basically, Linux has a CLI (command line interface). In this tutorial, we are going to cover the basic commands that we use in the shell of Linux.</p>
+<p>To open the terminal, press Ctrl+Alt+T in Ubuntu, or press Alt+F2, type in gnome-terminal, and press enter. In Raspberry Pi, type in lxterminal. There is also a GUI way of taking it, but this is better!</p>
+<p>Linux Commands</p>
+<p>Basic Commands</p>
+<ol>
+<li>pwd �� When you first open the terminal, you are in the home directory of your user. To know which directory you are in, you can use the ��pwd�� command. It gives us the absolute path, which means the path that starts from the root. The root is the base of the Linux file system. It is denoted by a forward slash( / ). The user directory is usually something like “/home/username”.</li>
+</ol>
+<ol start="2">
+<li>ls �� Use the “ls” command to know what files are in the directory you are in. You can see all the hidden files by using the command ��ls -a��.</li>
+</ol>
+<ol start="3">
+<li>cd �� Use the “cd” command to go to a directory. For example, if you are in the home folder, and you want to go to the downloads folder, then you can type in ��cd Downloads��. Remember, this command is case sensitive, and you have to type in the name of the folder exactly as it is. But there is a problem with these commands. Imagine you have a folder named ��Raspberry Pi��. In this case, when you type in ��cd Raspberry Pi��, the shell will take the second argument of the command as a different one, so you will get an error saying that the directory does not exist. Here, you can use a backward slash. That is, you can use ��cd Raspberry\ Pi�� in this case. Spaces are denoted like this: If you just type ��cd�� and press enter, it takes you to the home directory. To go back from a folder to the folder before that, you can type ��cd ..�� . The two dots represent back.</li>
+</ol>
+<ol start="4">
+<li>mkdir &amp; rmdir �� Use the mkdir command when you need to create a folder or a directory. For example, if you want to make a directory called ��DIY��, then you can type ��mkdir DIY��. Remember, as told before, if you want to create a directory named ��DIY Hacking��, then you can type ��mkdir DIY\ Hacking��. Use rmdir to delete a directory. But rmdir can only be used to delete an empty directory. To delete a directory containing files, use rm.</li>
+</ol>
+<ol start="5">
+<li>rm - Use the rm command to delete files and directories.  Use “rm -r” to delete just the directory. It deletes both the folder and the files it contains when using only the rm command.</li>
+</ol>
+<ol start="6">
+<li>touch �� The touch command is used to create a file. It can be anything, from an empty txt file to an empty zip file. For example, ��touch new.txt��.</li>
+</ol>
+<ol start="7">
+<li>man &amp; –help �� To know more about a command and how to use it, use the man command. It shows the manual pages of the command. For example, ��man cd�� shows the manual pages of the cd command. Typing in the command name and the argument helps it show which ways the command can be used (e.g., cd �Chelp).</li>
+</ol>
+<ol start="8">
+<li>cp �� Use the cp command to copy files through the command line. It takes two arguments: The first is the location of the file to be copied, the second is where to copy.</li>
+</ol>
+<ol start="9">
+<li>mv �� Use the mv command to move files through the command line. We can also use the mv command to rename a file. For example, if we want to rename the file ��text�� to ��new��, we can use ��mv text new��. It takes the two arguments, just like the cp command.</li>
+</ol>
+<ol start="10">
+<li>locate �� The locate command is used to locate a file in a Linux system, just like the search command in Windows. This command is useful when you don’t know where a file is saved or the actual name of the file. Using the -i argument with the command helps to ignore the case (it doesn’t matter if it is uppercase or lowercase). So, if you want a file that has the word ��hello��, it gives the list of all the files in your Linux system containing the word “hello” when you type in ��locate -i hello��. If you remember two words, you can separate them using an asterisk (<em>). For example, to locate a file containing the words “hello” and “this”, you can use the command ��locate -i *hello</em>this��.</li>
+</ol>
+<p>Intermediate Commands</p>
+<ol>
+<li><p>echo �� The “echo” command helps us move some data, usually text into a file. For example, if you want to create a new text file or add to an already made text file, you just need to type in, ��echo hello, my name is alok &gt;&gt; new.txt��. You do not need to separate the spaces by using the backward slash here, because we put in two triangular brackets when we finish what we need to write.</p>
+</li>
+<li><p>cat �� Use the cat command to display the contents of a file. It is usually used to easily view programs.</p>
+</li>
+</ol>
+<ol start="3">
+<li>nano, vi, jed �� nano and vi are already installed text editors in the Linux command line. The nano command is a good text editor that denotes keywords with color and can recognize most languages. And vi is simpler than nano. You can create a new file or modify a file using this editor. For example, if you need to make a new file named “check.txt”, you can create it by using the command ��nano check.txt��. You can save your files after editing by using the sequence Ctrl+X, then Y (or N for no). In my experience, using nano for HTML editing doesn’t seem as good, because of its color, so I recommend jed text editor. We will come to installing packages soon.</li>
+</ol>
+<ol start="4">
+<li>sudo �� A widely used command in the Linux command line, sudo stands for “SuperUser Do”. So, if you want any command to be done with administrative or root privileges, you can use the sudo command. For example, if you want to edit a file like viz. alsa-base.conf, which needs root permissions, you can use the command �C sudo nano alsa-base.conf. You can enter the root command line using the command ��sudo bash��, then type in your user password. You can also use the command ��su�� to do this, but you need to set a root password before that. For that, you can use the command ��sudo passwd��(not misspelled, it is passwd). Then type in the new root password.</li>
+</ol>
+<ol start="5">
+<li>df �� Use the df command to see the available disk space in each of the partitions in your system. You can just type in df in the command line and you can see each mounted partition and their used/available space in % and in KBs. If you want it shown in megabytes, you can use the command ��df -m��.</li>
+</ol>
+<ol start="6">
+<li>du �� Use du to know the disk usage of a file in your system. If you want to know the disk usage for a particular folder or file in Linux, you can type in the command df and the name of the folder or file. For example, if you want to know the disk space used by the documents folder in Linux, you can use the command ��du Documents��. You can also use the command ��ls -lah�� to view the file sizes of all the files in a folder.</li>
+</ol>
+<ol start="7">
+<li><p>tar �� Use tar to work with tarballs (or files compressed in a tarball archive) in the Linux command line. It has a long list of uses. It can be used to compress and uncompress different types of tar archives like .tar, .tar.gz, .tar.bz2,etc. It works on the basis of the arguments given to it. For example, “tar -cvf” for creating a .tar archive, -xvf to untar a tar archive, -tvf to list the contents of the archive, etc. Since it is a wide topic, here are some examples of tar commands.</p>
+</li>
+<li><p>zip, unzip �� Use zip to compress files into a zip archive, and unzip to extract files from a zip archive.</p>
+</li>
+<li><p>uname �� Use uname to show the information about the system your Linux distro is running. Using the command ��uname -a�� prints most of the information about the system. This prints the kernel release date, version, processor type, etc.</p>
+</li>
+</ol>
+<ol start="10">
+<li>apt-get �� Use apt to work with packages in the Linux command line. Use apt-get to install packages. This requires root privileges, so use the sudo command with it. For example, if you want to install the text editor jed (as I mentioned earlier), we can type in the command ��sudo apt-get install jed��. Similarly, any packages can be installed like this. It is good to update your repository each time you try to install a new package. You can do that by typing ��sudo apt-get update��. You can upgrade the system by typing ��sudo apt-get upgrade��. We can also upgrade the distro by typing ��sudo apt-get dist-upgrade��. The command ��apt-cache search�� is used to search for a package. If you want to search for one, you can type in ��apt-cache search jed��(this doesn’t require root).</li>
+</ol>
+<ol start="11">
+<li>chmod �� Use chmod to make a file executable and to change the permissions granted to it in Linux. Imagine you have a python code named numbers.py in your computer. You’ll need to run ��python numbers.py�� every time you need to run it. Instead of that, when you make it executable, you’ll just need to run ��numbers.py�� in the terminal to run the file. To make a file executable, you can use the command ��chmod +x numbers.py�� in this case. You can use ��chmod 755 numbers.py�� to give it root permissions or ��sudo chmod +x numbers.py�� for root executable. Here is some more information about the chmod command.</li>
+</ol>
+<ol start="12">
+<li>hostname �� Use hostname to know your name in your host or network. Basically, it displays your hostname and IP address. Just typing ��hostname�� gives the output. Typing in ��hostname -I�� gives you your IP address in your network.</li>
+</ol>
+<ol start="13">
+<li>ping �� Use ping to check your connection to a server. Wikipedia says, “Ping is a computer network administration software utility used to test the reachability of a host on an Internet Protocol (IP) network”. Simply, when you type in, for example, ��ping google.com��, it checks if it can connect to the server and come back. It measures this round-trip time and gives you the details about it. The use of this command for simple users like us is to check your internet connection. If it pings the Google server (in this case), you can confirm that your internet connection is active!</li>
+</ol>
+<p>Tips and Tricks for Using Linux Command Line</p>
+<p>You can use the clear command to clear the terminal if it gets filled up with too many commands.<br>TAB can be used to fill up in terminal. For example, You just need to type ��cd Doc�� and then TAB and the terminal fills the rest up and makes it ��cd Documents��.<br>Ctrl+C can be used to stop any command in terminal safely. If it doesn’t stop with that, then Ctrl+Z can be used to force stop it.<br>You can exit from the terminal by using the exit command.<br>You can power off or reboot the computer by using the command sudo halt and sudo reboot.</p>
+</article><!-- lincense--><div class="license-wrapper"><p> <span>Author:  </span><a href="http://yoursite.com">John Doe</a></p><p> <span>Link:  </span><a href="http://yoursite.com/2020/02/21/Liunx%E2%80%94comment/">http://yoursite.com/2020/02/21/Liunx%E2%80%94comment/</a></p><p> <span>Copyright:  </span><span>All articles in this blog are licensed under <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/3.0" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.</span></p></div><div class="post-paginator"><a class="nextSlogan" href="/2020/02/20/%E6%91%84%E6%B0%8F%E5%BA%A6%E4%B8%8E%E5%8D%8E%E6%B0%8F%E5%BA%A6%E8%BD%AC%E5%8F%98/" title="摄氏度与华氏度转变"><span>NextPost ></span><br><span class="nextTitle">摄氏度与华氏度转变</span></a><div class="clear"></div></div><div id="comment"></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo" target="_blank" rel="noopener"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><div class="toc-wrapper" style="top: 70vh;"><div class="toc-catalog"><i class="fa fa-list"> </i><span>CATALOG</span></div></div><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
