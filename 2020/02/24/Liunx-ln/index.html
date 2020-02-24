@@ -1,0 +1,313 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="Yansen"><meta name="renderer" content="webkit"><meta name="copyright" content="Yansen"><meta name="keywords" content="Hexo"><meta name="description" content=""><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>Liunx-命令 · Animal Genetic</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 4.2.0"></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="img/assets/cat.png"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">Animal Genetic</div><div class="profile-signature">LOVE</div><div class="friends"><div>FRIENDS</div><span><a href="//github.com/Yansen0515" target="_black">friendA</a></span><span><a href="//github.com/" target="_black">friendB</a></span><span><a href="//github.com/" target="_black">friendC</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/" target="_blank" rel="noopener">Yan&amp;Qing</a></div><div class="intro-nav-label-box"><a href="/" target="_blank" rel="noopener">Home</a><a href="/about/" target="_blank" rel="noopener">About</a><a href="/archives/" target="_blank" rel="noopener">Archives</a><a href="/tags/" target="_blank" rel="noopener">Tags</a><a href="/Categories/" target="_blank" rel="noopener">Categories</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/" target="_blank" rel="noopener">Home</a><a href="/about/" target="_blank" rel="noopener">About</a><a href="/archives/" target="_blank" rel="noopener">Archives</a><a href="/tags/" target="_blank" rel="noopener">Tags</a><a href="/Categories/" target="_blank" rel="noopener">Categories</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">Liunx-命令</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-edit"></i><span>2020-02-24 21:20:59</span></span><span class="post-intro-tags"><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="Liunx"> Liunx</a></span></div><div class="post-intro-read"><span> Word count: <span class="post-count">5.2k</span> | Reading time: <span class="post-count">21</span>min</span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><p>#############Linux ln命令</p>
+<p>Linux ln命令是一个非常重要命令，它的功能是为某一个文件在另外一个位置建立一个同步的链接。</p>
+<p>当我们需要在不同的目录，用到相同的文件时，我们不需要在每一个需要的目录下都放一个必须相同的文件，我们只要在某个固定的目录，放上该文件，然后在 其它的目录下用ln命令链接（link）它就可以，不必重复的占用磁盘空间。</p>
+<p>语法<br> ln [参数][源文件或目录][目标文件或目录]其中参数的格式为<br>[-bdfinsvF] [-S backup-suffix] [-V {numbered,existing,simple}]</p>
+<p>[–help] [–version] [–]</p>
+<p>命令功能 :<br>Linux文件系统中，有所谓的链接(link)，我们可以将其视为档案的别名，而链接又可分为两种 : 硬链接(hard link)与软链接(symbolic link)，硬链接的意思是一个档案可以有多个名称，而软链接的方式则是产生一个特殊的档案，该档案的内容是指向另一个档案的位置。硬链接是存在同一个文件系统中，而软链接却可以跨越不同的文件系统。</p>
+<p>不论是硬链接或软链接都不会将原本的档案复制一份，只会占用非常少量的磁碟空间。</p>
+<p>软链接：</p>
+<p>1.软链接，以路径的形式存在。类似于Windows操作系统中的快捷方式<br>2.软链接可以 跨文件系统 ，硬链接不可以<br>3.软链接可以对一个不存在的文件名进行链接<br>4.软链接可以对目录进行链接<br>硬链接：</p>
+<p>1.硬链接，以文件副本的形式存在。但不占用实际空间。<br>2.不允许给目录创建硬链接<br>3.硬链接只有在同一个文件系统中才能创建<br>命令参数<br>必要参数：</p>
+<p>-b 删除，覆盖以前建立的链接<br>-d 允许超级用户制作目录的硬链接<br>-f 强制执行<br>-i 交互模式，文件存在则提示用户是否覆盖<br>-n 把符号链接视为一般目录<br>-s 软链接(符号链接)<br>-v 显示详细的处理过程<br>选择参数：</p>
+<p>-S “-S&lt;字尾备份字符串&gt; “或 “–suffix=&lt;字尾备份字符串&gt;”<br>-V “-V&lt;备份方式&gt;”或”–version-control=&lt;备份方式&gt;”<br>–help 显示帮助信息<br>–version 显示版本信息<br>实例<br>给文件创建软链接，为log2013.log文件创建软链接link2013，如果log2013.log丢失，link2013将失效：</p>
+<p>ln -s log2013.log link2013<br>输出：</p>
+<p>[root@localhost test]# ll<br>-rw-r–r– 1 root bin      61 11-13 06:03 log2013.log<br>[root@localhost test]# ln -s log2013.log link2013<br>[root@localhost test]# ll<br>lrwxrwxrwx 1 root root     11 12-07 16:01 link2013 -&gt; log2013.log<br>-rw-r–r– 1 root bin      61 11-13 06:03 log2013.log<br>给文件创建硬链接，为log2013.log创建硬链接ln2013，log2013.log与ln2013的各项属性相同</p>
+<p>ln log2013.log ln2013<br>输出：</p>
+<p>[root@localhost test]# ll<br>lrwxrwxrwx 1 root root     11 12-07 16:01 link2013 -&gt; log2013.log<br>-rw-r–r– 1 root bin      61 11-13 06:03 log2013.log<br>[root@localhost test]# ln log2013.log ln2013<br>[root@localhost test]# ll<br>lrwxrwxrwx 1 root root     11 12-07 16:01 link2013 -&gt; log2013.log<br>-rw-r–r– 2 root bin      61 11-13 06:03 ln2013<br>-rw-r–r– 2 root bin      61 11-13 06:03 log2013.log</p>
+<p>#################jion<br>Linux join命令用于将两个文件中，指定栏位内容相同的行连接起来。</p>
+<p>找出两个文件中，指定栏位内容相同的行，并加以合并，再输出到标准输出设备。</p>
+<p>语法<br>join [-i][-a&lt;1或2&gt;][-e&lt;字符串&gt;][-o&lt;格式&gt;][-t&lt;字符&gt;][-v&lt;1或2&gt;][-1&lt;栏位&gt;][-2&lt;栏位&gt;][–help][–version][文件1][文件2]<br>参数：</p>
+<!-- -a<1或2> 除了显示原来的输出内容之外，还显示指令文件中没有相同栏位的行。
+-e<字符串> 若[文件1]与[文件2]中找不到指定的栏位，则在输出中填入选项中的字符串。
+-i或--igore-case 比较栏位内容时，忽略大小写的差异。
+-o<格式> 按照指定的格式来显示结果。
+-t<字符> 使用栏位的分隔字符。
+-v<1或2> 跟-a相同，但是只显示文件中没有相同栏位的行。
+-1<栏位> 连接[文件1]指定的栏位。
+-2<栏位> 连接[文件2]指定的栏位。
+--help 显示帮助。
+--version 显示版本信息。 -->
+<p>实例<br>连接两个文件。</p>
+<p>为了清楚地了解join命令，首先通过cat命令显示文件testfile_1和 testfile_2 的内容。</p>
+<p>然后以默认的方式比较两个文件，将两个文件中指定字段的内容相同的行连接起来，在终端中输入命令：</p>
+<p>join testfile_1 testfile_2<br>首先查看testfile_1、testfile_2 中的文件内容：</p>
+<p>$ cat testfile_1 #testfile_1文件中的内容<br>Hello 95 #例如，本例中第一列为姓名，第二列为数额<br>Linux 85<br>test 30<br>cmd@hdd-desktop:~$ cat testfile_2 #testfile_2文件中的内容<br>Hello 2005 #例如，本例中第一列为姓名，第二列为年份<br>Linux 2009<br>test 2006<br>然后使用join命令，将两个文件连接，结果如下：</p>
+<p>$ join testfile_1 testfile_2 #连接testfile_1、testfile_2中的内容<br>Hello 95 2005 #连接后显示的内容<br>Linux 85 2009<br>test 30 2006<br>文件1与文件2的位置对输出到标准输出的结果是有影响的。例如将命令中的两个文件互换，即输入如下命令：</p>
+<p>join testfile_2 testfile_1<br>最终在标准输出的输出结果将发生变化，如下所示：</p>
+<p>$ join testfile_2 testfile_1 #改变文件顺序连接两个文件<br>Hello 2005 95 #连接后显示的内容<br>Linux 2009 85<br>test 2006 30 </p>
+<p>#############Linux sort命令</p>
+<p>Linux sort命令用于将文本文件内容加以排序。</p>
+<p>sort可针对文本文件的内容，以行为单位来排序。</p>
+<p>语法<br>sort [-bcdfimMnr][-o&lt;输出文件&gt;][-t&lt;分隔字符&gt;][+&lt;起始栏位&gt;-&lt;结束栏位&gt;][–help][–verison][文件]</p>
+<!-- 参数说明：
+
+-b 忽略每行前面开始出的空格字符。
+-c 检查文件是否已经按照顺序排序。
+-d 排序时，处理英文字母、数字及空格字符外，忽略其他的字符。
+-f 排序时，将小写字母视为大写字母。
+-i 排序时，除了040至176之间的ASCII字符外，忽略其他的字符。
+-m 将几个排序好的文件进行合并。
+-M 将前面3个字母依照月份的缩写进行排序。
+-n 依照数值的大小排序。
+-u 意味着是唯一的(unique)，输出的结果是去完重了的。
+-o<输出文件> 将排序后的结果存入指定的文件。
+-r 以相反的顺序来排序。
+-t<分隔字符> 指定排序时所用的栏位分隔字符。
++<起始栏位>-<结束栏位> 以指定的栏位来排序，范围由起始栏位到结束栏位的前一栏位。
+--help 显示帮助。
+--version 显示版本信息。 -->
+<p>实例<br>在使用sort命令以默认的式对文件的行进行排序，使用的命令如下：</p>
+<p>sort testfile<br>sort 命令将以默认的方式将文本文件的第一列以ASCII 码的次序排列，并将结果输出到标准输出。</p>
+<p>使用 cat命令显示testfile文件可知其原有的排序如下：</p>
+<p>$ cat testfile      #testfile文件原有排序<br>test 30<br>Hello 95<br>Linux 85<br>使用sort命令重排后的结果如下：</p>
+<p>$ sort testfile #重排结果<br>Hello 95<br>Linux 85<br>test 30 </p>
+<p>#########Linux uniq 命令</p>
+<p>Linux uniq 命令用于检查及删除文本文件中重复出现的行列，一般与 sort 命令结合使用。</p>
+<p>uniq 可检查文本文件中重复出现的行列。</p>
+<p>语法<br>uniq [-cdu][-f&lt;栏位&gt;][-s&lt;字符位置&gt;][-w&lt;字符位置&gt;][–help][–version][输入文件][输出文件]<br>参数：</p>
+<p>-c或–count 在每列旁边显示该行重复出现的次数。<br>-d或–repeated 仅显示重复出现的行列。<br>-f&lt;栏位&gt;或–skip-fields=&lt;栏位&gt; 忽略比较指定的栏位。<br>-s&lt;字符位置&gt;或–skip-chars=&lt;字符位置&gt; 忽略比较指定的字符。<br>-u或–unique 仅显示出一次的行列。<br>-w&lt;字符位置&gt;或–check-chars=&lt;字符位置&gt; 指定要比较的字符。<br>–help 显示帮助。<br>–version 显示版本信息。<br>[输入文件] 指定已排序好的文本文件。如果不指定此项，则从标准读取数据；<br>[输出文件] 指定输出的文件。如果不指定此选项，则将内容显示到标准输出设备（显示终端）。<br>实例<br>文件testfile中第 2、3、5、6、7、9行为相同的行，使用 uniq 命令删除重复的行，可使用以下命令：</p>
+<p>uniq testfile<br>testfile中的原有内容为：</p>
+<p>$ cat testfile      #原有内容<br>test 30<br>test 30<br>test 30<br>Hello 95<br>Hello 95<br>Hello 95<br>Hello 95<br>Linux 85<br>Linux 85<br>使用uniq 命令删除重复的行后，有如下输出结果：</p>
+<p>$ uniq testfile     #删除重复行后的内容<br>test 30<br>Hello 95<br>Linux 85<br>检查文件并删除文件中重复出现的行，并在行首显示该行重复出现的次数。使用如下命令：</p>
+<p>uniq -c testfile<br>结果输出如下：</p>
+<p>$ uniq -c testfile      #删除重复行后的内容<br>3 test 30             #前面的数字的意义为该行共出现了3次<br>4 Hello 95            #前面的数字的意义为该行共出现了4次<br>2 Linux 85            #前面的数字的意义为该行共出现了2次 当重复的行并不相邻时，uniq 命令是不起作用的，即若文件内容为以下时，uniq 命令不起作用：<br>$ cat testfile1      # 原有内容<br>test 30<br>Hello 95<br>Linux 85<br>test 30<br>Hello 95<br>Linux 85<br>test 30<br>Hello 95<br>Linux 85<br>这时我们就可以使用 sort：</p>
+<p>$ sort  testfile1 | uniq<br>Hello 95<br>Linux 85<br>test 30<br>统计各行在文件中出现的次数：</p>
+<p>$ sort testfile1 | uniq -c<br>   3 Hello 95<br>   3 Linux 85<br>   3 test 30<br>在文件中找出重复的行：</p>
+<p>$ sort testfile1 | uniq -d<br>Hello 95<br>Linux 85<br>test 30  </p>
+<p>###############Expand命令示例</p>
+<p>Expand命令用SPACE字符替换文件中的TAB字符。</p>
+<p>现在，让我们将tabs转换为ywnz.txt文件中的空格，并使用命令将结果写入标准输出：</p>
+<p>$ expand ywnz.txt</p>
+<p>如果你不想在标准输出中显示结果，只需将其上传到另一个文件，如下所示：</p>
+<p>$ expand ywnz.txt&gt;output.txt</p>
+<p>我们还可以将标签转换为空格，从标准输入读取，为此，只需运行“expand”命令而不提及源文件名：</p>
+<p>$ expand</p>
+<p>只需输入文本并按Enter键将选项卡转换为空格，按CTRL+C退出。</p>
+<p>如果不想在非空白后转换制表符，请使用-i参数，如下所示：</p>
+<p>$ expand -i ywnz.txt</p>
+<p>我们还可以选项卡分隔一定数量的字符，而不是8（默认值）：</p>
+<p>$ expand -t=5 ywnz.txt</p>
+<p>你甚至可以用逗号分隔多个标签位置，如下所示：</p>
+<p>$ expand -t 5,10,15 ywnz.txt</p>
+<p>或者：</p>
+<p>$ expand -t “5 10 15” ywnz.txt</p>
+<p>有关更多详细信息，请参阅手册页：</p>
+<p>$ man expand</p>
+<p>Unexpand命令示例</p>
+<p>Unexpand命令将执行与Expand命令相反的操作，即它会将SPACE charatcers转换为TAB字符，让我向你展示一些示例，以了解如何使用Unexpand命令。</p>
+<p>要将文件中的空格（当然是空格）转换为制表符并将输出写入标准输出，请执行以下操作：</p>
+<p>$ unexpand ywnz.txt</p>
+<p>如果要将输出写入文件而不是仅将其显示到stdout，请使用以下命令：</p>
+<p>$ unexpand ywnz.txt&gt;output.txt</p>
+<p>将空格转换为制表符，从标准输出读取：</p>
+<p>$ unexpand</p>
+<p>默认情况下，Unexpand命令仅转换初始空白，如果要转换所有空格而不是仅使用初始空格，请使用-a参数：</p>
+<p>$ unexpand -a ywnz.txt</p>
+<p>仅转换前导空白序列（请注意它覆盖-a）：</p>
+<p>$ unexpand –first-only ywnz.txt</p>
+<p>标签分隔一定数量的字符，而不是8（启用-a）：</p>
+<p>$ unexpand -t 5 ywnz.txt</p>
+<p>同样，我们可以提到多个标签位置，逗号分隔如下：</p>
+<p>$ unexpand -t 5,10,15 ywnz.txt</p>
+<p>或者：</p>
+<p>$ unexpand -t “5 10 15” ywnz.txt</p>
+<p>有关更多详细信息，请参阅手册页：</p>
+<p>$ man unexpand</p>
+<p>结论</p>
+<p>以上就是Expand和Unexpand命令在Linux下的使用示例，在处理大量文件时，Expand和Unexpand命令对于用SPACE字符替换不需要的TAB字符非常有用，反之亦然。</p>
+<h5 id="Linux-sed-命令"><a href="#Linux-sed-命令" target="_blank" rel="noopener" class="headerlink" title="Linux sed 命令"></a>Linux sed 命令</h5><p>Linux sed 命令是利用脚本来处理文本文件。</p>
+<p>sed 可依照脚本的指令来处理、编辑文本文件。</p>
+<p>Sed 主要用来自动编辑一个或多个文件、简化对文件的反复操作、编写转换程序等。</p>
+<p>语法<br>sed [-hnV][-e<script>][-f<script文件>][文本文件]</p>
+<!-- 参数说明：
+
+-e<script>或--expression=<script> 以选项中指定的script来处理输入的文本文件。
+-f<script文件>或--file=<script文件> 以选项中指定的script文件来处理输入的文本文件。
+-h或--help 显示帮助。
+-n或--quiet或--silent 仅显示script处理后的结果。
+-V或--version 显示版本信息。
+动作说明：
+
+a ：新增， a 的后面可以接字串，而这些字串会在新的一行出现(目前的下一行)～
+c ：取代， c 的后面可以接字串，这些字串可以取代 n1,n2 之间的行！
+d ：删除，因为是删除啊，所以 d 后面通常不接任何咚咚；
+i ：插入， i 的后面可以接字串，而这些字串会在新的一行出现(目前的上一行)；#####
+p ：打印，亦即将某个选择的数据印出。通常 p 会与参数 sed -n 一起运行～
+s ：取代，可以直接进行取代的工作哩！通常这个 s 的动作可以搭配正规表示法！例如 1,20s/old/new/g 就是啦！ -->
+<p>实例<br>在testfile文件的第四行后添加一行，并将结果输出到标准输出，在命令行提示符下输入如下命令：</p>
+<p>sed -e 4a\newLine testfile<br>首先查看testfile中的内容如下：</p>
+<p>$ cat testfile #查看testfile 中的内容<br>HELLO LINUX!<br>Linux is a free unix-type opterating system.<br>This is a linux testfile!<br>Linux test<br>使用sed命令后，输出结果如下：</p>
+<p>$ sed -e 4a\newline testfile #使用sed 在第四行后添加新字符串<br>HELLO LINUX! #testfile文件原有的内容<br>Linux is a free unix-type opterating system.<br>This is a linux testfile!<br>Linux test<br>newline<br>以行为单位的新增/删除<br>将 /etc/passwd 的内容列出并且列印行号，同时，请将第 2~5 行删除！</p>
+<p>[root@www ~]# nl /etc/passwd | sed '2,5d'<br>1 root:x:0:0:root:/root:/bin/bash<br>6 sync:x:5:0:sync:/sbin:/bin/sync<br>7 shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown<br>.....(后面省略).....<br>sed 的动作为 '2,5d' ，那个 d 就是删除！因为 2-5 行给他删除了，所以显示的数据就没有 2-5 行罗～ 另外，注意一下，原本应该是要下达 sed -e 才对，没有 -e 也行啦！同时也要注意的是， sed 后面接的动作，请务必以 '' 两个单引号括住喔！</p>
+<p>只要删除第 2 行</p>
+<p>nl /etc/passwd | sed '2d'<br>要删除第 3 到最后一行</p>
+<p>nl /etc/passwd | sed '3,$d'<br>在第二行后(亦即是加在第三行)加上『drink tea?』字样！</p>
+<p>[root@www ~]# nl /etc/passwd | sed '2a drink tea'<br>1 root:x:0:0:root:/root:/bin/bash<br>2 bin:x:1:1:bin:/bin:/sbin/nologin<br>drink tea<br>3 daemon:x:2:2:daemon:/sbin:/sbin/nologin<br>.....(后面省略).....<br>那如果是要在第二行前</p>
+<p>nl /etc/passwd | sed '2i drink tea'<br>如果是要增加两行以上，在第二行后面加入两行字，例如 Drink tea or ..... 与 drink beer?</p>
+<p>[root@www ~]# nl /etc/passwd | sed '2a Drink tea or ......\</p>
+<blockquote>
+<p>drink beer ?'<br>1 root:x:0:0:root:/root:/bin/bash<br>2 bin:x:1:1:bin:/bin:/sbin/nologin<br>Drink tea or ......<br>drink beer ?<br>3 daemon:x:2:2:daemon:/sbin:/sbin/nologin<br>.....(后面省略).....<br>每一行之间都必须要以反斜杠『 \ 』来进行新行的添加喔！所以，上面的例子中，我们可以发现在第一行的最后面就有 \ 存在。</p>
+</blockquote>
+<p>以行为单位的替换与显示<br>将第2-5行的内容取代成为『No 2-5 number』呢？</p>
+<p>[root@www ~]# nl /etc/passwd | sed '2,5c No 2-5 number'<br>1 root:x:0:0:root:/root:/bin/bash<br>No 2-5 number<br>6 sync:x:5:0:sync:/sbin:/bin/sync<br>.....(后面省略).....<br>透过这个方法我们就能够将数据整行取代了！</p>
+<p>仅列出 /etc/passwd 文件内的第 5-7 行</p>
+<p>[root@www ~]# nl /etc/passwd | sed -n '5,7p'<br>5 lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin<br>6 sync:x:5:0:sync:/sbin:/bin/sync<br>7 shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown<br>可以透过这个 sed 的以行为单位的显示功能， 就能够将某一个文件内的某些行号选择出来显示。</p>
+<p>数据的搜寻并显示<br>搜索 /etc/passwd有root关键字的行</p>
+<p>nl /etc/passwd | sed '/root/p'<br>1  root:x:0:0:root:/root:/bin/bash<br>1  root:x:0:0:root:/root:/bin/bash<br>2  daemon:x:1:1:daemon:/usr/sbin:/bin/sh<br>3  bin:x:2:2:bin:/bin:/bin/sh<br>4  sys:x:3:3:sys:/dev:/bin/sh<br>5  sync:x:4:65534:sync:/bin:/bin/sync<br>....下面忽略<br>如果root找到，除了输出所有行，还会输出匹配行。</p>
+<p>使用-n的时候将只打印包含模板的行。</p>
+<p>nl /etc/passwd | sed -n '/root/p'<br>1  root:x:0:0:root:/root:/bin/bash<br>数据的搜寻并删除<br>删除/etc/passwd所有包含root的行，其他行输出</p>
+<p>nl /etc/passwd | sed  '/root/d'<br>2  daemon:x:1:1:daemon:/usr/sbin:/bin/sh<br>3  bin:x:2:2:bin:/bin:/bin/sh<br>....下面忽略<br>#第一行的匹配root已经删除了<br>数据的搜寻并执行命令<br>搜索/etc/passwd,找到root对应的行，执行后面花括号中的一组命令，每个命令之间用分号分隔，这里把bash替换为blueshell，再输出这行：</p>
+<p>nl /etc/passwd | sed -n '/root/{s/bash/blueshell/;p;q}'<br>1  root:x:0:0:root:/root:/bin/blueshell<br>最后的q是退出。</p>
+<p>数据的搜寻并替换<br>除了整行的处理模式之外， sed 还可以用行为单位进行部分数据的搜寻并取代。基本上 sed 的搜寻与替代的与 vi 相当的类似！他有点像这样：</p>
+<p>sed 's/要被取代的字串/新的字串/g'<br>先观察原始信息，利用 /sbin/ifconfig 查询 IP</p>
+<p>[root@www ~]# /sbin/ifconfig eth0<br>eth0 Link encap:Ethernet HWaddr 00:90:CC:A6:34:84<br>inet addr:192.168.1.100 Bcast:192.168.1.255 Mask:255.255.255.0<br>inet6 addr: fe80::290:ccff:fea6:3484/64 Scope:Link<br>UP BROADCAST RUNNING MULTICAST MTU:1500 Metric:1<br>.....(以下省略).....<br>本机的ip是192.168.1.100。</p>
+<p>将 IP 前面的部分予以删除</p>
+<p>[root@www ~]# /sbin/ifconfig eth0 | grep 'inet addr' | sed 's/^.*addr://g'<br>192.168.1.100 Bcast:192.168.1.255 Mask:255.255.255.0<br>接下来则是删除后续的部分，亦即： 192.168.1.100 Bcast:192.168.1.255 Mask:255.255.255.0</p>
+<p>将 IP 后面的部分予以删除</p>
+<p>[root@www ~]# /sbin/ifconfig eth0 | grep 'inet addr' | sed 's/^.<em>addr://g' | sed 's/Bcast.</em>$//g'<br>192.168.1.100<br>多点编辑<br>一条sed命令，删除/etc/passwd第三行到末尾的数据，并把bash替换为blueshell</p>
+<p>nl /etc/passwd | sed -e '3,$d' -e 's/bash/blueshell/'<br>1  root:x:0:0:root:/root:/bin/blueshell<br>2  daemon:x:1:1:daemon:/usr/sbin:/bin/sh<br>-e表示多点编辑，第一个编辑命令删除/etc/passwd第三行到末尾的数据，第二条命令搜索bash替换为blueshell。</p>
+<p>直接修改文件内容(危险动作)<br>sed 可以直接修改文件的内容，不必使用管道命令或数据流重导向！ 不过，由於这个动作会直接修改到原始的文件，所以请你千万不要随便拿系统配置来测试！ 我们还是使用文件 regular_express.txt 文件来测试看看吧！</p>
+<p>regular_express.txt 文件内容如下：</p>
+<p>[root@www ~]# cat regular_express.txt<br>runoob.<br>google.<br>taobao.<br>facebook.<br>zhihu-<br>weibo-<br>利用 sed 将 regular_express.txt 内每一行结尾若为 . 则换成 !</p>
+<p>[root@www ~]# sed -i 's/.$/!/g' regular_express.txt<br>[root@www ~]# cat regular_express.txt<br>runoob!<br>google!<br>taobao!<br>facebook!<br>zhihu-<br>weibo-:q:q<br>利用 sed 直接在 regular_express.txt 最后一行加入 # This is a test:</p>
+<p>[root@www ~]# sed -i '$a # This is a test' regular_express.txt<br>[root@www ~]# cat regular_express.txt<br>runoob!<br>google!<br>taobao!<br>facebook!<br>zhihu-<br>weibo-</p>
+<h1 id="This-is-a-test"><a href="#This-is-a-test" target="_blank" rel="noopener" class="headerlink" title="This is a test"></a>This is a test</h1><p>由於 $ 代表的是最后一行，而 a 的动作是新增，因此该文件最后新增 # This is a test！</p>
+<p>sed 的 -i 选项可以直接修改文件内容，这功能非常有帮助！举例来说，如果你有一个 100 万行的文件，你要在第 100 行加某些文字，此时使用 vim 可能会疯掉！因为文件太大了！那怎办？就利用 sed 啊！透过 sed 直接修改/取代的功能，你甚至不需要使用 vim 去修订！</p>
+<p>Linux 命令大全 Linux 命令大全</p>
+<p> Shell 文件包含Nginx 安装配置<br>1 篇笔记 写笔记<br>   Jachin</p>
+<p>  ygc***n@gmail.com</p>
+<p>9<br>追加行的说明：</p>
+<p>sed -e 4a\newline testfile<br>a 动作是在匹配的行之后追加字符串，追加的字符串中可以包含换行符（实现追加多行的情况）。</p>
+<p>追加一行的话前后都不需要添加换行符 \n，只有追加多行时在行与行之间才需要添加换行符(最后一行最后也无需添加，添加的话会多出一个空行)。</p>
+<p>man sed 信息：</p>
+<p>Append text, which has each embedded newline preceded by a backslash.<br>例如：</p>
+<p>4 行之后添加一行：</p>
+<p>sed -e '4 a newline' testfile<br>4 行之后追加 2 行：</p>
+<p>sed -e '4 a newline\nnewline2' testfile<br>4 行之后追加 3 行(2 行文字和 1 行空行)</p>
+<p>sed -e '4 a newline\nnewline2\n' testfile<br>4 行之后追加 1 行空行：</p>
+<p>#错误：sed -e '4 a \n' testfile<br>sed -e '4 a \ ' testfile 实际上<br>实际上是插入了一个含有一个空格的行，插入一个完全为空的空行没有找到方法（不过应该没有这个需求吧，都要插入行了插入空行干嘛呢？）</p>
+<p>添加空行：</p>
+<h1 id="可以添加一个完全为空的空行"><a href="#可以添加一个完全为空的空行" target="_blank" rel="noopener" class="headerlink" title="可以添加一个完全为空的空行"></a>可以添加一个完全为空的空行</h1><p>sed '4 a \'</p>
+<h1 id="可以添加两个完全为空的空行"><a href="#可以添加两个完全为空的空行" target="_blank" rel="noopener" class="headerlink" title="可以添加两个完全为空的空行"></a>可以添加两个完全为空的空行</h1><p>sed '4 a \n'</p>
+<p>#####Linux chmod命令</p>
+<p>Linux/Unix 的文件调用权限分为三级 : 文件拥有者、群组、其他。利用 chmod 可以藉以控制文件如何被他人所调用。</p>
+<p>使用权限 : 所有使用者</p>
+<p>语法<br>chmod [-cfvR] [--help] [--version] mode file...<br>参数说明<br>mode : 权限设定字串，格式如下 :</p>
+<p>[ugoa...][[+-=][rwxX]...][,...]<br>其中：</p>
+<p>u 表示该文件的拥有者，g 表示与该文件的拥有者属于同一个群体(group)者，o 表示其他以外的人，a 表示这三者皆是。</p>
+<ul>
+<li>表示增加权限、- 表示取消权限、= 表示唯一设定权限。<br>r 表示可读取，w 表示可写入，x 表示可执行，X 表示只有当该文件是个子目录或者该文件已经被设定过为可执行。<br>其他参数说明：</li>
+</ul>
+<p>-c : 若该文件权限确实已经更改，才显示其更改动作<br>-f : 若该文件权限无法被更改也不要显示错误讯息<br>-v : 显示权限变更的详细资料<br>-R : 对目前目录下的所有文件与子目录进行相同的权限变更(即以递回的方式逐个变更)<br>--help : 显示辅助说明<br>--version : 显示版本<br>实例<br>将文件 file1.txt 设为所有人皆可读取 :</p>
+<p>chmod ugo+r file1.txt<br>将文件 file1.txt 设为所有人皆可读取 :</p>
+<p>chmod a+r file1.txt<br>将文件 file1.txt 与 file2.txt 设为该文件拥有者，与其所属同一个群体者可写入，但其他以外的人则不可写入 :</p>
+<p>chmod ug+w,o-w file1.txt file2.txt<br>将 ex1.py 设定为只有该文件拥有者可以执行 :</p>
+<p>chmod u+x ex1.py<br>将目前目录下的所有文件与子目录皆设为任何人可读取 :</p>
+<p>chmod -R a+r *<br>此外chmod也可以用数字来表示权限如 :</p>
+<p>chmod 777 file<br>语法为：</p>
+<p>chmod abc file<br>其中a,b,c各为一个数字，分别表示User、Group、及Other的权限。</p>
+<p>r=4，w=2，x=1<br>若要rwx属性则4+2+1=7；<br>若要rw-属性则4+2=6；<br>若要r-x属性则4+1=5。<br>chmod a=rwx file<br>和</p>
+<p>chmod 777 file<br>效果相同</p>
+<p>chmod ug=rwx,o=x file<br>和</p>
+<p>chmod 771 file<br>效果相同</p>
+<p>若用chmod 4755 filename可使此程序具有root的权限</p>
+</article><!-- lincense--><div class="license-wrapper"><p> <span>Author:  </span><a href="Yansen0515.github.io.git" target="_blank" rel="noopener">Yansen</a></p><p> <span>Link:  </span><a href="2020/02/24/Liunx-ln/" target="_blank" rel="noopener">2020/02/24/Liunx-ln/</a></p><p> <span>Copyright:  </span><span>All articles in this blog are licensed under <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/3.0" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.</span></p></div><div class="post-paginator"><a class="nextSlogan" href="2020/02/22/word—ChinsesVSEnglish/" target="_blank" rel="noopener" title="word中英文字号对照"><span>NextPost ></span><br><span class="nextTitle">word中英文字号对照</span></a><div class="clear"></div></div><div id="comment"></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo" target="_blank" rel="noopener"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><div class="toc-wrapper" style="top: 70vh;"><div class="toc-catalog"><i class="fa fa-list"> </i><span>CATALOG</span></div><ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#Linux-sed-命令" target="_blank" rel="noopener"><span class="toc-number">1.</span> <span class="toc-text">Linux sed 命令</span></a></li></ol></div><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
