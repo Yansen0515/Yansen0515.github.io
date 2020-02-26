@@ -1,0 +1,110 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="Yansen"><meta name="renderer" content="webkit"><meta name="copyright" content="Yansen"><meta name="keywords" content="Hexo"><meta name="description" content=""><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>annovar注释软件 · Animal Genetic</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 4.2.0"></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="img/assets/cat.png"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">Animal Genetic</div><div class="profile-signature">LOVE</div><div class="friends"><div>FRIENDS</div><span><a href="//github.com/Yansen0515" target="_black">friendA</a></span><span><a href="//github.com/" target="_black">friendB</a></span><span><a href="//github.com/" target="_black">friendC</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/" target="_blank" rel="noopener">Yan&amp;Qing</a></div><div class="intro-nav-label-box"><a href="/" target="_blank" rel="noopener">Home</a><a href="/about/" target="_blank" rel="noopener">About</a><a href="/archives/" target="_blank" rel="noopener">Archives</a><a href="/tags/" target="_blank" rel="noopener">Tags</a><a href="/Categories/" target="_blank" rel="noopener">Categories</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/" target="_blank" rel="noopener">Home</a><a href="/about/" target="_blank" rel="noopener">About</a><a href="/archives/" target="_blank" rel="noopener">Archives</a><a href="/tags/" target="_blank" rel="noopener">Tags</a><a href="/Categories/" target="_blank" rel="noopener">Categories</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">annovar注释软件</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-edit"></i><span>2020-02-26 22:48:27</span></span><span class="post-intro-tags"><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="perl"> perl</a></span></div><div class="post-intro-read"><span> Word count: <span class="post-count">857</span> | Reading time: <span class="post-count">3</span>min</span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><p>##annovar解压包<br>ANNOVAR<br>│  annotate_variation.pl #主程序，功能包括下载数据库，三种不同的注释<br>│  coding_change.pl #可用来推断蛋白质序列<br>│  convert2annovar.pl #将多种格式转为.avinput的程序<br>│  retrieve_seq_from_fasta.pl #用于自行建立其他物种的转录本<br>│  table_annovar.pl #注释程序，可一次性完成三种类型的注释<br>│  variants_reduction.pl #可用来更灵活地定制过滤注释流程<br>│<br>├─example #存放示例文件<br>│<br>└─humandb #人类注释数据库</p>
+<p>##数据库下载<br>$ Perl annotate_variation.pl -buildver hg19 -downdb -webfrom annovar refGene humandb/<br> -buildver 表示version<br> -downdb 下载数据库的指令<br> -webfrom annovar 从annovar提供的镜像下载，不加此参数将寻找数据库本身的源<br> humandb/ 存放于humandb/目录下</p>
+<p>##输入的文件格式<br>NNOVAR使用.avinput格式，如以上代码所示，该格式每列以tab分割，需要有以下几个信息：<br>染色体位置 起始位点 终止位点 参考基因组碱基 突变碱基 ……</p>
+<p>##ANNOVAR输入文件的格式转换</p>
+<p>ANNOVAR主要使用convert2annovar.pl程序进行转换，转换后文件是精简过的，主要包含前面提到的5列内容，如果要将原格式的文件的所有内容都包含在转换后的.avinput文件中，可以使用-includeinfo参数；如果需要分开每个sample输出单一的.avinput文件，可以使用-allsample参数，等等。 代码示例：<br>$ convert2annovar.pl -format vcf4 example/ex2.vcf &gt; ex2.avinput</p>
+<h1 id="format-vcf4-指定格式为vcf"><a href="#format-vcf4-指定格式为vcf" target="_blank" rel="noopener" class="headerlink" title="-format vcf4 指定格式为vcf"></a>-format vcf4 指定格式为vcf</h1><p>ANNOVAR还主要支持以下格式转换：<br>SAMtools pileup format Complete Genomics format GFF3-SOLiD calling format SOAPsnp calling format MAQ calling format CASAVA calling format</p>
+<h3 id="使用table-annovar-pl注释多个数据库"><a href="#使用table-annovar-pl注释多个数据库" target="_blank" rel="noopener" class="headerlink" title="使用table_annovar.pl注释多个数据库"></a>使用table_annovar.pl注释多个数据库</h3><p>perl table_annovar.pl example/ex1.avinput humandb/ -buildver hg19 -out myanno -remove -protocol refGene,cytoBand,exac03,avsnp147,dbnsfp30a -operation gx,r,f,f,f -nastring . -csvout -polish -xref example/gene_xref.txt<br>#-bulidver hg19 表示使用的参考基因组版本<br>#-out myanno 表示输出文件前缀，亦可用 –outfile 直接指定文件名<br>#-remove 表示删除中间文件<br>#-protocol 表示使用的数据库，其数据库顺序要与后面的operation注释方式对应上<br>#-operation 表示对应数据库的注释类型（g代表gene-based、r代表region-based、f代表filter-based，gx means gene-based with cross-reference annotation (from -xref argument)）<br>#-nasting . 点号代替缺省值<br>#-csvout 表示输出为csv格式</p>
+<p>Table_annovar.pl（可一次完成三种类型的注释）<br>使用ANNOVAR最简单的方法就是使用table_annovar.pl进行注释，它的输入文件可以是多种格式包括VCF，输出文件已Tab分隔，每一列代表着一种注释。 注释命令示例：</p>
+<p>$ANNOVAR/annovar/table_annovar.pl 15_indel_pre.avinput.hg19.variant2.avinput ~/ANNOVAR/annovar/humandb/ -buildver hg19 -out myanno -remove -protocol refGene,cytoBand,genomicSuperDups,esp6500siv2_all,1000g2015aug_all,1000g2015aug_eur,exac03,avsnp147,dbnsfp30a -operation g,r,r,f,f,f,f,f,f -nastring . -csvout</p>
+<h1 id="buildver-hg19-表示使用hg19版本"><a href="#buildver-hg19-表示使用hg19版本" target="_blank" rel="noopener" class="headerlink" title="-buildver hg19 表示使用hg19版本"></a>-buildver hg19 表示使用hg19版本</h1><h1 id="out-myanno-表示输出文件的前缀为myanno"><a href="#out-myanno-表示输出文件的前缀为myanno" target="_blank" rel="noopener" class="headerlink" title="-out myanno 表示输出文件的前缀为myanno"></a>-out myanno 表示输出文件的前缀为myanno</h1><h1 id="remove-表示删除注释过程中的临时文件"><a href="#remove-表示删除注释过程中的临时文件" target="_blank" rel="noopener" class="headerlink" title="-remove 表示删除注释过程中的临时文件"></a>-remove 表示删除注释过程中的临时文件</h1><h1 id="protocol-表示注释使用的数据库，用逗号隔开，且要注意顺序"><a href="#protocol-表示注释使用的数据库，用逗号隔开，且要注意顺序" target="_blank" rel="noopener" class="headerlink" title="-protocol 表示注释使用的数据库，用逗号隔开，且要注意顺序"></a>-protocol 表示注释使用的数据库，用逗号隔开，且要注意顺序</h1><h1 id="operation-表示对应顺序的数据库的类型（g代表gene-based、r代表region-based、f代表filter-based），用逗号隔开，注意顺序"><a href="#operation-表示对应顺序的数据库的类型（g代表gene-based、r代表region-based、f代表filter-based），用逗号隔开，注意顺序" target="_blank" rel="noopener" class="headerlink" title="-operation 表示对应顺序的数据库的类型（g代表gene-based、r代表region-based、f代表filter-based），用逗号隔开，注意顺序"></a>-operation 表示对应顺序的数据库的类型（g代表gene-based、r代表region-based、f代表filter-based），用逗号隔开，注意顺序</h1><h1 id="nastring-表示用点号替代缺省的值"><a href="#nastring-表示用点号替代缺省的值" target="_blank" rel="noopener" class="headerlink" title="-nastring . 表示用点号替代缺省的值"></a>-nastring . 表示用点号替代缺省的值</h1><h1 id="csvout-表示最后输出-csv文件"><a href="#csvout-表示最后输出-csv文件" target="_blank" rel="noopener" class="headerlink" title="-csvout 表示最后输出.csv文件"></a>-csvout 表示最后输出.csv文件</h1><p>输出的csv文件将包含输入的5列主要信息以及各个数据库里的注释，此外，table_annoval.pl可以直接对vcf文件进行注释（不需要转换格式），<br>注释的内容将会放在vcf文件的“INFO”那一栏。</p>
+</article><!-- lincense--><div class="license-wrapper"><p> <span>Author:  </span><a href="Yansen0515.github.io.git" target="_blank" rel="noopener">Yansen</a></p><p> <span>Link:  </span><a href="2020/02/26/annovar使用/" target="_blank" rel="noopener">2020/02/26/annovar使用/</a></p><p> <span>Copyright:  </span><span>All articles in this blog are licensed under <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/3.0" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.</span></p></div><div class="post-paginator"><a class="nextSlogan" href="2020/02/26/GLM/" target="_blank" rel="noopener" title="GLM"><span>NextPost ></span><br><span class="nextTitle">GLM</span></a><div class="clear"></div></div><div id="comment"></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo" target="_blank" rel="noopener"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><div class="toc-wrapper" style="top: 70vh;"><div class="toc-catalog"><i class="fa fa-list"> </i><span>CATALOG</span></div><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#format-vcf4-指定格式为vcf" target="_blank" rel="noopener"><span class="toc-number">1.</span> <span class="toc-text">-format vcf4 指定格式为vcf</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用table-annovar-pl注释多个数据库" target="_blank" rel="noopener"><span class="toc-number">1.0.1.</span> <span class="toc-text">使用table_annovar.pl注释多个数据库</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#buildver-hg19-表示使用hg19版本" target="_blank" rel="noopener"><span class="toc-number">2.</span> <span class="toc-text">-buildver hg19 表示使用hg19版本</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#out-myanno-表示输出文件的前缀为myanno" target="_blank" rel="noopener"><span class="toc-number">3.</span> <span class="toc-text">-out myanno 表示输出文件的前缀为myanno</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#remove-表示删除注释过程中的临时文件" target="_blank" rel="noopener"><span class="toc-number">4.</span> <span class="toc-text">-remove 表示删除注释过程中的临时文件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#protocol-表示注释使用的数据库，用逗号隔开，且要注意顺序" target="_blank" rel="noopener"><span class="toc-number">5.</span> <span class="toc-text">-protocol 表示注释使用的数据库，用逗号隔开，且要注意顺序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#operation-表示对应顺序的数据库的类型（g代表gene-based、r代表region-based、f代表filter-based），用逗号隔开，注意顺序" target="_blank" rel="noopener"><span class="toc-number">6.</span> <span class="toc-text">-operation 表示对应顺序的数据库的类型（g代表gene-based、r代表region-based、f代表filter-based），用逗号隔开，注意顺序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#nastring-表示用点号替代缺省的值" target="_blank" rel="noopener"><span class="toc-number">7.</span> <span class="toc-text">-nastring . 表示用点号替代缺省的值</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#csvout-表示最后输出-csv文件" target="_blank" rel="noopener"><span class="toc-number">8.</span> <span class="toc-text">-csvout 表示最后输出.csv文件</span></a></li></ol></div><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
