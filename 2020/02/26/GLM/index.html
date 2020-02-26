@@ -1,0 +1,208 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="Yansen"><meta name="renderer" content="webkit"><meta name="copyright" content="Yansen"><meta name="keywords" content="Hexo"><meta name="description" content=""><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>GLM · Animal Genetic</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 4.2.0"></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="img/assets/cat.png"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">Animal Genetic</div><div class="profile-signature">LOVE</div><div class="friends"><div>FRIENDS</div><span><a href="//github.com/Yansen0515" target="_black">friendA</a></span><span><a href="//github.com/" target="_black">friendB</a></span><span><a href="//github.com/" target="_black">friendC</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/" target="_blank" rel="noopener">Yan&amp;Qing</a></div><div class="intro-nav-label-box"><a href="/" target="_blank" rel="noopener">Home</a><a href="/about/" target="_blank" rel="noopener">About</a><a href="/archives/" target="_blank" rel="noopener">Archives</a><a href="/tags/" target="_blank" rel="noopener">Tags</a><a href="/Categories/" target="_blank" rel="noopener">Categories</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/" target="_blank" rel="noopener">Home</a><a href="/about/" target="_blank" rel="noopener">About</a><a href="/archives/" target="_blank" rel="noopener">Archives</a><a href="/tags/" target="_blank" rel="noopener">Tags</a><a href="/Categories/" target="_blank" rel="noopener">Categories</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">GLM</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-edit"></i><span>2020-02-26 11:31:35</span></span><span class="post-intro-tags"><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="R"> R</a></span></div><div class="post-intro-read"><span> Word count: <span class="post-count">3.3k</span> | Reading time: <span class="post-count">13</span>min</span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><p>前言<br>之前我们使用R进行线性分析时，我们得到了满足正态分布下的线性拟合模型，但在许多实际情况中，假定满足正态分布的假设并不合理<br>结果变量为类别型：包括二值变量（是/否、通过/失败、存活/死亡）和多类别变量（优/良/可/差）等。<br>结果变量为计数型的（一周交通事故的数目、每日酒水消耗的数量），这类变量都是非负的有限值，它们的均值和方差通常都是相关的（而正态分布变量间则是相互独立）。<br>为此，我们在一般线性的基础上进行深入学习，来研究包含了非正态因变量的广义线性模型。</p>
+<p>一、GLM函数概况<br>在R语言中，我们使用glm()函数构建广义线性模型，调用语法如下：</p>
+<h1 id="family为拟合所属的函数族"><a href="#family为拟合所属的函数族" target="_blank" rel="noopener" class="headerlink" title="family为拟合所属的函数族"></a>family为拟合所属的函数族</h1><h1 id="function为对应的连接函数"><a href="#function为对应的连接函数" target="_blank" rel="noopener" class="headerlink" title="function为对应的连接函数"></a>function为对应的连接函数</h1><p>glm(formula,family=family(link = function),data=)<br>常用的分布族和连接函数见下表：</p>
+<ol>
+<li>logistic回归适用于二值响应变量，连接函数为logit函数，概率分布为二项分布：</li>
+</ol>
+<p>glm(Y ~ X1 + X2 + X3, family=binomial(link=”logit”), data=data)<br>2. 泊松回归适用于在给定时间内响应变量为事件发生数目的情形，其假设Y服从泊松分布，连接函数为log(λ)，概率分布为泊松分布：</p>
+<p>glm(Y ~ X1 + X2 + X3, family=poisson(link=”log”), data=data)<br>除基本公式外，广义线性模型还会用到其他辅助函数，包括summary()，coef()等，这些函数的使用和线性模型中lm()的配套辅助函数一致，具体可参阅：R Language Learning：线性回归（五）</p>
+<p>总之，广义线性模型通过拟合响应变量的条件均值的一个函数（不是响应变量的条件均值），并假设响应变量服从指数分布族中的某个分布（不限于正态分布），从而极大地扩展了标准线性模型。模型参数估计的推导依据是极大似然估计，而非最小二乘法。</p>
+<p>二、Logistics回归分析<br>当因变量为二分类或多分类时，Logistics回归是非常重要的模型。由于Logistics回归对资料的正态性和方差齐性不做要求、对自变量类型也不做要求，使得Logistic回归模型在众多领域被广泛使用。<br>例如，想探讨胃癌发生的危险因素，可以选择两组人群，一组是胃癌组，一组是非胃癌组，两组人群肯定有不同的体征和生活方式等。这里的因变量为是否胃癌，即“是”或“否”，为两分类变量，自变量就可以包括很多了，例如年龄、性别、饮食习惯等。自变量既可以是连续的，也可以是分类的。通过logistic回归分析，就可以大致了解到底哪些因素是胃癌的危险因素。<br>估计的Logistics回归方程为：</p>
+<p>[公式] or [公式]</p>
+<p>Logistics回归模型的表达形式为：[公式]</p>
+<p>模型解读：[公式]为暴露于某种状态下的结局概率，[公式]是一种变量变换方式，表示对[公式]进行[公式]变换，[公式]为偏回归系数，表示在其他自变量不变的条件下，每变化一个单位[公式]的估计值。</p>
+<p>Logistics回归是通过最大似然估计求解常数项和偏回归系数，基本思想时当从总体中随机抽取n个样本后，最合理的参数估计量应该使得这n个样本观测值的概率最大。最大似然法的基本思想是先建立似然函数与对数似然函数，再通过使对数似然函数最大求解相应的参数值，所得到的估计值称为参数的最大似然估计值。</p>
+<ol>
+<li>数据准备（类别型变量进行0/1量化）</li>
+</ol>
+<p>首先，我们选用AER包中的Affairs数据集来构建Logistics回归模型，这个数据集记录了一组婚外情数据，其中包括参与者性别、年龄、婚龄、是否有小孩、宗教信仰程度（5分制，1表示反对，5表示非常信仰）、学历、职业和婚姻的自我评分（5分制，1表示非常不幸福，5表示非常幸福）。</p>
+<p>在使用数据集之前，载入AER包</p>
+<blockquote>
+<p>library(AER)<br>data(Affairs,package=”AER”)<br>对于这个数据集，我们关注是否出轨，即这是一个二值型结果（出轨过/从未出轨）。因此，我们接下来将’affaris’特征转化为二值型因子’ynaffair’，该二值型因子即可以作为Logistic回归的结果变量。<br>Affairs$ynaffair[Affairs$affairs &gt; 0] &lt;- 1<br>Affairs$ynaffair[Affairs$affairs== 0] &lt;- 0<br>Affairs$ynaffair &lt;-factor(Affairs$ynaffair,levels=c(0,1),labels=c(“No”,”Yes”))</p>
+</blockquote>
+<ol start="2">
+<li>Logistics模型构建：</li>
+</ol>
+<blockquote>
+<p>myfit &lt;- glm(ynaffair ~ gender + age + yearsmarried + children + religiousness + education + occupation + rating, data=Affairs, family=binomial())<br>summary(myfit)<br>Coefficients:<br>              Estimate Std. Error z value Pr(&gt;|z|)<br>(Intercept)    1.37726    0.88776   1.551 0.120807<br>gendermale     0.28029    0.23909   1.172 0.241083<br>age           -0.04426    0.01825  -2.425 0.015301 *<br>yearsmarried   0.09477    0.03221   2.942 0.003262 **<br>childrenyes    0.39767    0.29151   1.364 0.172508<br>religiousness -0.32472    0.08975  -3.618 0.000297 <strong>*<br>education      0.02105    0.05051   0.417 0.676851<br>occupation     0.03092    0.07178   0.431 0.666630<br>rating        -0.46845    0.09091  -5.153 2.56e-07 *</strong></p>
+</blockquote>
+<hr>
+<p>Signif. codes:  0 ‘<strong>*’ 0.001 ‘</strong>’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1<br>从回归系数的p值（最后一栏）可以看到，性别、是否有孩子、学历和职业对方程的贡献都不显著（p值较大）。去除这些变量重新拟合模型，检验新模型是否拟合得更好。</p>
+<blockquote>
+<p>myfit_reduced &lt;- glm(ynaffair ~ age + yearsmarried + religiousness + rating, data=Affairs, family=binomial())<br>summary(myfit_reduced)<br>Coefficients:<br>              Estimate Std. Error z value Pr(&gt;|z|)<br>(Intercept)    1.93083    0.61032   3.164 0.001558 **<br>age           -0.03527    0.01736  -2.032 0.042127 *<br>yearsmarried   0.10062    0.02921   3.445 0.000571 <strong>*<br>religiousness -0.32902    0.08945  -3.678 0.000235 *</strong><br>rating        -0.46136    0.08884  -5.193 2.06e-07 ***<br>从最后一列可以看到，新模型的每个回归系数都非常显著（p&lt;0.05）</p>
+</blockquote>
+<ol start="3">
+<li>多模型比较</li>
+</ol>
+<p>由于这个两模型是嵌套关系，所以我们可以使用anova()函数对它们进行比较。而对于广义线性回归，可用卡方检验进行判断。</p>
+<blockquote>
+<p>anova(myfit,myfit_reduced,test=”Chisq”)<br>Analysis of Deviance Table<br>Model 1: ynaffair ~ gender + age + yearsmarried + children + religiousness +<br>    education + occupation + rating<br>Model 2: ynaffair ~ age + yearsmarried + religiousness + rating<br>  Resid. Df Resid. Dev Df Deviance Pr(&gt;Chi)<br>1       592     609.51<br>2       596     615.36 -4  -5.8474   0.2108<br>检验结果的卡方值不显著（p=0.21），这表明，四个预测变量的新模型和九个预测变量的旧模型模拟程度其实差不多。一般情况下我们更倾向于选择四个预测变量的新模型。</p>
+</blockquote>
+<ol start="4">
+<li>评价预测变量对结果概率的影响（predict函数）</li>
+</ol>
+<p>既然已经有了模型，那么给定一个用户行为，预测其出轨的概率。可以使用predict()函数进行预测，以下代码生成了一些虚拟数据并进行了预测，主要评测婚姻评分对出轨概率的影响。</p>
+<h1 id="构建dataframe"><a href="#构建dataframe" target="_blank" rel="noopener" class="headerlink" title="构建dataframe"></a>构建dataframe</h1><blockquote>
+<p>testdata &lt;- data.frame(rating=c(1, 2, 3, 4, 5), age=mean(Affairs$age), yearsmarried=mean(Affairs$yearsmarried), religiousness=mean(Affairs$religiousness))</p>
+</blockquote>
+<h1 id="添加一列为概率预测值"><a href="#添加一列为概率预测值" target="_blank" rel="noopener" class="headerlink" title="添加一列为概率预测值"></a>添加一列为概率预测值</h1><blockquote>
+<p>testdata$prob &lt;- predict(myfit_reduced, newdata=testdata, type=”response”)<br>testdata<br>  rating      age yearsmarried religiousness      prob<br>1      1 32.48752     8.177696      3.116473 0.5302296<br>2      2 32.48752     8.177696      3.116473 0.4157377<br>3      3 32.48752     8.177696      3.116473 0.3096712<br>4      4 32.48752     8.177696      3.116473 0.2204547<br>5      5 32.48752     8.177696      3.116473 0.1513079<br>从结果可以看到，当婚姻评分从1分（很不幸福）增加到5分（非常幸福）时，出轨概率从0.53降低至0.15。</p>
+</blockquote>
+<blockquote>
+<p>testdata &lt;- data.frame(rating=mean(Affairs$rating), age=seq(17, 57, 10), yearsmarried=mean(Affairs$yearsmarried), religiousness=mean(Affairs$religiousness))<br>testdata$prob &lt;- predict(myfit_reduced, newdata=testdata, type=”response”)<br>testdata<br>   rating age yearsmarried religiousness      prob<br>1 3.93178  17     8.177696      3.116473 0.3350834<br>2 3.93178  27     8.177696      3.116473 0.2615373<br>3 3.93178  37     8.177696      3.116473 0.1992953<br>4 3.93178  47     8.177696      3.116473 0.1488796<br>5 3.93178  57     8.177696      3.116473 0.1094738<br>在年龄的影响方面，可以看出，当其他变量不变、年龄从17增加到57时，出轨的概率从0.34降低至0.11。</p>
+</blockquote>
+<ol start="5">
+<li>过度离势</li>
+</ol>
+<p>过度离势指的是观测到的响应变量方差大于期望的二项分布方差，过度离势会导致奇异的标准误检验和不精确的显著性检验。</p>
+<p>当出现过度离势时，仍可使用glm()函数拟合Logistic回归，但此时需要将二项分布改为类二项分布。</p>
+<p>检测过度离势的一种方法是比较二项分布模型的残差偏差与残差自由度（在四变量模型中分别是615.36和596），如果两者的比值比1大很多，则可以认为存在过度离势。</p>
+<ol start="6">
+<li>Logistic回归模型的进阶学习</li>
+</ol>
+<p>扩展的Logistic回归和变种如下所示：</p>
+<p>稳健Logistic回归：当拟合Logistic回归模型数据出现离群点和强影响点时，robust包中的glmRob()函数可用来拟合稳健的广义线性模型<br>多项分布回归：当响应变量包含两个以上的无序类别（例如已婚、寡居、离婚）时，可使用mlogit包中的mlogit()函数拟合多项Logistic回归<br>序数Logistic回归：当响应变量是一组有序的类别（例如信用为好/良/差）时，可使用rms包中的lrm()函数拟合序数Logistic回归。</p>
+<p>三、泊松回归<br>泊松回归的自变量是连续性或类别型变量，因变量是计数型的变量。泊松回归因变量通常局限在一个固定长度时间段内进行测量（如过去一年交通事故数），整个观测集中时间长度都是不变的。Poisson回归主要有两个假设，首先，具有相同特征和同时的不同对象的人时风险是同质的，其次，当样本量越来越大时，频数的均数趋近于方差。<br>调用模型的公式如下：</p>
+<blockquote>
+<p>myfit &lt;- glm(y~x1+x2+…+xn,data=,family = poisson)</p>
+</blockquote>
+<ol>
+<li>数据准备</li>
+</ol>
+<p>robust包中Breslow癫痫数据记录了治疗初期八周内，抗癫痫药物对癫痫发病数的影响。响应变量为sumY（随机化后八周内癫痫发病数），预测变量为治疗条件（Trt）、年龄（Age）和前八周内的基础癫痫发病数（Base），在这个数据集中，我们感兴趣的是药物治疗能否减少癫痫发病数。</p>
+<blockquote>
+<p>data(breslow.dat, package=”robust”)<br>接下来我们考察响应变量，基础和随机化后的癫痫发病数都有很高的偏度，从图中可以清楚地看到因变量的偏倚特性以及可能的离群点。</p>
+</blockquote>
+<blockquote>
+<p>library(ggplot2)<br>p1 &lt;- ggplot(breslow.dat,aes(sumY)) + geom_histogram(color=’green’)<br>p2 &lt;- ggplot(breslow.dat,aes(Trt,sumY)) + geom_bar()</p>
+</blockquote>
+<h1 id="组合图形"><a href="#组合图形" target="_blank" rel="noopener" class="headerlink" title="组合图形"></a>组合图形</h1><blockquote>
+<p>library(gridExtra)<br>grid.arrange(p1,p2,nrow=1)</p>
+</blockquote>
+<p>从图中可以清楚的看到因变量的偏移特性及可能的离群点。药物治疗下癫痫的发病数似乎变小，且方差也变小了。</p>
+<ol start="2">
+<li>构建模型</li>
+</ol>
+<blockquote>
+<p>myfit &lt;- glm(sumY ~ Base + Age + Trt, data=breslow.dat, family=poisson())<br>summary(myfit)</p>
+</blockquote>
+<ol start="3">
+<li>过度离势</li>
+</ol>
+<p>在泊松分布中同样可能存在过度离势，泊松分布的方差和均值相等，当响应变量观测的方差比依据泊松分布预测的方差大时，可能存在过度离势。</p>
+<blockquote>
+<p>summary(myfit)</p>
+</blockquote>
+<p>(Dispersion parameter for poisson family taken to be 1)</p>
+<pre><code>Null deviance: 2122.73  on 58  degrees of freedom</code></pre><p>Residual deviance:  559.44  on 55  degrees of freedom<br>AIC: 850.71</p>
+<p>Number of Fisher Scoring iterations: 5<br>与Logistic回归类似，但此例中残差偏差（559.44）与残差自由度（55）的比例为10.17，这一值远大于1，故存在过度离势。在这种情况下，可以考虑使用类泊松回归替代泊松回归（family=quasipoisson()）。</p>
+<p>除此之外，我们还可以使用qcc包来检验泊松模型是否存在过度离势。</p>
+<blockquote>
+<p>library(qcc)<br>qcc.overdispersion.test(breslow.dat$sumY, type=”poisson”)</p>
+</blockquote>
+<ol start="4">
+<li>泊松回归模型的进阶学习：</li>
+</ol>
+<p>时间段变化的泊松回归：如果每个观测的时间段长短不同，则因变量需要从计数更改为比率，即发生次数除以观测时间，使用glm()的offset选项即可，offset=log(time)，其中time是每名病人的观测时间<br>零膨胀的泊松回归：在一个数据集中，0计数的数目时常比用泊松模型预测得多。在Affairs数据集中，很有可能有一群从未出轨的对象，他们称为数据集的结构零值。可以用零膨胀的泊松回归来分析这种情况，它将同时拟合两个模型，一个用来预测哪些人又会出轨，另一个用来预测排除了结构零值之后的调查对象会出轨多少次。可以将其看作是Logistic回归（预测结构零值）和泊松回归（预测无结构零值观测的计数）的组合，pscl包的zeroinfl()函数可做零膨胀泊松回归<br>稳健泊松回归：robust包中的glmRob()函数可以拟合稳健广义线性模型，包括稳健泊松回归。</p>
+<p>References：</p>
+<p>R语言实战（第2版） (豆瓣)<br>R学习笔记－11 广义线型模型<br>Generalized Linear Models<br>RPubs - 广义线性模型<br>What does a generalized linear model do?</p>
+</article><!-- lincense--><div class="license-wrapper"><p> <span>Author:  </span><a href="Yansen0515.github.io.git" target="_blank" rel="noopener">Yansen</a></p><p> <span>Link:  </span><a href="2020/02/26/GLM/" target="_blank" rel="noopener">2020/02/26/GLM/</a></p><p> <span>Copyright:  </span><span>All articles in this blog are licensed under <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/3.0" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.</span></p></div><div class="post-paginator"><a class="nextSlogan" href="2020/02/25/R实现简单随机分组/" target="_blank" rel="noopener" title="R实现简单分组"><span>NextPost ></span><br><span class="nextTitle">R实现简单分组</span></a><div class="clear"></div></div><div id="comment"></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo" target="_blank" rel="noopener"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><div class="toc-wrapper" style="top: 70vh;"><div class="toc-catalog"><i class="fa fa-list"> </i><span>CATALOG</span></div><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#family为拟合所属的函数族" target="_blank" rel="noopener"><span class="toc-number">1.</span> <span class="toc-text">family为拟合所属的函数族</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#function为对应的连接函数" target="_blank" rel="noopener"><span class="toc-number">2.</span> <span class="toc-text">function为对应的连接函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#构建dataframe" target="_blank" rel="noopener"><span class="toc-number">3.</span> <span class="toc-text">构建dataframe</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#添加一列为概率预测值" target="_blank" rel="noopener"><span class="toc-number">4.</span> <span class="toc-text">添加一列为概率预测值</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#组合图形" target="_blank" rel="noopener"><span class="toc-number">5.</span> <span class="toc-text">组合图形</span></a></li></ol></div><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
