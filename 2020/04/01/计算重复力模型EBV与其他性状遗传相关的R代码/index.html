@@ -1,0 +1,117 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="Yansen"><meta name="renderer" content="webkit"><meta name="copyright" content="Yansen"><meta name="keywords" content="Hexo"><meta name="description" content=""><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>计算重复力模型EBV与其他性状遗传相关的R代码 · Animal Genetic</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 4.2.0"></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="img/assets/cat.png"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">Animal Genetic</div><div class="profile-signature">LOVE</div><div class="friends"><div>FRIENDS</div><span><a href="//github.com/Yansen0515" target="_black">friendA</a></span><span><a href="//github.com/" target="_black">friendB</a></span><span><a href="//github.com/" target="_black">friendC</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/" target="_blank" rel="noopener">Yan&amp;Qing</a></div><div class="intro-nav-label-box"><a href="/" target="_blank" rel="noopener">Home</a><a href="/about/" target="_blank" rel="noopener">About</a><a href="/archives/" target="_blank" rel="noopener">Archives</a><a href="/tags/" target="_blank" rel="noopener">Tags</a><a href="/Categories/" target="_blank" rel="noopener">Categories</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/" target="_blank" rel="noopener">Home</a><a href="/about/" target="_blank" rel="noopener">About</a><a href="/archives/" target="_blank" rel="noopener">Archives</a><a href="/tags/" target="_blank" rel="noopener">Tags</a><a href="/Categories/" target="_blank" rel="noopener">Categories</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">计算重复力模型EBV与其他性状遗传相关的R代码</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-edit"></i><span>2020-04-01 19:26:19</span></span><span class="post-intro-tags"><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="R"> R</a></span></div><div class="post-intro-read"><span> Word count: <span class="post-count">751</span> | Reading time: <span class="post-count">4</span>min</span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><p>#####2019-12-2 22:47:45<br>#####correlation by EBV<br>#####<br>#<br>setwd(“C:\Users\Desktop\PhDdata\result\EBV”)<br>library(data.table)<br>EBV &lt;- fread(“newsolutions”,header=T)<br>head(EBV)<br>acEBV &lt;- EBV[effect==8]</p>
+<p>trait1 &lt;- acEBV[trait==1]<br>trait2 &lt;- acEBV[trait==2]<br>trait3 &lt;- acEBV[trait==3]<br>trait4 &lt;- acEBV[trait==4]<br>head(trait2)<br>#4个性状的EBV and SE<br>use_EBV &lt;- cbind(trait1, trait2[,c(4,5)], trait3[,c(4,5)], trait4[,c(4,5)])<br>names(use_EBV)[4:11] &lt;- c(“sol1”,”SE1”,”sol2”,”SE2”,”sol3”,”SE3”,”sol4”,”SE4”)<br>head(use_EBV)</p>
+<p>#计算repeatabilty///reliability    1- (SE^2 / va^2)<br>use_EBV$rel1 &lt;- 1-((use_EBV[,5])^2)/3.48<br>use_EBV$rel2 &lt;- 1-((use_EBV[,7])^2)/2.10E-04<br>use_EBV$rel3 &lt;- 1-((use_EBV[,9])^2)/4.755<br>use_EBV$rel4 &lt;- 1-((use_EBV[,11])^2)/3.40E-04</p>
+<p>###读入renum系谱<br>ped &lt;- fread(“newrenadd05.ped”)<br>comped &lt;- ped[,c(1,10)]<br>names(comped) &lt;- c(“level”,”ID”)<br>head(comped)<br>###加入ID<br>add_ID &lt;- merge(use_EBV, comped, by.x=”level”, by.y = “level”)<br>###修改ID，与InterBull相同格式<br>add_ID$ID_c &lt;- substr(add_ID$ID,4,19)<br>head(add_ID)<br>write.csv(add_ID,”Sol_addID.csv”,row.names = F)</p>
+<p>interbull &lt;- add_ID[,c(17,4,6,8,10,12:15)]<br>head(interbull)<br>####自己性状reliablity大于0.5<br>use_interbull &lt;- interbull[interbull$rel1&gt;0.5 &amp; interbull$rel2&gt;0.5,]<br>use_interbull2 &lt;- use_interbull[use_interbull$rel3&gt;0.5 &amp;use_interbull$rel4&gt;0.5, ]<br>head(use_interbull2)<br>write.table(use_interbull2, file =”use_interbull.csv”,row.names = F,quote=FALSE)</p>
+<p>#####计算相关性</p>
+<p>EBV_all1 &lt;- fread(“all_product.csv”, header = T)<br>head(EBV_all1[,1:10])<br>EBV_all2 &lt;- EBV_all1[,c(1,5,9,10:27)]<br>head(EBV_all2[1:3])<br>##画所有EBV的直接相关图<br>EBV1 &lt;- EBV_all2[,c(2,5:9,11,13,15,17,19,21)]</p>
+<p>r &lt;- cor(EBV1)<br>library(corrplot)<br>par(mfrow = c(1,1))<br>corrplot(r,method=’pie’,type = “lower”)</p>
+<p>rel_1 &lt;-  EBV_all2[,c(4,10,12,14,16,18,20)]/100<br>rel_1 &lt;- as.data.frame(rel_1)<br>rel_all &lt;- cbind(EBV_all2$reb4, rel_1)</p>
+<p>head(rel_all)<br>NUE1_Milk &lt;- sqrt(sum(EBV_all2$reb4)<em>sum(rel_1[,1]))</em>r[1,2]/sum(EBV_all2$reb4 * rel_1[,1])<br>NUE1_Milk<br>cor_Production = c()<br>for (i in 2:6){<br>  cor_Pro = sqrt(sum(EBV_all2[,3])<em>sum(rel_1$Pro_rel))</em>r[1,i]/sum(EBV_all2[,3] * rel_1$Pro_rel)<br>  cor_Production = cbind(cor_Production, cor_Pro)<br>  }<br>cor_Production<br>##NUE1_Milk_2 &lt;- sqrt(mean(EBV_all1$reb1)<em>mean(rel_1$Pro_rel)) *r[1,2] /mean(EBV_all1$reb1</em>rel_1$Pro_rel)<br>NUE1_SCS &lt;- sqrt(sum(EBV_all2$reb4)<em>sum(rel_1[,2]))</em>r[1,7]/sum(EBV_all2$reb4 * rel_1[,2])<br>NUE1_SCS<br>dim(rel_1)<br>cor_list = c()<br>for (k in 2:7) {<br>    cor_list2 = sqrt(sum(EBV_all2[,3])*sum(rel_1[,k])) * r[1,k+5]/sum(EBV_all2[,3] * rel_1[,k])</p>
+<pre><code># cor_list2 = sqrt(sum(EBV_all1[,3])*sum(rel_1[,parse(tmp)]))*rr/sum(EBV_all1[,3] * rel_1[,parse(tmp)])</code></pre><p>  cor_list = cbind(cor_list,cor_list2)<br>}<br>cor_list</p>
+<p>  ########分解 解答</p>
+<h1 id=""><a href="#" target="_blank" rel="noopener" class="headerlink" title=""></a></h1><h1 id="NUE1-long-sqrt-sum-EBV-all1-3-sum-rel-1-3-r-1-8-sum-EBV-all1-3-rel-1-3"><a href="#NUE1-long-sqrt-sum-EBV-all1-3-sum-rel-1-3-r-1-8-sum-EBV-all1-3-rel-1-3" target="_blank" rel="noopener" class="headerlink" title="NUE1_long = sqrt(sum(EBV_all1[,3])sum(rel_1[,3]))r[1,8]/sum(EBV_all1[,3] * rel_1[,3])"></a>NUE1_long = sqrt(sum(EBV_all1[,3])<em>sum(rel_1[,3]))</em>r[1,8]/sum(EBV_all1[,3] * rel_1[,3])</h1><h1 id="NUE1-ferti-sqrt-sum-EBV-all1-3-sum-rel-1-4-r-1-9-sum-EBV-all1-3-rel-1-4"><a href="#NUE1-ferti-sqrt-sum-EBV-all1-3-sum-rel-1-4-r-1-9-sum-EBV-all1-3-rel-1-4" target="_blank" rel="noopener" class="headerlink" title="NUE1_ferti = sqrt(sum(EBV_all1[,3])sum(rel_1[,4]))r[1,9]/sum(EBV_all1[,3] * rel_1[,4])"></a>NUE1_ferti = sqrt(sum(EBV_all1[,3])<em>sum(rel_1[,4]))</em>r[1,9]/sum(EBV_all1[,3] * rel_1[,4])</h1><h1 id="NUE1-BCS-sqrt-sum-EBV-all1-3-sum-rel-1-5-r-1-10-sum-EBV-all1-3-rel-1-5"><a href="#NUE1-BCS-sqrt-sum-EBV-all1-3-sum-rel-1-5-r-1-10-sum-EBV-all1-3-rel-1-5" target="_blank" rel="noopener" class="headerlink" title="NUE1_BCS = sqrt(sum(EBV_all1[,3])sum(rel_1[,5]))r[1,10]/sum(EBV_all1[,3] * rel_1[,5])"></a>NUE1_BCS = sqrt(sum(EBV_all1[,3])<em>sum(rel_1[,5]))</em>r[1,10]/sum(EBV_all1[,3] * rel_1[,5])</h1><h1 id="NUE1-DCE-sqrt-sum-EBV-all1-3-sum-rel-1-6-r-1-11-sum-EBV-all1-3-rel-1-6"><a href="#NUE1-DCE-sqrt-sum-EBV-all1-3-sum-rel-1-6-r-1-11-sum-EBV-all1-3-rel-1-6" target="_blank" rel="noopener" class="headerlink" title="NUE1_DCE = sqrt(sum(EBV_all1[,3])sum(rel_1[,6]))r[1,11]/sum(EBV_all1[,3] * rel_1[,6])"></a>NUE1_DCE = sqrt(sum(EBV_all1[,3])<em>sum(rel_1[,6]))</em>r[1,11]/sum(EBV_all1[,3] * rel_1[,6])</h1><h1 id="NUE1-MCE-sqrt-sum-EBV-all1-3-sum-rel-1-7-r-1-12-sum-EBV-all1-3-rel-1-7"><a href="#NUE1-MCE-sqrt-sum-EBV-all1-3-sum-rel-1-7-r-1-12-sum-EBV-all1-3-rel-1-7" target="_blank" rel="noopener" class="headerlink" title="NUE1_MCE = sqrt(sum(EBV_all1[,3])sum(rel_1[,7]))r[1,12]/sum(EBV_all1[,3] * rel_1[,7])"></a>NUE1_MCE = sqrt(sum(EBV_all1[,3])<em>sum(rel_1[,7]))</em>r[1,12]/sum(EBV_all1[,3] * rel_1[,7])</h1><h1 id="NUE1-SCS"><a href="#NUE1-SCS" target="_blank" rel="noopener" class="headerlink" title="NUE1_SCS"></a>NUE1_SCS</h1><h1 id="NUE1-long"><a href="#NUE1-long" target="_blank" rel="noopener" class="headerlink" title="NUE1_long"></a>NUE1_long</h1><h1 id="NUE1-ferti"><a href="#NUE1-ferti" target="_blank" rel="noopener" class="headerlink" title="NUE1_ferti"></a>NUE1_ferti</h1><h1 id="NUE1-BCS"><a href="#NUE1-BCS" target="_blank" rel="noopener" class="headerlink" title="NUE1_BCS"></a>NUE1_BCS</h1><h1 id="NUE1-DCE"><a href="#NUE1-DCE" target="_blank" rel="noopener" class="headerlink" title="NUE1_DCE"></a>NUE1_DCE</h1><h1 id="NUE1-MCE"><a href="#NUE1-MCE" target="_blank" rel="noopener" class="headerlink" title="NUE1_MCE"></a>NUE1_MCE</h1><p>###############cor type </p>
+<p>EBV_type &lt;- fread(“all_type.csv”)<br>head(EBV_type[,1:10])<br>EBV_type2 &lt;- EBV_type[,c(1,5,9,10:75)]<br>head(EBV_type2[,1:10])<br>EBV2 &lt;- EBV_type2[,c(2, 5,  7,  9, 11, 13, 15, 17, 19, 21 ,23 ,25, 27, 29, 31,<br>                    33, 35, 37, 39, 41, 43, 45, 47, 49, 51, 53, 55,57,59, 61,<br>                    63, 65, 67,69)]<br>r_type &lt;- cor(EBV2)<br>dim(EBV_type2)<br>library(corrplot)<br>par(mfrow = c(1,1))<br>corrplot(r_type,method=’pie’,type = “lower”)</p>
+<p>sele_rel &lt;- seq(4,68,2)<br>sele_rel<br>rel_type &lt;-  EBV_type2[,c( 4,  6,  8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30,<br>                          32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54,<br>                          56, 58, 60, 62, 64, 66, 68)]/100<br>rel_type &lt;- as.data.frame(rel_type)<br>rel_all2 &lt;- cbind(EBV_type2$reb4, rel_type)<br>head(rel_all2)<br>NUE1_stature &lt;- sqrt(sum(rel_all2[,1])<em>sum(rel_all2[,2]))</em>r_type[1,2]/sum(rel_all2[,1] * rel_all2[,2])<br>NUE1_stature<br>dim(r_type)<br>##use  P.J. Blanchard ways<br>cor_type = c()<br>for (k in 2:34) {</p>
+<p>  cor_lis2 = sqrt(sum(rel_all2[,1])*sum(rel_all2[,k])) * r_type[1,k]/sum(rel_all2[,1] * rel_all2[,k])</p>
+<p>  cor_type = cbind(cor_type, cor_lis2)<br>}<br>cor_type</p>
+</article><!-- lincense--><div class="license-wrapper"><p> <span>Author:  </span><a href="Yansen0515.github.io.git" target="_blank" rel="noopener">Yansen</a></p><p> <span>Link:  </span><a href="2020/04/01/计算重复力模型EBV与其他性状遗传相关的R代码/" target="_blank" rel="noopener">2020/04/01/计算重复力模型EBV与其他性状遗传相关的R代码/</a></p><p> <span>Copyright:  </span><span>All articles in this blog are licensed under <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/3.0" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.</span></p></div><div class="post-paginator"><a class="prevSlogan" href="2020/04/08/计算大约PEV/" target="_blank" rel="noopener" title="计算大约PEV ："><span>< PreviousPost</span><br><span class="prevTitle">计算大约PEV ：</span></a><a class="nextSlogan" href="2020/04/01/计算重复力模型结果的遗传力及相关R代码/" target="_blank" rel="noopener" title="计算重复力模型结果的遗传力及相关R代码"><span>NextPost ></span><br><span class="nextTitle">计算重复力模型结果的遗传力及相关R代码</span></a><div class="clear"></div></div><div id="comment"></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo" target="_blank" rel="noopener"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><div class="toc-wrapper" style="top: 70vh;"><div class="toc-catalog"><i class="fa fa-list"> </i><span>CATALOG</span></div><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#null" target="_blank" rel="noopener"><span class="toc-number">1.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#NUE1-long-sqrt-sum-EBV-all1-3-sum-rel-1-3-r-1-8-sum-EBV-all1-3-rel-1-3" target="_blank" rel="noopener"><span class="toc-number">2.</span> <span class="toc-text">NUE1_long &#x3D; sqrt(sum(EBV_all1[,3])sum(rel_1[,3]))r[1,8]&#x2F;sum(EBV_all1[,3] * rel_1[,3])</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#NUE1-ferti-sqrt-sum-EBV-all1-3-sum-rel-1-4-r-1-9-sum-EBV-all1-3-rel-1-4" target="_blank" rel="noopener"><span class="toc-number">3.</span> <span class="toc-text">NUE1_ferti &#x3D; sqrt(sum(EBV_all1[,3])sum(rel_1[,4]))r[1,9]&#x2F;sum(EBV_all1[,3] * rel_1[,4])</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#NUE1-BCS-sqrt-sum-EBV-all1-3-sum-rel-1-5-r-1-10-sum-EBV-all1-3-rel-1-5" target="_blank" rel="noopener"><span class="toc-number">4.</span> <span class="toc-text">NUE1_BCS &#x3D; sqrt(sum(EBV_all1[,3])sum(rel_1[,5]))r[1,10]&#x2F;sum(EBV_all1[,3] * rel_1[,5])</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#NUE1-DCE-sqrt-sum-EBV-all1-3-sum-rel-1-6-r-1-11-sum-EBV-all1-3-rel-1-6" target="_blank" rel="noopener"><span class="toc-number">5.</span> <span class="toc-text">NUE1_DCE &#x3D; sqrt(sum(EBV_all1[,3])sum(rel_1[,6]))r[1,11]&#x2F;sum(EBV_all1[,3] * rel_1[,6])</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#NUE1-MCE-sqrt-sum-EBV-all1-3-sum-rel-1-7-r-1-12-sum-EBV-all1-3-rel-1-7" target="_blank" rel="noopener"><span class="toc-number">6.</span> <span class="toc-text">NUE1_MCE &#x3D; sqrt(sum(EBV_all1[,3])sum(rel_1[,7]))r[1,12]&#x2F;sum(EBV_all1[,3] * rel_1[,7])</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#NUE1-SCS" target="_blank" rel="noopener"><span class="toc-number">7.</span> <span class="toc-text">NUE1_SCS</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#NUE1-long" target="_blank" rel="noopener"><span class="toc-number">8.</span> <span class="toc-text">NUE1_long</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#NUE1-ferti" target="_blank" rel="noopener"><span class="toc-number">9.</span> <span class="toc-text">NUE1_ferti</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#NUE1-BCS" target="_blank" rel="noopener"><span class="toc-number">10.</span> <span class="toc-text">NUE1_BCS</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#NUE1-DCE" target="_blank" rel="noopener"><span class="toc-number">11.</span> <span class="toc-text">NUE1_DCE</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#NUE1-MCE" target="_blank" rel="noopener"><span class="toc-number">12.</span> <span class="toc-text">NUE1_MCE</span></a></li></ol></div><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
