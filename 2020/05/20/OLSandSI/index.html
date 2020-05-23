@@ -1,0 +1,125 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="Yansen"><meta name="renderer" content="webkit"><meta name="copyright" content="Yansen"><meta name="keywords" content="Hexo"><meta name="description" content=""><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>OLS and SI · Animal Genetic</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 4.2.0"></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="img/assets/cat.png"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">Animal Genetic</div><div class="profile-signature">LOVE</div><div class="friends"><div>FRIENDS</div><span><a href="//github.com/Yansen0515" target="_black">friendA</a></span><span><a href="//github.com/" target="_black">friendB</a></span><span><a href="//github.com/" target="_black">friendC</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/" target="_blank" rel="noopener">Yan&amp;Qing</a></div><div class="intro-nav-label-box"><a href="/" target="_blank" rel="noopener">Home</a><a href="/about/" target="_blank" rel="noopener">About</a><a href="/archives/" target="_blank" rel="noopener">Archives</a><a href="/tags/" target="_blank" rel="noopener">Tags</a><a href="/Categories/" target="_blank" rel="noopener">Categories</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/" target="_blank" rel="noopener">Home</a><a href="/about/" target="_blank" rel="noopener">About</a><a href="/archives/" target="_blank" rel="noopener">Archives</a><a href="/tags/" target="_blank" rel="noopener">Tags</a><a href="/Categories/" target="_blank" rel="noopener">Categories</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">OLS and SI</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-edit"></i><span>2020-05-23 22:01:09</span></span><span class="post-intro-tags"><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="遗传算法"> 遗传算法</a></span></div><div class="post-intro-read"><span> Word count: <span class="post-count">839</span> | Reading time: <span class="post-count">3</span>min</span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><p>前言： 对自己上半年的一个遗传课程“Genetics, Genomics and (Bio)diversity”整理，其是Liege university 大学的Nicolas Gengler主讲<br>课程都是由Octave语言，完成练习。<br>多使用矩阵预算，需要相关基础知识：<br>如：Kronecker product; Cholsky分解； Cannoical分解； 广义逆，</p>
+<p>###############first part OLS<br>简单的线性回归模型：<br>y = b1 + b2*x<br>b1为截距，b2为斜率</p>
+<p>矩阵写法： y = Wb + e    （1）</p>
+<p>求解时： 我们需要使e最小<br>此方法被称为： Least squares<br>使 e1，e2，..，en 的各元素平方和最小</p>
+<p>设f(b) = e1，e2，..，en 的各元素平方和  (2)<br>(2) 也可以写成矩阵格式， 即f(b) = e’e</p>
+<p>（1）中的误差估计为：<br>e = y - Wb</p>
+<p>所以f(b) = e’e = (y - Wb)’(y - Wb) = (y’ - b’W’)(y - Wb) = y’y - y’Wb - b’W’y + b’W’Wb = y’y - 2b’W’y + b’W’Wb  (3)</p>
+<p>求其f（b）最小， 可以对其求1阶导数 = 0<br>∂f(b)/∂b = 0   (4)</p>
+<p>这里需要知道矩阵求导的算法：<br>∂（a’x）/∂x = ∂(x’a)/∂x = a<br>If a is symetric: ∂(x’Ax’)/∂x = 2Ax</p>
+<p>所以将（3）式带入（4）式： ∂f(b)/∂(b) = 0 = ∂(y’y)/∂(b) - ∂(2b’W’y)/∂(b) + ∂(b’W’Wb)/∂(b)<br>                              0 =  0 - 2W’y + 2W’Wb<br>                        普通最小二乘法（Ordinary Least Squares OLS）: W’y = W’Wb<br>                                                                   b = (W’W)-1 W’y (注意其中W‘W必须可逆,诺没有，则需要广义逆，这样会造成没有唯一解 )</p>
+<pre><code>矩阵形式的OLS： y = Wb + e
+   (W&apos;W)b = (W&apos;)y       
+   LHS  解   RHS
+ 即：solutions(解) = （LHS）-1 (RHS)   (5)
+        其中W称为Incidence Matrix</code></pre><p>当e1，e2.。。方差不相等时， 会出现R-1 权重残差<br>f(b)= e’R-1e = (y - Wb)’R-1(y - Wb)               …… 与（3）式比较<br>W’R-1Wb = W’R-1y     如果具有相同的权重，则会变成原来的式子。<br>                     不同时： R = var(e)</p>
+<p>注意OLS的前提假设： E（y） = Wb;   y的方差都相同；  观测值之间不相关（No covariances）</p>
+<p>如y的方差不相同；  观测值之间相关（have covariances） , 则需要引入广义线性模型（Generalized Least Squares GLS）</p>
+<p>################################second part Selection index(SI)<br>先假设加性育种值（y）对表型（x)对进行回归<br>表型为正太分布<br>则y = E(y) + x  (6)</p>
+<p>实际中，我们是知道表型，但是不知道加性育种值（a）<br>a = E(a|y)<br>a = E(a) + by + e （7）<br>用（6） 代替（7）中的y<br>a = E(a) + bE(y) + bx + e  (8)<br>因为：E(a) = -bE(y)<br>所以 a = bx + e<br>但是a我们是不知道的， 需要假设a已知<br>则： b = (x’x)-1 x’a<br>其中a代表真实加性育种值; x’x 则代谢表型的方差； x’a代表表型与加性育种值的协方差</p>
+<p>我们需要知道方差与协方差</p>
+<p>通过表型预测育种值： 对表型进行回归<br>需注意： 表型来自不同动物的观察值； 不同表型之间可能具有相关性,所以可以使用性状1选择性状2</p>
+<p>一般性的综合育种值：<br>T = w’a 其中w为经济权重，a为对应性状的真实育种值</p>
+<p>SI预测方程：<br>I = b’x， 其中b为选择指数系数， x为信息向量，包含所有T的预测信息</p>
+<p>得到b有三种方法：<br>1： 最小E（T-I）2<br>b = P-1c = P-1Cw = P-1Gw<br>2： 最大的I与T的相关 rTI<br>3： 最大化使用I选择的组的平均（汇总）遗传值</p>
+<p>准确性（accuracies）是可靠性（reliablities）的开方</p>
+</article><!-- lincense--><div class="license-wrapper"><p> <span>Author:  </span><a href="Yansen0515.github.io.git" target="_blank" rel="noopener">Yansen</a></p><p> <span>Link:  </span><a href="2020/05/20/OLSandSI/" target="_blank" rel="noopener">2020/05/20/OLSandSI/</a></p><p> <span>Copyright:  </span><span>All articles in this blog are licensed under <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/3.0" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.</span></p></div><div class="post-paginator"><a class="nextSlogan" href="2020/04/08/LIUNX中的seq命令/" target="_blank" rel="noopener" title="生成指定位数的连续数字"><span>NextPost ></span><br><span class="nextTitle">生成指定位数的连续数字</span></a><div class="clear"></div></div><div id="comment"></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo" target="_blank" rel="noopener"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><div class="toc-wrapper" style="top: 70vh;"><div class="toc-catalog"><i class="fa fa-list"> </i><span>CATALOG</span></div></div><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
