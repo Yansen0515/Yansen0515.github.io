@@ -1,0 +1,119 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="Yansen"><meta name="renderer" content="webkit"><meta name="copyright" content="Yansen"><meta name="keywords" content="Hexo"><meta name="description" content=""><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>MME - Mixed models · Animal Genetic</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 4.2.0"></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="img/assets/cat.png"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">Animal Genetic</div><div class="profile-signature">LOVE</div><div class="friends"><div>FRIENDS</div><span><a href="//github.com/Yansen0515" target="_black">friendA</a></span><span><a href="//github.com/" target="_black">friendB</a></span><span><a href="//github.com/" target="_black">friendC</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/" target="_blank" rel="noopener">Yan&amp;Qing</a></div><div class="intro-nav-label-box"><a href="/" target="_blank" rel="noopener">Home</a><a href="/about/" target="_blank" rel="noopener">About</a><a href="/archives/" target="_blank" rel="noopener">Archives</a><a href="/tags/" target="_blank" rel="noopener">Tags</a><a href="/Categories/" target="_blank" rel="noopener">Categories</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/" target="_blank" rel="noopener">Home</a><a href="/about/" target="_blank" rel="noopener">About</a><a href="/archives/" target="_blank" rel="noopener">Archives</a><a href="/tags/" target="_blank" rel="noopener">Tags</a><a href="/Categories/" target="_blank" rel="noopener">Categories</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">MME - Mixed models</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-edit"></i><span>2020-05-24 16:59:11</span></span><span class="post-intro-tags"><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="遗传算法"> 遗传算法</a></span></div><div class="post-intro-read"><span> Word count: <span class="post-count">750</span> | Reading time: <span class="post-count">3</span>min</span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><p>SI: 最小化预测Var(T-I)的误差差方<br>OLS： 最小误差方差，最终由观测值（残差）的方差加权<br>GLS： 最小化权重误差方差（最小二乘）， 参考观测值之间的协方差<br>MME: mixed models, 同时最小化误差方差和random effectde 预测误差方差<br>BLUP是由SI演变而来</p>
+<p>Miexd model 是在康奈尔大学建立的， 主要由两个人建立： S.R. Searle and C.R. Henderson</p>
+<p>一般的矩阵方程： y = Xβ + Zu + e             （1）<br>y 为观测值vector（已知）； β 为fixed effects（未知）; u 为random effects（未知）; e为残差（未知）; X与Z 为关联y与β，u的矩阵（已知）</p>
+<p>需要求出的目标为： β, u, </p>
+<p>eg: X = [1 0 24<br>         0 1 34<br>         1 0 23<br>         1 0 27]     前2列为2个牛场，第3列是regression on age</p>
+<pre><code>Z(animals w/o, with records) 
+Z = [1 0 0 0 0
+     0 1 0 0 0
+     0 0 1 0 0
+     0 0 0 1 0
+     0 0 0 0 0]   这表明5个动物，且4个动物均只有1个观察值，最后一个动物没有观察值</code></pre><p>Mixed model equations(MME)</p>
+<p>[X’R-1X  X’R-1Z      [β    [X’R-1y<br> Z’R-1X  Z’R-1Z+G-1]  u] =  Z’R-1y]             (2)<br>或者简写  Cs = r<br>其主要已知(co)variances： Var(e) = R(残差的方差-协方差矩阵), Var(u) = G((co)variances among random effects ), Var(y) = ZGZ’ + R ((co)variances among observations)<br>故在实际分析中，必须需要先估计以上所有的(co)variances.<br>估计(co)variances<br>    现行主流的一些算法：<br>        1 REML（DF-, EM-, AI-..  都是基于Maximum Likelihood）<br>        2 MCMC(“Gibbs Sampling”)<br>        3 Others as Method R(基于BLUP properties) （个人没使用过）<br>    variance components estimation(VCF) methods on their own =&gt; special class<br>上述3种的主流算法以后再详细介绍</p>
+<p>回归正题，接着解y = Xβ + Zu + e ， 其也可关联OLS： y = Wb +e<br>在OLS中： W‘Wb = W’y<br>OLS解MME： [X’X  X’Z   [ β          [X’y<br>          Z’X   Z’Z]   u]    =     Z’y]<br>这样 u = (Z’Z)-1Z’(y-Xβ) （3） 矩阵解算上式得到， 调整后的y的简单“平均值”，<br>    没有考虑u与y的协方差</p>
+<p>而使用SI解MME： u = Cov(u,y)(Var(y))-1(y - Xβ)   (4)<br>          这里的β是由OLS估计得到</p>
+<p>需要比较OLS与SI解出的u， 比较（3）与（4）可以看到，  是需要比较(Z’Z)-1Z’ 与Cov(u,y)(Var(y))-1<br>Cov(u,y) = GZ’ = AZ’(σg)2 ; Var(y) = V = ZAZ’(σg)2 + I (σe)2<br>代入，所以SI的 u = AZ’（ZAZ’ + Iλ）-1(y - Xβ), 其中λ= (σe)2/(σg)2 = (1-h2)/h2, A为系谱关系矩阵， 在sir model中λ= (4-h2)/h2. sir 传给后代的1/2</p>
+<p>当所有个体无关时， A=I<br>SI的u = Z’(ZZ’+Iλ）-1(y - Xβ), 其中λ= (σe)2/(σg)2 = (1-h2)/h2,</p>
+<p>当为sir model时，<br>Var(y) = (ZZ’ + Iλ)(σs)2 , 其中λ = （4 - h2） / h2</p>
+<p>Cov(u,y)(Var(y))-1  = Z’(σs)2((ZZ’+Iλ)(σs)2 )-1<br>                    = Z’((ZZ’+Iλ)-1)      其中λ = （4 - h2） / h2<br>                    = (Z’Z)-1Z’ + (Iλ)-1Z’<br>                    = (Z’Z)-1Z’ +   [(Ps)h2/(4+(Ps-1)h2)            0<br>                       OLS的平均值         0                (Pt)h2/(4+(Pt-1)h2) ]<br>                                            SI系数，与sir的女儿数有关，  Ps和Pt指的是两个sir的女儿数</p>
+<p>a = 2u 即真正育种是解的2倍</p>
+</article><!-- lincense--><div class="license-wrapper"><p> <span>Author:  </span><a href="Yansen0515.github.io.git" target="_blank" rel="noopener">Yansen</a></p><p> <span>Link:  </span><a href="2020/05/23/MME/" target="_blank" rel="noopener">2020/05/23/MME/</a></p><p> <span>Copyright:  </span><span>All articles in this blog are licensed under <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/3.0" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.</span></p></div><div class="post-paginator"><a class="prevSlogan" href="2020/05/24/Learning_in_first_year/" target="_blank" rel="noopener" title="Learning in first year of PhD project"><span>< PreviousPost</span><br><span class="prevTitle">Learning in first year of PhD project</span></a><a class="nextSlogan" href="2020/05/20/OLSandSI/" target="_blank" rel="noopener" title="OLS and SI"><span>NextPost ></span><br><span class="nextTitle">OLS and SI</span></a><div class="clear"></div></div><div id="comment"></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo" target="_blank" rel="noopener"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><div class="toc-wrapper" style="top: 70vh;"><div class="toc-catalog"><i class="fa fa-list"> </i><span>CATALOG</span></div></div><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
