@@ -1,201 +1,103 @@
-<!DOCTYPE html>
-<html lang="zh-Hans">
-<head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="Yansen"><meta name="renderer" content="webkit"><meta name="copyright" content="Yansen"><meta name="keywords" content="Animal genetic"><meta name="description" content=""><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>7 - Genomic Prediction（GP）/Genomic Selection (GS) · Animal Genetic</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
 
-<link rel="stylesheet" href="css/main.css">
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
 
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
 
-<link rel="stylesheet" href="lib/font-awesome/css/all.min.css">
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
 
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"Yansen0515.github.io.git","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
-
-  <meta name="description" content="GP中的一些算法首先大家要有一定基础知识：        首先，现在实际基因组选择都是使用的SNP        位点可以使用0 1 2表示，主要等位基因为0， 次要等位基因为1        表型一般都会做校正： Daughter Yield Deviations（ DYD， 奶牛使用较多）， Deregressed EBV（DRP） GS分类    1 多步法        （1） 计算EB">
-<meta property="og:type" content="article">
-<meta property="og:title" content="7 - Genomic Prediction（GP）&#x2F;Genomic Selection (GS)">
-<meta property="og:url" content="2020/05/25/GS/index.html">
-<meta property="og:site_name" content="Animal genetic">
-<meta property="og:description" content="GP中的一些算法首先大家要有一定基础知识：        首先，现在实际基因组选择都是使用的SNP        位点可以使用0 1 2表示，主要等位基因为0， 次要等位基因为1        表型一般都会做校正： Daughter Yield Deviations（ DYD， 奶牛使用较多）， Deregressed EBV（DRP） GS分类    1 多步法        （1） 计算EB">
-<meta property="article:published_time" content="2020-05-25T19:31:09.754Z">
-<meta property="article:modified_time" content="2020-05-26T10:15:14.667Z">
-<meta property="article:author" content="Yansen">
-<meta property="article:tag" content="遗传算法">
-<meta name="twitter:card" content="summary">
-
-<link rel="canonical" href="2020/05/25/GS/">
-
-
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-Hans'
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
   };
-</script>
 
-  <title>7 - Genomic Prediction（GP）/Genomic Selection (GS) | Animal genetic</title>
-  
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
 
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
 
-
-
-
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
   }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
 
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
-
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="تشغيل شريط التصفح">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" target="_blank" class="brand" rel="start noopener">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">Animal genetic</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-      <p class="site-subtitle" itemprop="description">Follow your heart</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" target="_blank" rel="section noopener"><i class="fa fa-home fa-fw"></i>Home</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" target="_blank" rel="section noopener"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
-
-  </li>
-  </ul>
-</nav>
-
-
-
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
-
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="2020/05/25/GS/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="images/avatar.gif">
-      <meta itemprop="name" content="Yansen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Animal genetic">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          7 - Genomic Prediction（GP）/Genomic Selection (GS)
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">نُشر في</span>
-
-              <time title="أُنشأ: 2020-05-25 21:31:09" itemprop="dateCreated datePublished" datetime="2020-05-25T21:31:09+02:00">2020-05-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">عُدل في</span>
-                <time title="عُدل: 2020-05-26 12:15:14" itemprop="dateModified" datetime="2020-05-26T12:15:14+02:00">2020-05-26</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-        <p> GP中的一些算法<br>首先大家要有一定基础知识：<br>        首先，现在实际基因组选择都是使用的SNP<br>        位点可以使用0 1 2表示，主要等位基因为0， 次要等位基因为1<br>        表型一般都会做校正： Daughter Yield Deviations（ DYD， 奶牛使用较多）， Deregressed EBV（DRP）</p>
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 4.2.0"></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="img/assets/cat.png"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">Animal Genetic</div><div class="profile-signature">LOVE</div><div class="friends"><div>FRIENDS</div><span><a href="//github.com/Yansen0515" target="_black">friendA</a></span><span><a href="//github.com/" target="_black">friendB</a></span><span><a href="//github.com/" target="_black">friendC</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/" target="_blank" rel="noopener">Yan&amp;Qing</a></div><div class="intro-nav-label-box"><a href="/" target="_blank" rel="noopener">Home</a><a href="/about/" target="_blank" rel="noopener">About</a><a href="/archives/" target="_blank" rel="noopener">Archives</a><a href="/tags/" target="_blank" rel="noopener">Tags</a><a href="/Categories/" target="_blank" rel="noopener">Categories</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/" target="_blank" rel="noopener">Home</a><a href="/about/" target="_blank" rel="noopener">About</a><a href="/archives/" target="_blank" rel="noopener">Archives</a><a href="/tags/" target="_blank" rel="noopener">Tags</a><a href="/Categories/" target="_blank" rel="noopener">Categories</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">7 - Genomic Prediction（GP）/Genomic Selection (GS)</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-edit"></i><span>2020-05-26 12:15:14</span></span><span class="post-intro-tags"><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="遗传算法"> 遗传算法</a></span></div><div class="post-intro-read"><span> Word count: <span class="post-count">1.7k</span> | Reading time: <span class="post-count">6</span>min</span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><p> GP中的一些算法<br>首先大家要有一定基础知识：<br>        首先，现在实际基因组选择都是使用的SNP<br>        位点可以使用0 1 2表示，主要等位基因为0， 次要等位基因为1<br>        表型一般都会做校正： Daughter Yield Deviations（ DYD， 奶牛使用较多）， Deregressed EBV（DRP）</p>
 <p>GS分类<br>    1 多步法<br>        （1） 计算EBV<br>        （2） 取出高可靠性的公牛EBV， 进行计算出DYD与DRP<br>        （3） 估计SNP的effect<br>        (4) 评估新个体的Direct Genomic Value (DGV)<br>        (5) 结合DGV和其他信息（DGV不包含）计算个体最终的GEBV<br>    此处推荐需要去看， P.M. VanRaden 在2008发表于J. Dairy Sci. 的文章， “Efficient methods to compute geneomic predictions”<br>     多步法因为多个step， 会可能造成更多的潜在误差<br>     2 一步法<br>     single-step methods(SS-GP) </p>
 <p>多步法可以使用多种算法实现：<br>    1 Linear 法： 3种(VanRaden 2008)<br>        (1) Multiple Random Regression =&gt; RR-BLUP<br>            1) y = Xb + Zu + e<br>                这里的u指的是SNP effect（random effect）， Z 是与SNP effect 对应的incident matrix. 其他和前面的MME类似<br>                不同的地方：Var(e) = R(σe)2, 其中R是diagonal matrix with 1/weights.<br>                                                                    weights可以是DYD（or DRP）<br>                                                                                Rii = (1-Rdau)/Rdau,  Rdau指的是女儿的reliability<br>                a = Zu, 即为GEBV<br>                所以也可以将模型写成： y = Xb + Ia + e = Xb + I(Zu) + e, 这里的I 是连接y 与GEBV， Z是连接y与u的，</p>
 <pre><code>        这里需要构建Z，Z = M - P
@@ -258,191 +160,4 @@
 <p>当然在多性状动物模型分析中，都需要先单个分析，以其结果作为多性状的初始值，加快收敛速度。</p>
 <p>个人觉得模型难易程度为：<br>    sire model &lt; MGS model &lt; sir-MGS model &lt; animal model &lt; Repeatability model &lt; MT animal model &lt; random regression model</p>
 <p>当然只有所有模型都自己使用代码，练习一下， 会有更大的收获。</p>
-
-    </div>
-
-    
-    
-    
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="tags/遗传算法/" target="_blank" rel="tag noopener"># 遗传算法</a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="2020/05/25/多性状动物模型/" target="_blank" rel="prev noopener" title="6 - MT-MME（多性状动物模型）">
-      <i class="fa fa-chevron-left"></i> 6 - MT-MME（多性状动物模型）
-    </a></div>
-      <div class="post-nav-item"></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          المحتويات
-        </li>
-        <li class="sidebar-nav-overview">
-          عام
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">Yansen</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/" target="_blank" rel="noopener">
-        
-          <span class="site-state-item-count">25</span>
-          <span class="site-state-item-name">المقالات</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="tags/" target="_blank" rel="noopener">
-        <span class="site-state-item-count">9</span>
-        <span class="site-state-item-name">الوسوم</span></a>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Yansen</span>
-</div>
-  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
-  </div>
-
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
-
-  
-  <script src="lib/anime.min.js"></script>
-  <script src="lib/velocity/velocity.min.js"></script>
-  <script src="lib/velocity/velocity.ui.min.js"></script>
-
-<script src="js/utils.js"></script>
-
-<script src="js/motion.js"></script>
-
-
-<script src="js/schemes/muse.js"></script>
-
-
-<script src="js/next-boot.js"></script>
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
-
-</body>
-</html>
+</article><!-- lincense--><div class="license-wrapper"><p> <span>Author:  </span><a href="Yansen0515.github.io.git" target="_blank" rel="noopener">Yansen</a></p><p> <span>Link:  </span><a href="2020/05/25/GS/" target="_blank" rel="noopener">2020/05/25/GS/</a></p><p> <span>Copyright:  </span><span>All articles in this blog are licensed under <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/3.0" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.</span></p></div><div class="post-paginator"><a class="nextSlogan" href="2020/05/25/多性状动物模型/" target="_blank" rel="noopener" title="6 - MT-MME（多性状动物模型）"><span>NextPost ></span><br><span class="nextTitle">6 - MT-MME（多性状动物模型）</span></a><div class="clear"></div></div><div id="comment"></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo" target="_blank" rel="noopener"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><div class="toc-wrapper" style="top: 70vh;"><div class="toc-catalog"><i class="fa fa-list"> </i><span>CATALOG</span></div></div><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
