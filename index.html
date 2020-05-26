@@ -1,125 +1,1168 @@
-<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="Yansen"><meta name="renderer" content="webkit"><meta name="copyright" content="Yansen"><meta name="keywords" content="Hexo"><meta name="description" content=""><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>Animal Genetic</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
-  "use strict";
-  // rel=preload support test
-  if( !w.loadCSS ){
-    w.loadCSS = function(){};
-  }
-  // define on the loadCSS obj
-  var rp = loadCSS.relpreload = {};
-  // rel=preload feature support test
-  // runs once and returns a function for compat purposes
-  rp.support = (function(){
-    var ret;
-    try {
-      ret = w.document.createElement( "link" ).relList.supports( "preload" );
-    } catch (e) {
-      ret = false;
-    }
-    return function(){
-      return ret;
-    };
-  })();
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
-  // then change that media back to its intended value on load
-  rp.bindMediaToggle = function( link ){
-    // remember existing media attr for ultimate state, or default to 'all'
-    var finalMedia = link.media || "all";
+<link rel="stylesheet" href="css/main.css">
 
-    function enableStylesheet(){
-      link.media = finalMedia;
-    }
 
-    // bind load handlers to enable media
-    if( link.addEventListener ){
-      link.addEventListener( "load", enableStylesheet );
-    } else if( link.attachEvent ){
-      link.attachEvent( "onload", enableStylesheet );
-    }
+<link rel="stylesheet" href="lib/font-awesome/css/all.min.css">
 
-    // Set rel and non-applicable media type to start an async request
-    // note: timeout allows this to happen async to let rendering continue in IE
-    setTimeout(function(){
-      link.rel = "stylesheet";
-      link.media = "only x";
-    });
-    // also enable media after 3 seconds,
-    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
-    setTimeout( enableStylesheet, 3000 );
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"Yansen0515.github.io.git","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Animal genetic">
+<meta property="og:url" content="index.html">
+<meta property="og:site_name" content="Animal genetic">
+<meta property="article:author" content="Yansen">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-Hans'
   };
+</script>
 
-  // loop through link elements in DOM
-  rp.poly = function(){
-    // double check this to prevent external calls from running
-    if( rp.support() ){
-      return;
-    }
-    var links = w.document.getElementsByTagName( "link" );
-    for( var i = 0; i < links.length; i++ ){
-      var link = links[ i ];
-      // qualify links to those with rel=preload and as=style attrs
-      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
-        // prevent rerunning on link
-        link.setAttribute( "data-loadcss", true );
-        // bind listeners to toggle media back
-        rp.bindMediaToggle( link );
-      }
-    }
-  };
+  <title>Animal genetic</title>
+  
 
-  // if unsupported, run the polyfill
-  if( !rp.support() ){
-    // run once at least
-    rp.poly();
 
-    // rerun poly on an interval until onload
-    var run = w.setInterval( rp.poly, 500 );
-    if( w.addEventListener ){
-      w.addEventListener( "load", function(){
-        rp.poly();
-        w.clearInterval( run );
-      } );
-    } else if( w.attachEvent ){
-      w.attachEvent( "onload", function(){
-        rp.poly();
-        w.clearInterval( run );
-      } );
-    }
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
   }
 
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
-  // commonjs
-  if( typeof exports !== "undefined" ){
-    exports.loadCSS = loadCSS;
-  }
-  else {
-    w.loadCSS = loadCSS;
-  }
-}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 4.2.0"></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="img/assets/cat.png"></div><!--.profile-saying
-  i.fa.fa-comment
-  .saying--><div class="cxo-profile-inner"><div class="profile-name">Animal Genetic</div><div class="profile-signature">LOVE</div><div class="friends"><div>FRIENDS</div><span><a href="//github.com/Yansen0515" target="_black">friendA</a></span><span><a href="//github.com/" target="_black">friendB</a></span><span><a href="//github.com/" target="_black">friendC</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/" target="_blank" rel="noopener">Yan&amp;Qing</a></div><div class="intro-nav-label-box"><a href="/" target="_blank" rel="noopener">Home</a><a href="/about/" target="_blank" rel="noopener">About</a><a href="/archives/" target="_blank" rel="noopener">Archives</a><a href="/tags/" target="_blank" rel="noopener">Tags</a><a href="/Categories/" target="_blank" rel="noopener">Categories</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/" target="_blank" rel="noopener">Home</a><a href="/about/" target="_blank" rel="noopener">About</a><a href="/archives/" target="_blank" rel="noopener">Archives</a><a href="/tags/" target="_blank" rel="noopener">Tags</a><a href="/Categories/" target="_blank" rel="noopener">Categories</a></div></i><div class="clear"></div></section></nav><h1>Yan&amp;Qing</h1><h5>Welcome to my Blog!</h5><div class="intro-social"><a class="fa fa-envelope" href="mailto:yansen0515@gmail" title="email"></a><a class="fa fa-github" href="//github.com/Yansen0515" target="_blank" title="github"></a><a class="fa fa-weibo" href="//www.weibo.com" target="_blank" title="weibo"></a><a class="fa fa-facebook" href="//www.facebook.com/Yansen Chen" target="_blank" title="facebook"></a><a class="fa fa-twitter" href="//twitter.com" target="_blank" title="twitter"></a><a class="fa fa-rss" href="/atom.xml" target="_blank" title="rss"></a></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><section id="recent-posts"><div class="recent-post-item"><div class="post-title"><a href="2020/05/25/GS/" target="_blank" rel="noopener">7 - Genomic Prediction（GP）/Genomic Selection (GS)</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2020-05-25T19:31:09.754Z">2020-05-25 21:31:09</time><i class="fa fa-edit"></i><time datetime="2020-05-25T19:31:09.754Z">2020-05-26 12:15:14</time></div><div class="recent-post-content"> GP中的一些算法首先大家要有一定基础知识：        首先，现在实际基因组选择都是使用的SNP        位点可以使用0 1 2表示，主要等位基因为0， 次要等位基因为1        表型一般都会做校正： Daughter Yield Deviations（ DYD， 奶牛使用较多）， Deregressed EBV（DRP）
-GS分类    1 多步法        （1） 计算EBV        （2） 取出高可靠性的公牛EBV， 进行计算出DYD与DRP        （3） 估计SNP的effect        (4) 评估新个体的Direct Genomic Valu ...</div><div class="recent-post-tags"><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="遗传算法"> 遗传算法</a></div><div class="read-more"><a class="more" href="2020/05/25/GS/#more" target="_blank" rel="noopener">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="2020/05/25/多性状动物模型/" target="_blank" rel="noopener">6 - MT-MME（多性状动物模型）</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2020-05-25T15:33:06.032Z">2020-05-25 17:33:06</time><i class="fa fa-edit"></i><time datetime="2020-05-25T15:33:06.032Z">2020-05-25 21:30:25</time></div><div class="recent-post-content">多性状动物模型主要用于以下情况：    1 同时具有几个性状    2 性状之间的相关性的使用        同一个动物： 弥补部分缺失值        相关动物：males &lt;=&gt; female    3 实际中特别感兴趣的性状如果：        具有明确生物关系： 最优相关 -/+ 0.5        研究缺失值        预测不知道的性状
-计算复杂， 需要好的计算算法                         和  计算机            eg:Canonical transformation             MACE                ...</div><div class="recent-post-tags"><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="遗传算法"> 遗传算法</a></div><div class="read-more"><a class="more" href="2020/05/25/多性状动物模型/#more" target="_blank" rel="noopener">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="2020/05/20/OLSandSI/" target="_blank" rel="noopener">1 - OLS and SI</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2020-05-20T20:28:23.874Z">2020-05-20 22:28:23</time><i class="fa fa-edit"></i><time datetime="2020-05-20T20:28:23.874Z">2020-05-25 20:46:55</time></div><div class="recent-post-content">前言： 对自己上半年的一个遗传课程“Genetics, Genomics and (Bio)diversity”整理，其是Liege university 的Nicolas Gengler主讲课程都是由Octave语言，完成练习。多使用矩阵计算，需要相关基础知识：如：Kronecker product; Cholsky分解； Cannoical分解； 广义逆，
-###############first part OLS简单的线性回归模型：y = b1 + b2*xb1为截距，b2为斜率
-矩阵写法： y = Wb + e    （1）
-求解时： 我们需要使e最小此方法被称为： Least squ ...</div><div class="recent-post-tags"><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="遗传算法"> 遗传算法</a></div><div class="read-more"><a class="more" href="2020/05/20/OLSandSI/#more" target="_blank" rel="noopener">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="2020/05/25/difference_animal_model/" target="_blank" rel="noopener">5 - different model of MME</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2020-05-25T13:26:27.933Z">2020-05-25 15:26:27</time><i class="fa fa-edit"></i><time datetime="2020-05-25T13:26:27.933Z">2020-05-25 17:32:16</time></div><div class="recent-post-content">先再次写下，MME的一般式子Mixed model equations(MME)
-[X&apos;R-1X  X&apos;R-1Z      [β    [X&apos;R-1y
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" target="_blank" class="brand" rel="start noopener">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Animal genetic</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Follow your heart</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" target="_blank" rel="section noopener"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" target="_blank" rel="section noopener"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="2020/05/25/GS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="images/avatar.gif">
+      <meta itemprop="name" content="Yansen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Animal genetic">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="2020/05/25/GS/" target="_blank" rel="noopener" class="post-title-link" itemprop="url">7 - Genomic Prediction（GP）/Genomic Selection (GS)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+
+              <time title="أُنشأ: 2020-05-25 21:31:09" itemprop="dateCreated datePublished" datetime="2020-05-25T21:31:09+02:00">2020-05-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2020-05-26 12:15:14" itemprop="dateModified" datetime="2020-05-26T12:15:14+02:00">2020-05-26</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p> GP中的一些算法<br>首先大家要有一定基础知识：<br>        首先，现在实际基因组选择都是使用的SNP<br>        位点可以使用0 1 2表示，主要等位基因为0， 次要等位基因为1<br>        表型一般都会做校正： Daughter Yield Deviations（ DYD， 奶牛使用较多）， Deregressed EBV（DRP）</p>
+<p>GS分类<br>    1 多步法<br>        （1） 计算EBV<br>        （2） 取出高可靠性的公牛EBV， 进行计算出DYD与DRP<br>        （3） 估计SNP的effect<br>        (4) 评估新个体的Direct Genomic Value (DGV)<br>        (5) 结合DGV和其他信息（DGV不包含）计算个体最终的GEBV<br>    此处推荐需要去看， P.M. VanRaden 在2008发表于J. Dairy Sci. 的文章， “Efficient methods to compute geneomic predictions”<br>     多步法因为多个step， 会可能造成更多的潜在误差<br>     2 一步法<br>     single-step methods(SS-GP) </p>
+<p>多步法可以使用多种算法实现：<br>    1 Linear 法： 3种(VanRaden 2008)<br>        (1) Multiple Random Regression =&gt; RR-BLUP<br>            1) y = Xb + Zu + e<br>                这里的u指的是SNP effect（random effect）， Z 是与SNP effect 对应的incident matrix. 其他和前面的MME类似<br>                不同的地方：Var(e) = R(σe)2, 其中R是diagonal matrix with 1/weights.<br>                                                                    weights可以是DYD（or DRP）<br>                                                                                Rii = (1-Rdau)/Rdau,  Rdau指的是女儿的reliability<br>                a = Zu, 即为GEBV<br>                所以也可以将模型写成： y = Xb + Ia + e = Xb + I(Zu) + e, 这里的I 是连接y 与GEBV， Z是连接y与u的，</p>
+<pre><code>        这里需要构建Z，Z = M - P
+            一般SNP的矩阵M是由0,1,2,构建， P矩阵是先计算各位点的allele频率,再乘以2， 
+            如果(σe)2都相等的话，MME可以写出：
+                    [X&apos;R-1X   X&apos;R-1Z        [b         [X&apos;R-1y
+                     Z&apos;R-1X   Z&apos;R-1Z+Im*λu]  u]    =    Z&apos;R-1y]
+            其中：λu = (σe)2/(σu)2 ; (σu)2 = (σa)2/d; (σa)2 = 总遗传方差； d = 2*sum(fi(1-fi)); f 为i位点的等位基因频率
+                所以λu = d*(σe)2/(σa)2  = d λa
+        当有新的动物加入时，需要从新加入到M中， 并从新做计算Z（使用原来的等位基因频率）, 进行全部从新解出a。
+           或者直接以新动物的M乘以原来求得SNPeffect, a2 = Z2u
+    (2) Equivalent SI, also using genomic relationships
+        预测GEBV使用校正的表型， 但是使用了G矩阵
+        G = ZZ‘/d
+        公式计算    
+            a = Var(a)(Var(a)+Var(e))-1(y-Xb)
+              = G(σa)2(G(σa)2+R(σe)2)-1(y-Xb)
+              = G(G+R(σe)2/(σa)2)-1(y-Xb)
+        可以再次看下RR-BLUP
+            a = Zu, 其中u= (Z&apos;R-1Z+Iλu)Z&apos;R-1(y-Xb)
+              = Z(Z&apos;R-1Z+Iλu)Z&apos;R-1(y-Xb)
+        当有新的动物加入时，需要从新计算一个Z2，基于新数据
+        C = Z2Z’/d
+        a2 = C(G+R(σe)2/(σa)2)-1(y-Xb)  可以看到只是改变了第一个参数，由G变为C
+    (3) If joint estimation of fixed and random genomic animal effects =&gt; G-BLUP
+        y = Xb + Z*a + e  
+           Z*指的是与遗传相关的incidence matrix,实际每个动物只有一个育种值，即Z*=I， a直接为育种值
+           在传统BLUP中， var(a)= a covariance structure X a variance component,  为A矩阵，
+           G-BLUP为G矩阵
+           其方程组为：
+                    [X&apos;X   X&apos;Z*           [b           [X&apos;y
+                     Z*&apos;X   Z*&apos;Z*+G-1λa]   a]    =      Z*&apos;y]
+                但有的时候， G不可逆， 就需要组成成G*= 0.99G + 0.01A
+           当有新的动物加入时，需要从新计算一个G2，基于新数据， 
+              加入n列0到Z*矩阵中，
+              解出方程组即可
+            或
+                计算C = Z2Z*‘/d
+                a2 = CG-1a
+
+    (4)如果从新写RR-BLUP
+        y = Xb + Zu + e 
+          = Xb + sum(zjuj) + e 
+          其中zj为incidence 每个个体SNP效应j, uj为随机个体SNP效应
+        (σuj)2 = (σa)2/d, 且每个都一样
+        实际RR-BLUP与G-BLUP相等
+2 No-linear(Bayesian) methods
+    （1）Bayes-A  每个SNP的方差不同， t分布
+    （2）Bayes-B  π =known proportion of SNPs having zero variance， 剩下1-π 的SNP，每个SNP的方差不同， 非零效应 SNP - t 分布
+    （3））Bayes-C = Non-linear Bayes A and B, 对π的SNP进行估计， 非零效应 SNP - 正态
+    还有其他Bayes alphabet， 如Cπ， R</code></pre><p>Direct Genomic Value（DGV）与Genomically Enhanced Breeding Values（GEBV）的不同含义：<br>    DGV，只是有自己的基因组信息得到<br>      不包含： 它的女儿和亲本对它的影响。<br>    GEBV = DGV与EBV的结合， 不是直接相加， 两者有重复的部分</p>
+<p>GP最大的优点是提高的估计值的可靠性<br>以上一般都统称为第一代GP：<br>    works well<br>        只有参考群体数量大和可靠性高时<br>        参考群与预测群具又较强的相关性（但不能近交）<br>    但是：<br>    许多步骤评估，会增加潜在误差<br>    有的性状参考群体小， 有的新性状没有参考群，有基因型与没有的不能混合计算</p>
+<p>所以出现的了第二代GP： Single-Step Genomic Prediction（SS）<br>    一起使用表型，系谱和基因组数据<br>    更有利于小群体</p>
+<p>最重要元素的合成可能有不同的推导：<br>    Gc = wG + （1-w）A, 经常使用0.99<br>    得出H-1 = A-1 + [Gc-1-Ag-1  0<br>                    0          0]<br>    这里是加入了没有基因组的数据， A为全部的系谱矩阵， Gc是基于具体基因组个体计算的矩阵， Ag是基于具体基因组个体的系谱矩阵</p>
+<pre><code>y = Xb + Za + e
+[X&apos;X   X&apos;Z        [b          [X&apos;y
+ Z&apos;X   Z&apos;Z+H-1*λa]  a]    =    Z&apos;y]</code></pre><p>现在也同时具有了SS-BLUP与SS-Bayes。这里不详细介绍了。</p>
+<p>本次遗传算法中的最后一篇， 全部的几篇只是介绍了一些简单入门算法， 具体推算没有介绍，如果你感兴趣，需要多阅读一些当时开发这个算法的文献。<br>当然我后续还有一个更详细的需要写， 但最近需要使用机器学习的一些算法，所以要先对机器学习算法进行一个回顾，后面有时间再接着写方差-协方差组分求解的详细推导</p>
+<p>实际在遗传数据分析中，最先估计各性状的方差-协方差组分， 再根据估计值计算遗传力、相关性等， 最终我们要以估计的方差-协方差组分求出各性状的育种值。</p>
+<p>当然在多性状动物模型分析中，都需要先单个分析，以其结果作为多性状的初始值，加快收敛速度。</p>
+<p>个人觉得模型难易程度为：<br>    sire model &lt; MGS model &lt; sir-MGS model &lt; animal model &lt; Repeatability model &lt; MT animal model &lt; random regression model</p>
+<p>当然只有所有模型都自己使用代码，练习一下， 会有更大的收获。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="2020/05/25/多性状动物模型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="images/avatar.gif">
+      <meta itemprop="name" content="Yansen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Animal genetic">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="2020/05/25/%E5%A4%9A%E6%80%A7%E7%8A%B6%E5%8A%A8%E7%89%A9%E6%A8%A1%E5%9E%8B/" target="_blank" rel="noopener" class="post-title-link" itemprop="url">6 - MT-MME（多性状动物模型）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+              
+
+              <time title="أُنشأ: 2020-05-25 17:33:06 / عُدل: 21:30:25" itemprop="dateCreated datePublished" datetime="2020-05-25T17:33:06+02:00">2020-05-25</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>多性状动物模型主要用于以下情况：<br>    1 同时具有几个性状<br>    2 性状之间的相关性的使用<br>        同一个动物： 弥补部分缺失值<br>        相关动物：males &lt;=&gt; female<br>    3 实际中特别感兴趣的性状如果：<br>        具有明确生物关系： 最优相关 -/+ 0.5<br>        研究缺失值<br>        预测不知道的性状</p>
+<p>计算复杂， 需要好的计算算法                         和  计算机<br>            eg:Canonical transformation             MACE<br>               转为单性状动物模型<br>               、</p>
+<p>两性状动物模型：  y = Xntβ + Zntu + e    （假设nt = 2)<br>以下是有x表示直积： or y = (XxInt)β + (ZxInt)u + e<br>        方程简化后： [X’XxR0-1   X’ZxR0-1                  [β         [(X’xR0-1)y<br>                  Z’XxR0-1     Z’ZR0-1  + A-1xG0-1]    u]    =   (Z’xR0-1)y]</p>
+<pre><code>这里R = In x R0   R-1 = In x R0-1
+   G = A x G0    G-1 = A-1 x G0-1  
+
+ R0 = [(σe1)2  σe12
+        σe12   (σe2)2] 
+ G0 = [(σg1)2  σg12
+        σg12   (σg2)2]</code></pre><p>所以MT-MME:可以简写成<br>        [X’R-1X   X’R-1Z        [b         [X’R-1y<br>         Z’R-1X   Z’R-1Z+ G-1]   u]    =    Z’R-1y]<br>         这里的R-1 = [R0-1 …  0<br>                     … …  …<br>                     0   …  R0-1]<br>            G-1 = A-1 x G0-1<br>        还原：<br>            [X’XxR0-1   X’ZxR0-1                  [b         [(X’xR0-1)y<br>            Z’XxR0-1     Z’ZR0-1  + A-1xG0-1]     u]    =    (Z’xR0-1)y]<br>CT-MT-MME<br>这样直接计算，需要计算里太大，所以才用    Canonical Transformation (CT)对性状进行分解,<br>如：两个相关的性状， 可以通过CT，建立两个新的相关性状， ybd 与yst是两个相关的性状， 同时× T 后，变成y1 和 y2<br>        [y1    [a  b  [ybd       [ybd<br>         y2] =  c  d]  yst]  = T  yst]<br>        同时也需要对R0与G0进行分解</p>
+<p>CT算法的实现：<br>    1 定义转化矩阵<br>        （1） 找到Choseskey factor L(R0 = LL’)<br>        (2) 找到U与D， UDU’ = L-1G0(L’)-1<br>        (3) T = U’L-1<br>    2 对所有原性状：yi转化， yti = Tyi<br>    3 对每个新性状做计算<br>    4 对每个结果再逆转化回来， bi = T-1bti; ui = T-1 uti </p>
+<p>对每个新转化的j性状都为：<br>        [X’X   X’Z            [btj             [X’ytj<br>         Z’X   Z’Z+ A-1/djj]   utj]    =        Z’ytj]   这样就简化的公式，不需要两个性状之间的协方差</p>
+<p>也可以用PCA对表型的方差-协方差均简化；<br>我们经常使用PCA减小rank，通过PCs来解释主要的变异</p>
+<p>Multiple Diagonalization(MD,多重对角化)<br>    模型具有两个及以上的random effects（如加入PE）<br>    则需要MD<br>        1 如果各方差-协方差矩阵具有线性关系，则有精确的MD。 eg： P0 = aG0 + bR0,  TP0T’ = aD + bi<br>        2 如果不是线性关系，则找到最佳T， TG0T’ ≈ D， TP0T’ ≈ aD + bi， TR0T’</p>
+<p>作业中的收获：<br>    1 注意y值是按个体（写完一个个体的所有性状，再写下一个）顺序排序<br>    2 求遗传相关的矩阵算法<br>        diagGC = diag(sqrt(diag(G0)))<br>        GC=inv(diagGC) * G0 * inv(diagGC)</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="2020/05/25/difference_animal_model/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="images/avatar.gif">
+      <meta itemprop="name" content="Yansen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Animal genetic">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="2020/05/25/difference_animal_model/" target="_blank" rel="noopener" class="post-title-link" itemprop="url">5 - different model of MME</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+              
+
+              <time title="أُنشأ: 2020-05-25 15:26:27 / عُدل: 17:32:16" itemprop="dateCreated datePublished" datetime="2020-05-25T15:26:27+02:00">2020-05-25</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>先再次写下，MME的一般式子<br>Mixed model equations(MME)</p>
+<pre><code>[X&apos;R-1X  X&apos;R-1Z      [β    [X&apos;R-1y
 Z&apos;R-1X  Z&apos;R-1Z+G-1]  u] =  Z&apos;R-1y]       
 
 or
-简写  Cs = r求解时，需要求G或C的逆矩阵， 因计算量过大， 1960年以前，不能实现
-所以人们就先简化了MME    1 简化 Var(u)    2 只使用males    3 简化关系矩阵        （1） 只使用sirs求        （2） 在Z中表示关系矩阵        ...</div><div class="recent-post-tags"><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="遗传算法"> 遗传算法</a></div><div class="read-more"><a class="more" href="2020/05/25/difference_animal_model/#more" target="_blank" rel="noopener">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="2020/05/25/Amatrix/" target="_blank" rel="noopener">4 - A Matrix(additive relationship matrix)</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2020-05-25T09:21:29.851Z">2020-05-25 11:21:29</time><i class="fa fa-edit"></i><time datetime="2020-05-25T09:21:29.851Z">2020-05-25 15:26:09</time></div><div class="recent-post-content">在遗传分析中，个体之间的关系是非常重要的。这里先只介绍基于系谱关系的关系矩阵（A matrix）及其逆矩阵。以后再介绍G（GLUP使用）和H（SSBLUP使用）矩阵。
-A矩阵现主要有两个定义观点：        1 根据近交系数（单个个体）： 在相同位点携带的两个alleles来自同一个祖先的概率        2 相关系数（两个个体之间）： 这两只动物的后代的近交系数的两倍个体近交系数：  0 ≤ Fx &lt; 1个体的相关系数： a = 1 + Fx两个个体之间的相关系数： a = 2Fx
-计算方法：    1 路径系数法（Wright，1922）        axy = (2-n)1 ...</div><div class="recent-post-tags"><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="遗传算法"> 遗传算法</a></div><div class="read-more"><a class="more" href="2020/05/25/Amatrix/#more" target="_blank" rel="noopener">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="2020/05/24/BLUP1/" target="_blank" rel="noopener">3 - BLUP的基本特性及求解方法</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2020-05-24T14:59:35.107Z">2020-05-24 16:59:35</time><i class="fa fa-edit"></i><time datetime="2020-05-24T14:59:35.107Z">2020-05-25 11:20:29</time></div><div class="recent-post-content">如MME中所讲， Henderson的想法是结合OLS与ISOLS解出的u太大。IS是对系数采用每个奶牛的女儿数进行了一定修改， 或其可以加上一个假设值D实际上均是对Z’（ZZ’ + Iλ ）-1 = (ZZ‘)-1Z’ + (Iλ)-1Z’ 中的λ修改而λ = (1 - h2)/h2  其为动物模型    如果h2 = 0, 则D为无限大        h2 = 1, D =0
- Sire model 为(4 - h2)/h2 
-Penalized OLS estimator: u = (ZZ’ + D)-1Z’(y - Xβ)SI estimator: u = AZ’(ZAZ’ + Iλ) ...</div><div class="recent-post-tags"><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="遗传算法"> 遗传算法</a></div><div class="read-more"><a class="more" href="2020/05/24/BLUP1/#more" target="_blank" rel="noopener">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="2020/05/23/MME/" target="_blank" rel="noopener">2 - MME - Mixed models</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2020-05-23T20:03:13.082Z">2020-05-23 22:03:13</time><i class="fa fa-edit"></i><time datetime="2020-05-23T20:03:13.082Z">2020-05-25 11:02:58</time></div><div class="recent-post-content">这节从OLS和SI转向MME
-SI: 最小化预测Var(T-I)的误差方差OLS： 最小误差方差，最终由观测值（残差）的方差加权GLS： 最小化权重误差方差（最小二乘）， 参考观测值之间的协方差MME: mixed models, 同时最小化误差方差和random effectde 预测误差方差BLUP是由SI演变而来
-Miexd model 是在康奈尔大学建立的， 主要由两个人建立： S.R. Searle and C.R. Henderson
-一般的矩阵方程： y = Xβ + Zu + e             （1）y 为观测值vector（已知）； β 为fixed effects ...</div><div class="recent-post-tags"><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="遗传算法"> 遗传算法</a></div><div class="read-more"><a class="more" href="2020/05/23/MME/#more" target="_blank" rel="noopener">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="2020/05/24/Learning_in_first_year/" target="_blank" rel="noopener">Learning in first year of PhD project</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2020-05-24T07:52:26.046Z">2020-05-24 09:52:26</time><i class="fa fa-edit"></i><time datetime="2020-05-24T07:52:26.046Z">2020-05-24 10:42:53</time></div><div class="recent-post-content">The first project(NUE AND NL)Clement suggested: predictions for NUE and NL were only used when the global H (GH), which is the standardized Mahalanobis distance between the prediction MIR record and the calibration data sets, were below or equal to 3.Nicolas suggested:        1 the selection of calv ...</div><div class="recent-post-tags"><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="经验"> 经验</a></div><div class="read-more"><a class="more" href="2020/05/24/Learning_in_first_year/#more" target="_blank" rel="noopener">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="2020/04/08/LIUNX中的seq命令/" target="_blank" rel="noopener">生成指定位数的连续数字</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2020-04-08T14:45:58.754Z">2020-04-08 16:45:58</time><i class="fa fa-edit"></i><time datetime="2020-04-08T14:45:58.754Z">2020-04-08 16:48:09</time></div><div class="recent-post-content">有时候可能有这样的需要：用Shell生成类似0001这样的序列作为批次号，这里整理了一下个人的方法
-方法一：通过seq命令seq命令可以生成从某个数字到递增到另一数字的序列。用法如下：
-seq –helpUsage: seq [选项]　　尾数  or:  seq [选项]　　首数 尾数  or:  seq [选项]　　首数 增量值　尾数Print numbers from FIRST to LAST, in steps of INCREMENT.选项参数如下：
-  -f, –format=格式      use printf style floating-point FORMAT  -s, – ...</div><div class="recent-post-tags"><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="shell"> shell</a></div><div class="read-more"><a class="more" href="2020/04/08/LIUNX中的seq命令/#more" target="_blank" rel="noopener">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="2020/04/08/Liunx-split/" target="_blank" rel="noopener">Linux的split命令</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2020-04-08T07:14:15.428Z">2020-04-08 09:14:15</time><i class="fa fa-edit"></i><time datetime="2020-04-08T07:14:15.428Z">2020-04-08 09:22:36</time></div><div class="recent-post-content">1简介在Linux的coreutils中有一个工具split实现了这个功能，可以把一个大文件切割为多个小文件，甚至可以借助管道将流切成固定大小的文件，切割规则可以使用行数，也可以使用字节数。
-2、预备测试数据先生成一个稍微大点的文件，接下来就切割这个文件：
-#! /bin/bash
-for((i=0;i&lt;1000000;i++));do    echo $i &gt;&gt; datadone将上面这段保存为gen-data.sh，然后执行生成一个名为data有1000000行的文本文件。
-3、按行数分割将data按照每10000行为一个文件切割：split -l 10000 -d -a ...</div><div class="recent-post-tags"><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="Liunx"> Liunx</a></div><div class="read-more"><a class="more" href="2020/04/08/Liunx-split/#more" target="_blank" rel="noopener">ReadMore</a></div><hr></div></section><nav class="cxo-page-nav"><span class="page-number current">1</span><a class="page-number" href="page/2/" target="_blank" rel="noopener">2</a><a class="page-number" href="page/3/" target="_blank" rel="noopener">3</a><a class="extend next" rel="next noopener" href="page/2/" target="_blank">NEXT &amp;#62;</a></nav></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo" target="_blank" rel="noopener"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
+简写  Cs = r</code></pre><p>求解时，需要求G或C的逆矩阵， 因计算量过大， 1960年以前，不能实现</p>
+<p>所以人们就先简化了MME<br>    1 简化 Var(u)<br>    2 只使用males<br>    3 简化关系矩阵<br>        （1） 只使用sirs求<br>        （2） 在Z中表示关系矩阵<br>        （3） 将A直接表示为I矩阵</p>
+<p>Sire model 1 :<br>    [X’X  X’Zs        [β    [X’y<br>    Zs’X  Zs’Zs+Iλs]   s] =  Zs’y]<br>    其中λs = (σes)2/(σs)2<br>    但是其I表示的不合理， 应有关系矩阵</p>
+<p>Sire model 2:<br>    y = Xβ + ZsS + e<br>    [X’X  X’Zs             [β    [X’y<br>    Zs’X  Zs’Zs+As-1*λs]    s] =  Zs’y]<br>    其中λs = (σes)2/(σs)2, 又因为s只能表达1/2的遗传值， 所以 λs = (4-h2)/h2</p>
+<p>(co)variances是描述记录值之间的相关<br>    variance =&gt; 所有的变异来源<br>    covariance =&gt; 动物之间的共同差异（如有相同的父亲）<br>如有共同父亲，则相同父亲传递的遗传力基本相同</p>
+<p>Note: 以下R与G都是指的父亲模型<br>    OLS没有考虑这个（前提假设都不相关），      GLS加入了(co)variances<br>    （X‘R-1X）mols    = X’R-1y            （X‘V-1X）mGLS    = X’V-1y<br>            我们需要知道V = R + G<br>            R = V - G<br>当父母都考虑时，就变成了动物模型<br>但这样还是计算量过大， 又对Sire model 进行了适当修改：<br>        1 加入了maternal effect m<br>         y = Xβ + ZsS + Tm + e<br>        2 间接法， 引入maternal grand sires（MGS）：<br>         y = Xβ + ZsS + 1/2 TS + emgs<br>           = Xβ + （Zs + 1/2T） S + emgs<br>           = Xβ + （Zs + W） S + emgs<br>           = Xβ + Zmgs S + emgs    其中Zmgs为 0，     1/2,    1,     3/2<br>                                            均未知   知外祖父  知父亲   知外祖父和父亲</p>
+<pre><code>这样模型变为：
+                [X&apos;R-1X        X&apos;R-1Zmgs                      [β    [X&apos;R-1y
+                Zmgs&apos;R-1X  Zmgs&apos;R-1Zmgs+As-1*(1/(σs)2]       s] =  Zmgs&apos;R-1y]    
+            R = 对角线为var(emgs) 矩阵
+            如果MGS不知，则为结果与sire model相同
+            如果MGS知， 则为结果为sire model - 1/16 genetic variance</code></pre><p>但随着近30年的算法和计算机的发展，可以直接计算A及其逆矩阵<br>所以我们现在普遍使用动物模型，但有时也需要根据数据调整。</p>
+<p>MME的一般式子：</p>
+<pre><code>[X&apos;R-1X  X&apos;R-1Z      [t    [X&apos;R-1y
+Z&apos;R-1X  Z&apos;R-1Z+G-1]   g] =  Z&apos;R-1y]       </code></pre><p>并且又增加了更多因素，使模型更复杂：<br>    1 增加环境效应（random）， 如： 猪的窝， 相同母亲（非遗传）， 重复观察值（奶牛的泌乳量）， 这些都需要使用(co)variances<br>        其中加入永久环境随机效应： y = Xt + Zg + Zp + e，   这样会使原来的e-Zp<br>        MME:<br>            [X’R-1X  X’R-1Z       X’R-1Z             [t       [X’R-1y<br>            Z’R-1X   Z’R-1Z+G-1   Z’R-1Z              g           Z’R-1y<br>            Z’R-1X   Z’R-1Z       Z’R-1Z+P-1  ]       p] =     Z’R-1y]<br>            其中：<br>            var(p) = P = I(σp)2, Var(g) = G = A(σg)2,  var(e) = R = I(σe)2</p>
+<pre><code>2 有时，会受到共同遗传因素的影响，如：直接母性作用（calving ease, 断奶前体重）, 繁殖性能（fertility）
+     y = Xt + Z1g1 + Z2g2 + e，
+     假设残差方差都相同，
+            [X&apos;X         X&apos;Z1                  X&apos;Z2                               [t        [X&apos;y
+             Z1&apos;X   [Z1&apos;Z1  Z1&apos;Z2     + [A((σg1)2)  A((σg12)2)  -1                 g1   =    Z1&apos;y
+             Z2&apos;X    Z2&apos;Z1   Z2&apos;Z2]      A((σg12)2)  A((σg2)2)]   *(σe)2       ]   g2]         Z2&apos;y]
+
+3 random regressions 与（协）方差结构相关的回归效应, eg:年龄， DIM，  通常用于分析轨迹的“纵向”数据的模型，
+    使用的模拟轨迹的函数最常用的有LP, spline.</code></pre>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="2020/05/25/Amatrix/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="images/avatar.gif">
+      <meta itemprop="name" content="Yansen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Animal genetic">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="2020/05/25/Amatrix/" target="_blank" rel="noopener" class="post-title-link" itemprop="url">4 - A Matrix(additive relationship matrix)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+              
+
+              <time title="أُنشأ: 2020-05-25 11:21:29 / عُدل: 15:26:09" itemprop="dateCreated datePublished" datetime="2020-05-25T11:21:29+02:00">2020-05-25</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在遗传分析中，个体之间的关系是非常重要的。这里先只介绍基于系谱关系的关系矩阵（A matrix）及其逆矩阵。以后再介绍G（GLUP使用）和H（SSBLUP使用）矩阵。</p>
+<p>A矩阵现主要有两个定义观点：<br>        1 根据近交系数（单个个体）： 在相同位点携带的两个alleles来自同一个祖先的概率<br>        2 相关系数（两个个体之间）： 这两只动物的后代的近交系数的两倍<br>个体近交系数：  0 ≤ Fx &lt; 1<br>个体的相关系数： a = 1 + Fx<br>两个个体之间的相关系数： a = 2Fx</p>
+<p>计算方法：<br>    1 路径系数法（Wright，1922）<br>        axy = (2-n)1 + (2-n)2 + …. + (2-n)x<br>        如果有复杂关系时，计算较为复杂，需要对每个共同个体逐一进行计算，最后求和<br>    2 The tabular method (Emik and Terril, 1949; Henderson, 1976)，实际中一般使用<br>        （1） 可以计算个体之间的所有相关系数<br>        （2） 非常简单，但是计算时间和memory成2次方增长<br>        （3） 计算过程<br>                1） 需要将系谱从排列成后代出现在父母之后，总体为animal sire dam 的格式<br>                2) 关系矩阵是一个 n x n 的方矩阵， 需要一个一个元素填充<br>                3） 对动物i, 首先从i行的1到i列， 包含（i,i）,先将父母的一半对应写上，其他近交再写上， 最后是（i,i），需要使1+i父母相关系数的一半，<br>                    再从i列的1到i-1行填充（实际上是直接与行进行对称）<br>                4） 在每行中， 父亲和母亲的加权贡献之和<br>                eg:<br>                    ped=[1  0  0<br>                         2  0  0<br>                         3  1  0<br>                         4  1  2<br>                         5  0  2<br>                         6  0  3<br>                         7  1  6]<br>                        [n,m]= size(ped);<br>                        A=zeros(n);</p>
+<pre><code>                    for i=1:n
+                        if ped(i,2)&gt;0
+                            A(i,1:i-1)=0.5*A(ped(i,2),1:i-1);
+                        end
+                        if ped(i,3)&gt;0
+                            A(i,1:i-1)=A(i,1:i-1)+0.5*A(ped(i,3),1:i-1);
+                        end
+                        if ped(i,2)*ped(i,3)&gt;0
+                            A(i,i)=1+0.5*A(ped(i,2),ped(i,3));
+                        else
+                            A(i,i)=1;
+                        end
+                        A(1:i-1,i)=A(i,1:i-1);
+                    end
+                    A
+3 The derived methods (e.g. Tier, 1990; Meuwissenand Luo, 1992; Colleau, 2002)
+    提高计算效率</code></pre><h4 id="求A的逆矩阵"><a href="#求A的逆矩阵" target="_blank" rel="noopener" class="headerlink" title="求A的逆矩阵"></a>求A的逆矩阵</h4><p>直接求A的逆矩阵<br>矩阵算法提示：<br>AB = I， 前提需要A是方阵和可逆<br>B称为A的逆矩阵。</p>
+<p>直接求逆矩阵计算量很大<br>如A未n x n矩阵<br>则A的逆矩阵计算时间一般为： f(n3次方)</p>
+<p>求A的逆矩阵有很多算法， 这里主要是： linewise inversion<br>假设A是SPD且可分区， 如A = [X y<br>                       y z]           （1）</p>
+<pre><code>则 A-1 = [X-1  0           [X-1yy&apos;X-1    -X-1y  
+         0&apos;    0]  +  1/d    -y&apos;X-1       1    ]       （2）
+
+         d = z - y&apos;X-1y      （3）
+
+在对X-1进行类似的分解， 直到结束</code></pre><p>在MME中， 系数C，为 [X’X   X’Z<br>                Z’X  Z’Z + λ*A-1]</p>
+<pre><code>A = [A0   y           A-1 = 1/d [A0-1yy&apos;A0-1    -A0-1y 
+     y    z ] (4)                  -y&apos;A0-1          1  ]     (5)
+     其中y指的是i与其他动物的相关系数， z=1时，表明i的近交系数为0</code></pre><p>对于的A-1的具体求法<br>        第一种，是动物i没有父母，     所以（4）式子中， y = 0, z =1, d = 1, 所以 (5)式子 = [0  0<br>                                                                             0  1]<br>                                                                最后加入[1]                  （6）<br>        第二种情况是i具有双亲（s,d）;  y = A0b<br>                               z = 1 + 近交系数F = b’A0b + 0.5 - 0.25<em>(Fs + Fd)<br>                                d = z - y’A0-1y<br>                                  = 0.5 - 0.25</em>(Fs + Fd)     note:其中0.5 是说父母没有inbred<br>                                                  s      d      i<br>                                所以（5）式子 = 1/d [0.25   0.25   -0.5<br>                                                 0.25   0.25   -0.5<br>                                                 -0.5   -0.5   1 ]           （7）</p>
+<pre><code>第三种是i只知道单亲（eg:s）. 类似的， z = b&apos;A0b + 0.75 - 0.25Fs
+                            d = 0.75 - 0.25 Fs      note:其中0.75 是说父母,没有inbred
+                                            s         i
+                        所以（5）式子 = 1/d [ 0.25     -0.5
+                                            -0.5    1]               （8）</code></pre><p>最后写出A逆矩阵的计算过程<br>    1 先计算出所以父母的近交系数<br>    2 建立n x n 矩阵<br>    3 再根据个体的情况， 分别添加，<br>        双亲未知  1<br>        只知单亲（1/(0.75-0.25Fs)）* (8)式子<br>        双亲均知（1/（0.5-0.25（Fs+Fd）））*(7)式子</p>
+<pre><code>若不计算计较系数，会更加快速
+ 1 建立n x n 矩阵
+ 2 再根据个体的情况， 分别添加，  
+    双亲未知  1
+
+    只知单亲    [1/3  -2/3
+            -2/3  4/3]
+
+    双亲均知 [0.5   0.5    -1
+            0.5   0.5    -1
+            -1      -1    2]</code></pre>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="2020/05/24/BLUP1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="images/avatar.gif">
+      <meta itemprop="name" content="Yansen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Animal genetic">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="2020/05/24/BLUP1/" target="_blank" rel="noopener" class="post-title-link" itemprop="url">3 - BLUP的基本特性及求解方法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+
+              <time title="أُنشأ: 2020-05-24 16:59:35" itemprop="dateCreated datePublished" datetime="2020-05-24T16:59:35+02:00">2020-05-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2020-05-25 11:20:29" itemprop="dateModified" datetime="2020-05-25T11:20:29+02:00">2020-05-25</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>如MME中所讲， Henderson的想法是结合OLS与IS<br>OLS解出的u太大。<br>IS是对系数采用每个奶牛的女儿数进行了一定修改， 或其可以加上一个假设值D<br>实际上均是对Z’（ZZ’ + Iλ ）-1 = (ZZ‘)-1Z’ + (Iλ)-1Z’ 中的λ修改<br>而λ = (1 - h2)/h2  其为动物模型<br>    如果h2 = 0, 则D为无限大<br>        h2 = 1, D =0</p>
+<p> Sire model 为(4 - h2)/h2 </p>
+<p>Penalized OLS estimator: u = (ZZ’ + D)-1Z’(y - Xβ)<br>SI estimator: u = AZ’(ZAZ’ + Iλ)-1(y - Xβ) </p>
+<p>理论上上： AZ’(ZAZ’ + Iλ)-1  =  (ZZ’ + D)-1Z’   是由（Searle et al 证明， 书籍 《Variance components》有详细证明）， 比提出假设时，晚了20年</p>
+<p>所以当： βblue = (X’X)-1X’(y - Z ublup)<br>      ublup = (Z’Z + A-1λ)Z’(y - X βblue)<br>blue: Best linear unbiased estmateor(BLUE); blup: Best linear unbiased predictor(BLUP)<br>即方程组为 [X’X   X’Z      [β         [X’y<br>         Z’X   Z’Z+A-1λ]  u]    =   Z’y]</p>
+<p>更一般的MME：<br>        [X’R-1X   X’R-1Z      [β         [X’R-1y<br>         Z’R-1X   Z’R-1Z+A-1λ]  u]    =   Z’R-1y]<br>        其中 R = Var(e); G = Var(u)</p>
+<p>相当于SI中：ublup = (Z’Z + A-1λ)Z’(y - Xβblue)<br>更一般时： 会有多性状模型： 其有利于具有缺少值的样本加入， 也有利于多性状的相关性分析</p>
+<pre><code>[X&apos;R-1X   X&apos;R-1Z      [β         [X&apos;R-1y
+ Z&apos;R-1X   Z&apos;R-1Z+A-1λ]  u]    =   Z&apos;R-1y]
+但是其中基于R0和G0的“多重特征”反映在R 和 G内部
+其中 R0 反应观察值残差的方差协方差矩阵; G0 表示的反映检测性状的random effects 之间的方差协方差矩阵</code></pre><p>MME = fixed effects + Random effects<br>       较少levels       较多levels<br>估计算法   BLUE            BLUP<br>    各自的作用：<br>    E(y) = Xβ (fixed的平均值)<br>    Var(y) = ZGZ’ + R (Random效应的方差协方差矩阵)</p>
+<p>SI中只是BLP， 缺少u， 即不是无偏</p>
+<p>BLUE and BLUP &lt;= MME<br>    但是可以采用不同方法得到：<br>        1 迭代SI，Modified Contemporary Comparision (correcting for genetic merit of animals used to get E(y))<br>        2 两步法<br>            （1） 先使用GLM 得到β， βGLS = （X’V-1X）-1X’V-1y, 其&gt;=BLUE<br>            (2) 再使用SI得到u：  ublup = GZ’(Z’GZ + R)-1(y - X βGLS) 其&gt;=BLUP</p>
+<p>这里需要再次提醒Acurracy and reliability<br>    对u的评价使用Acurracy or reliability有两种方法：<br>    1  Corr(u, ublup)称为Acurracy<br>        起源于SI理论： corr(T, I) = ssquare root of(b’c/(σT)2)<br>        经常直接square root of SI coefficents<br>    2 reliability 两种算法<br>       （1） reliability = Acurracy平方<br>       （2） reliability 从MME系数C中求得，        （MME简写  Cs = r）<br>           reliability = corr(u，ublup)2 = ((σg)2-PEV)/(σg)2 = 1- PEV/((σg)2), 其中PEV = var(u-ublup) = diag(C-1)</p>
+<p>小提醒： X’X = X‘与X对应所有元素的乘积和  X’X = X1‘X1 + X2‘X2 +X3‘X3….<br>即 X 需要对每个个体分开写成矩阵形式, 再对应相乘，最后相加<br>X’y, X’Z….均相同</p>
+<p>Integration（微积分） R-1，<br>        R = [r11 ….  0<br>              0  r22.. 0<br>              ..  …  ..<br>              0  …   rii]<br>        求逆时， 需将对角线的元素取倒数</p>
+<p>多性状时， X‘X等元素都Kronecker product（直积）R-1</p>
+<p>MME<br>        [X’R-1X   X’R-1Z      [β         [X’R-1y<br>         Z’R-1X   Z’R-1Z+ G-1]  u]    =   Z’R-1y]<br>        此处加入G-1，<br>当W = [X Z], s’ = [b’ u’], G*-1 =[0  0<br>                                 0  G-1]</p>
+<p>[W’R-1W + G<em>-1][s] = [W’R-1y]<br>这反映出了G-1中可以加入任何的LS系数<br>G-1 可以加入性状</em>effect*levels 的协方差</p>
+<p>计算使用计算空间<br>记录数<em>性状<br>    1    Cs = r计算中， C与r均需要储存在计算机memory中，需要较大的计算空间， mostly in sparse manner<br>    2    Iteration of data(IOD). 只有当需要C与r时，才计算<br>所以对大数据时，加速办法：<br>    1 基于稀疏存储的稀疏逆<br>    2 IOD linked to Jacobi, Gauss-Seidel, PCG（BLUP90IOD</em> program）</p>
+<p>迭代求解MME<br>    1 方程式： Jacobi + Gauss-Seidel<br>        在Cs = r中， 需要对s不断更新， 在n-1次迭代：使用Jacobi, 在n次迭代：使用Gauss-Seidel<br>    2 By blocs, 方程组通过对C的一部分求逆来求解， 多性状模型是必须<br>    3 Other PCG(Preconditioned Conjugate Gradient)</p>
+<p>SI在奶牛中称为： contemporary comparison（CC）  1950-1960使用在奶牛育种中<br>CC模型： y = Xt + Za + e<br>SI: a = b’(y - Xt), 其中y = Xt + e =&gt; t = (X’X)-X’y<br>但是这个deviation会随着时间累积，越来越难估计，会出现有的估计不到。</p>
+<p>这就需要我们对其进行修改：<br> modefied CC(MCC)<br>    (1) 从偏差处计算EBV<br>    (2) 调整当代EBV的偏差<br>    (3) return to (1)<br>    (4) 直到结果稳定（即收敛）<br>    收敛的结果与BLUP的相同<br>    实现：<br>        t = (X’X)-1X’(y - Za) =&gt;  t = (X’X)-1X’Za<br>    t1 - a1 - t2 - a2 ….<br>        直到 an-1 ≈ an</p>
+<p>最后需要再次回顾下MME的解法：<br>        [X’R-1X   X’R-1Z      [t         [X’R-1y<br>         Z’R-1X   Z’R-1Z+A-1λ]  a]    =   Z’R-1y]<br>        其中 R = Var(e); G = Var(u)</p>
+<pre><code>是联合直接求解得到。</code></pre>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="2020/05/24/Learning_in_first_year/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="images/avatar.gif">
+      <meta itemprop="name" content="Yansen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Animal genetic">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="2020/05/24/Learning_in_first_year/" target="_blank" rel="noopener" class="post-title-link" itemprop="url">Learning in first year of PhD project</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+              
+
+              <time title="أُنشأ: 2020-05-24 09:52:26 / عُدل: 10:42:53" itemprop="dateCreated datePublished" datetime="2020-05-24T09:52:26+02:00">2020-05-24</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>The first project(NUE AND NL)<br>Clement suggested: predictions for NUE and NL were only used when the global H (GH), which is the standardized Mahalanobis distance between the prediction MIR record and the calibration data sets, were below or equal to 3.<br>Nicolas suggested:<br>        1 the selection of calving age for each parity.<br>        2 It is necessary to consider its internal environmental effects when synthesizing multiple parity data into a class of data(for parity3+ group).<br>        3 using Blanchard’s algorithm analyzing the approximate genetic correlation(base the EBV and its relability)<br>        4 the error results should be added to each evaluation parameter, and the approximate genetic correlation should be tested for significance. This makes the results more consistent with statistics.</p>
+<p>Learning by myself:<br>        1 对不同参数SE的计算 如： 遗传力1 OPTION se_covar_function h1 G_8_8_1_1/(G_8_8_1_1+G_7_7_1_1+R_1_1)   :<a href="http://nce.ads.uga.edu/wiki/doku.php?id=readme.blupf90new&amp;s[]=option&amp;s[]=sol&amp;s[]=se" target="_blank" rel="noopener">http://nce.ads.uga.edu/wiki/doku.php?id=readme.blupf90new&amp;s[]=option&amp;s[]=sol&amp;s[]=se</a><br>        2 加入新参数   OPTION use_yams（提速）   OPTION sol se（求到SE）    Rel = 1 - SE2 / varA<br>        3 OPTION residual 可以画出EBV的residual随DIM的分布，查看是否需要设置residual在DIM不同段不同</p>
+<p>The second project(MU)<br>Nicolas suggested:<br>        1 Herd x test day to be classified too much as a fixed effect. So he gave a suggestion to randomly extract MU data from herd to solve this problem<br>        2 When using a random regression model to analyze the genetic parameters of MU, the heritability of MU increased abnormally after 305 DIM. He suggested adding Herd x Year of calving as a random factor in the model to help modify the model.<br>        3<br>Rodrigo:<br>        1 BLUP90IOD2 program suitable for big data (million) analysis (观察值为连续变量)<br>        2 recommends the algorithm of Croquet et al. (2006) as implemented in the BLUP90IOD2 program (adopted), 每一次只能计算一头</p>
+<p>Learning by myself:<br>        重点关注LP加入模型后，对遗传力与育种值的计算需要将系数加入</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="2020/05/23/MME/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="images/avatar.gif">
+      <meta itemprop="name" content="Yansen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Animal genetic">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="2020/05/23/MME/" target="_blank" rel="noopener" class="post-title-link" itemprop="url">2 - MME - Mixed models</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+
+              <time title="أُنشأ: 2020-05-23 22:03:13" itemprop="dateCreated datePublished" datetime="2020-05-23T22:03:13+02:00">2020-05-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2020-05-25 11:02:58" itemprop="dateModified" datetime="2020-05-25T11:02:58+02:00">2020-05-25</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>这节从OLS和SI转向MME</p>
+<p>SI: 最小化预测Var(T-I)的误差方差<br>OLS： 最小误差方差，最终由观测值（残差）的方差加权<br>GLS： 最小化权重误差方差（最小二乘）， 参考观测值之间的协方差<br>MME: mixed models, 同时最小化误差方差和random effectde 预测误差方差<br>BLUP是由SI演变而来</p>
+<p>Miexd model 是在康奈尔大学建立的， 主要由两个人建立： S.R. Searle and C.R. Henderson</p>
+<p>一般的矩阵方程： y = Xβ + Zu + e             （1）<br>y 为观测值vector（已知）； β 为fixed effects（未知）; u 为random effects（未知）; e为残差（未知）; X与Z 为关联y与β，u的矩阵（已知）</p>
+<p>需要求出的目标为： β, u, </p>
+<p>eg: X = [1 0 24<br>         0 1 34<br>         1 0 23<br>         1 0 27]     前2列为2个牛场，第3列是regression on age</p>
+<pre><code>Z(animals w/o, with records) 
+Z = [1 0 0 0 0
+     0 1 0 0 0
+     0 0 1 0 0
+     0 0 0 1 0
+     0 0 0 0 0]   这表明5个动物，且4个动物均只有1个观察值，最后一个动物没有观察值， 应该是按列放置</code></pre><p>Mixed model equations(MME)</p>
+<p>[X’R-1X  X’R-1Z      [β    [X’R-1y<br> Z’R-1X  Z’R-1Z+G-1]  u] =  Z’R-1y]             (2)<br>或者简写  Cs = r<br>其主要已知(co)variances： Var(e) = R(残差的方差-协方差矩阵), Var(u) = G((co)variances among random effects ), Var(y) = ZGZ’ + R ((co)variances among observations)<br>故在实际分析中，必须需要先估计以上所有的(co)variances.<br>估计(co)variances<br>    现行主流的一些算法：<br>        1 REML（DF-, EM-, AI-..  都是基于Maximum Likelihood）<br>        2 MCMC(“Gibbs Sampling”)<br>        3 Others as Method R(基于BLUP properties) （个人没使用过）<br>    variance components estimation(VCF) methods on their own =&gt; special class<br>上述3种的主流算法以后再详细介绍</p>
+<p>回归正题，接着解y = Xβ + Zu + e ， 其也可关联OLS： y = Wb +e<br>在OLS中： W‘Wb = W’y<br>OLS解MME： [X’X  X’Z   [ β          [X’y<br>          Z’X   Z’Z]   u]    =     Z’y]<br>这样 u = (Z’Z)-1Z’(y-Xβ) （3） 矩阵解算上式得到， 调整后的y的简单“平均值”，<br>    没有考虑u与y的协方差</p>
+<p>而使用SI解MME： u = Cov(u,y)(Var(y))-1(y - Xβ)   (4)<br>          这里的β是由OLS估计得到</p>
+<p>需要比较OLS与SI解出的u， 比较（3）与（4）可以看到，  是需要比较(Z’Z)-1Z’ 与Cov(u,y)(Var(y))-1<br>Cov(u,y) = GZ’ = AZ’(σg)2 ; Var(y) = V = ZAZ’(σg)2 + I (σe)2<br>代入，所以SI的 u = AZ’（ZAZ’ + Iλ）-1(y - Xβ), 其中λ= (σe)2/(σg)2 = (1-h2)/h2, A为系谱关系矩阵， 在sir model中λ= (4-h2)/h2. sir 传给后代的1/2</p>
+<p>当所有个体无关时， A=I<br>SI的u = Z’(ZZ’+Iλ）-1(y - Xβ), 其中λ= (σe)2/(σg)2 = (1-h2)/h2,</p>
+<p>当为sir model时，<br>Var(y) = (ZZ’ + Iλ)(σs)2 , 其中λ = （4 - h2） / h2</p>
+<p>Cov(u,y)(Var(y))-1  = Z’(σs)2((ZZ’+Iλ)(σs)2 )-1<br>                    = Z’((ZZ’+Iλ)-1)      其中λ = （4 - h2） / h2<br>                    = (Z’Z)-1Z’ + (Iλ)-1Z’<br>                    = (Z’Z)-1Z’ +   [(Ps)h2/(4+(Ps-1)h2)            0<br>                       OLS的平均值         0                (Pt)h2/(4+(Pt-1)h2) ]<br>                                            SI系数，与sir的女儿数有关，  Ps和Pt指的是两个sir的女儿数</p>
+<p>a = 2u 即真正育种是解的2倍</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="2020/05/20/OLSandSI/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="images/avatar.gif">
+      <meta itemprop="name" content="Yansen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Animal genetic">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="2020/05/20/OLSandSI/" target="_blank" rel="noopener" class="post-title-link" itemprop="url">1 - OLS and SI</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+
+              <time title="أُنشأ: 2020-05-20 22:28:23" itemprop="dateCreated datePublished" datetime="2020-05-20T22:28:23+02:00">2020-05-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2020-05-25 20:46:55" itemprop="dateModified" datetime="2020-05-25T20:46:55+02:00">2020-05-25</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>前言： 对自己上半年的一个遗传课程“Genetics, Genomics and (Bio)diversity”整理，其是Liege university 的Nicolas Gengler主讲<br>课程都是由Octave语言，完成练习。<br>多使用矩阵计算，需要相关基础知识：<br>如：Kronecker product; Cholsky分解； Cannoical分解； 广义逆，</p>
+<p>###############first part OLS<br>简单的线性回归模型：<br>y = b1 + b2*x<br>b1为截距，b2为斜率</p>
+<p>矩阵写法： y = Wb + e    （1）</p>
+<p>求解时： 我们需要使e最小<br>此方法被称为： Least squares<br>使 e1，e2，..，en 的各元素平方和最小</p>
+<p>设f(b) = e1，e2，..，en 的各元素平方和  (2)<br>(2) 也可以写成矩阵格式， 即f(b) = e’e</p>
+<p>（1）中的误差估计为：<br>e = y - Wb</p>
+<p>所以f(b) = e’e = (y - Wb)’(y - Wb) = (y’ - b’W’)(y - Wb) = y’y - y’Wb - b’W’y + b’W’Wb = y’y - 2b’W’y + b’W’Wb  (3)</p>
+<p>求其f（b）最小， 可以对其求1阶导数 = 0<br>∂f(b)/∂b = 0   (4)</p>
+<p>这里需要知道矩阵求导的算法：<br>    ∂（a’x）/∂x = ∂(x’a)/∂x = a<br>    If a is symetric: ∂(x’Ax’)/∂x = 2Ax</p>
+<p>所以将（3）式带入（4）式： ∂f(b)/∂(b) = 0 = ∂(y’y)/∂(b) - ∂(2b’W’y)/∂(b) + ∂(b’W’Wb)/∂(b)<br>                              0 =  0 - 2W’y + 2W’Wb<br>                        普通最小二乘法（Ordinary Least Squares OLS）: W’y = W’Wb<br>                                                                   b = (W’W)-1 W’y (注意其中W‘W必须可逆,诺没有，则需要广义逆，这样会造成没有唯一解 )</p>
+<pre><code>矩阵形式的OLS： y = Wb + e
+   (W&apos;W)b = (W&apos;)y       
+   LHS  解   RHS
+ 即：solutions(解) = （LHS）-1 (RHS)   (5)
+        其中W称为Incidence Matrix</code></pre><p>当e1，e2.。。方差不相等时， 会出现R-1 权重残差<br>f(b)= e’R-1e = (y - Wb)’R-1(y - Wb)               …… 与（3）式比较<br>W’R-1Wb = W’R-1y     如果具有相同的权重，则会变成原来的式子。<br>                     不同时： R = var(e)</p>
+<p>注意OLS的前提假设： E（y） = Wb;   y的方差都相同；  观测值之间不相关（No covariances）</p>
+<p>如y的方差不相同；  观测值之间相关（have covariances） , 则需要引入广义线性模型（Generalized Least Squares GLS）</p>
+<p>################################second part Selection index(SI)<br>先假设加性育种值（y）对表型（x)对进行回归<br>表型为正太分布<br>则y = E(y) + x  (6)</p>
+<p>实际中，我们是知道表型，但是不知道加性育种值（a）<br>a = E(a|y)<br>a = E(a) + by + e （7）<br>用（6） 代替（7）中的y<br>a = E(a) + bE(y) + bx + e  (8)<br>因为：E(a) = -bE(y)<br>所以 a = bx + e<br>但是a我们是不知道的， 需要假设a已知<br>则： b = (x’x)-1 x’a<br>其中a代表真实加性育种值; x’x 则代谢表型的方差； x’a代表表型与加性育种值的协方差</p>
+<p>我们需要知道方差与协方差</p>
+<p>通过表型预测育种值： 对表型进行回归<br>需注意： 表型来自不同动物的观察值； 不同表型之间可能具有相关性,所以可以使用性状1选择性状2</p>
+<p>一般性的综合育种值：<br>T = w’a 其中w为经济权重，a为对应性状的真实育种值</p>
+<p>SI预测方程：<br>I = b’x， 其中b为选择指数系数， x为信息向量，包含所有T的预测信息</p>
+<p>得到b有三种方法：<br>1： 最小E（T-I）2<br>b = P-1c = P-1Cw = P-1Gw<br>2： 最大的I与T的相关 rTI<br>3： 最大化使用I选择的组的平均（汇总）遗传值</p>
+<p>准确性（accuracies）是可靠性（reliablities）的开方</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="2020/04/08/LIUNX中的seq命令/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="images/avatar.gif">
+      <meta itemprop="name" content="Yansen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Animal genetic">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="2020/04/08/LIUNX%E4%B8%AD%E7%9A%84seq%E5%91%BD%E4%BB%A4/" target="_blank" rel="noopener" class="post-title-link" itemprop="url">生成指定位数的连续数字</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+              
+
+              <time title="أُنشأ: 2020-04-08 16:45:58 / عُدل: 16:48:09" itemprop="dateCreated datePublished" datetime="2020-04-08T16:45:58+02:00">2020-04-08</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>有时候可能有这样的需要：用Shell生成类似0001这样的序列作为批次号，这里整理了一下个人的方法</p>
+<p>方法一：通过seq命令<br>seq命令可以生成从某个数字到递增到另一数字的序列。用法如下：</p>
+<h1 id="seq-–help"><a href="#seq-–help" target="_blank" rel="noopener" class="headerlink" title="seq –help"></a>seq –help</h1><p>Usage: seq [选项]　　尾数<br>  or:  seq [选项]　　首数 尾数<br>  or:  seq [选项]　　首数 增量值　尾数<br>Print numbers from FIRST to LAST, in steps of INCREMENT.<br>选项参数如下：</p>
+<p>  -f, –format=格式      use printf style floating-point FORMAT<br>  -s, –separator=字符串   用指定的字符串分割各序列值，默认分隔符为\n<br>  -w, –equal-width        使各序列值位数宽度相等，位数不够的在前面用0补齐<br>示例1：指定序列格式</p>
+<p>复制代码<br>[root@bogon ~]# seq -f ‘%g’ 2 6   ##没有使用-f指定格式时，默认格式时%g，可以认为%g没有指定任何格式<br>2<br>3<br>4<br>5<br>6<br>[root@bogon ~]# seq -f ‘%3g’ 7 2 12  ##-f ‘%3g’ 可以直接指定序列的宽度(3位数)，这里不足的部分用空格补齐<br>  7<br>  9<br> 11<br>[root@bogon ~]# seq -f ‘%03g’ 7 2 12 ##-f ‘%03g’ 可以指定序列宽度（3位数），不足的部分用0补齐<br>007<br>009<br>011<br>[root@bogon ~]# seq -f ‘tmp_%g’ 7 2 12  ##%前面也可以根据需要添加字符串，生成具有自己想要的前缀的序列<br>tmp_7<br>tmp_9<br>tmp_11<br>复制代码<br>示例2：指定序列分隔符</p>
+<p>[root@bogon ~]# seq -s , 2 6<br>2,3,4,5,6<br>[root@bogon ~]# seq -s “<code>echo -e &quot;\t&quot;</code>“ 2 6<br>2    3    4    5    6<br>示例3：指定序列宽度，不足的位数用0补齐</p>
+<p>复制代码<br>[root@bogon ~]# seq -w 8 10   ##不设置步长<br>08<br>09<br>10<br>[root@bogon ~]# seq -w 1 3 10  ##设置步长<br>01<br>04<br>07<br>10<br>复制代码<br>注：-f 可以直接指定序列的宽度，-w是将序列中的最大值的宽度作为序列的宽度;</p>
+<p>　　-f 和 -w 参数不能一起使用;</p>
+<p>通过上面的例子可以发现，seq生成序列：简单，能方便的生成序列，且序列的增量步长、序列之间的分隔符都可控，对于同一脚本中生成多个序列号的需求十分有效。</p>
+<p>但是在实际中也有不足：若某个脚本要运行多次，若不做处理，批次号的初始值还是原来的初始值。这种情况下，个人的思路是通过已有文件的批次号的第一个非0字符后面的数字取出来，作为新的seq的起始值。</p>
+<p>示例示例如下：</p>
+<p>复制代码<br>##获取本次脚本第几次执行，以生成批次号<br>if [ ! -f ${SPOOL_DIR}”tmp_”${v_date}”<em>000001.log” ];then<br>  V_START_NO=1<br>else<br>  V_START_NO=`ls -l ${TEST_DIR} | grep  “tmp</em>“${v_date} | awk ‘{print substr($9,24,6)}’ | sort -n | tail -1 | sed ‘s/^0*//‘`<br>  V_START_NO=$((V_START_NO+1))<br>fi</p>
+<p>##每次操作一个文件<br>for v_batch_no in <code>seq -w ${V_START_NO} 100000 | head -1</code> ; do<br>  touch “tmp_”${v_batch_no}”.log”<br>done<br>复制代码<br>根据自己实际情况为准，这里的部分内容是自己改过的。</p>
+<p>方法二：直接根据已有文件名后缀获取<br>示例如下：</p>
+<p>复制代码<br>######生成批次号：6位数字，从000001开始，每次加1########<br>num=<code>ls -l ${TMP} | grep  TEST_${v_date} | awk &#39;{print substr($9,24,6)}&#39; | sort -n | tail -1 | sed &#39;s/^0*//&#39;</code><br>if [ ! -f ${TMP}”TEST_”${v_date}”_000001”.txt ];then<br>    v_batch_no=”000001”<br>else<br>  tmp_num=$((num+1))<br>  v_batch_no=<code>printf &quot;%06d\n&quot; ${tmp_num}</code><br>fi<br>复制代码<br> 方法三：for遍历指定的字符序列</p>
+<p>示例如下：</p>
+<p>[root@bogon tmp]# for i in {001..100};do echo $i;done<br>001<br>002<br>003(略)<br>这种方法也可以生成类似001这种序列号，但是比使用seq还是要差很多的。<br>转载来自：<br>本文原始地址：VNX - 博客园  <a href="http://www.cnblogs.com/chinas/p/7101887.html，" target="_blank" rel="noopener">http://www.cnblogs.com/chinas/p/7101887.html，</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="2020/04/08/Liunx-split/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="images/avatar.gif">
+      <meta itemprop="name" content="Yansen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Animal genetic">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="2020/04/08/Liunx-split/" target="_blank" rel="noopener" class="post-title-link" itemprop="url">Linux的split命令</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+              
+
+              <time title="أُنشأ: 2020-04-08 09:14:15 / عُدل: 09:22:36" itemprop="dateCreated datePublished" datetime="2020-04-08T09:14:15+02:00">2020-04-08</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>1简介<br>在Linux的coreutils中有一个工具split实现了这个功能，可以把一个大文件切割为多个小文件，甚至可以借助管道将流切成固定大小的文件，切割规则可以使用行数，也可以使用字节数。</p>
+<p>2、预备测试数据<br>先生成一个稍微大点的文件，接下来就切割这个文件：</p>
+<p>#! /bin/bash</p>
+<p>for((i=0;i&lt;1000000;i++));<br>do<br>    echo $i &gt;&gt; data<br>done<br>将上面这段保存为gen-data.sh，然后执行生成一个名为data有1000000行的文本文件。</p>
+<p>3、按行数分割<br>将data按照每10000行为一个文件切割：<br>split -l 10000 -d -a 4 gen-data_</p>
+<p>同样是可以使用按字节分割</p>
+<p>4、从标准输入读入<br>一般说的从标准输入读取实际的应用场景一般都是从管道中读入，所以可以假设一个场景，有一个程序随机的输出一些信息到标准输出， 现在想每100000行存为一个文件方便后续操作，如何做比较方便呢？</p>
+<p>一般情况下可能会使用一些脚本语言做这个每n行切换一个文件的操作，但这种屁大点事就要引入一个python或ruby之类的真是浪费，使用split一行就可以搞定。</p>
+<p>将前面的gen-data.sh复制为gen-data-to-stdout.sh改为直接输出到标准输出：</p>
+<p>#! /bin/bash</p>
+<p>while true<br>do<br>    echo $i<br>done<br>现在有了一个会不断输出信息的程序，接下来使用split实现每n行输出一个新文件的功能：<br>./gen-data-to-stdout.sh | split -l 100000 -d -a 10 - foo-stdout-</p>
+<p>上面是一个对管道流按照行数分割的例子，接下来看一个对管道流按照字节数分割的例子，对tar打包后的文件按照2g为单位进行分割：<br>tar zcvf - foo-stdout-* | split -b 2G -d -a 3 - foo-stdout.tar.gz.</p>
+<p>5、思考：为什么分割为的小文件需要前缀呢？<br>默认情况下分割后的小文件放在当前文件夹下，不会自动创建新的文件夹来存放它们（想一想创建文件夹的目的是什么呢），前缀的目的就是为了提供一种方式能够方便的找到分割后的小文件以对其进行批量操作，比如对data文件进行分割操作，分割为了data-part-000、data-part-001、data-part-002、data-part-003 …等一千个小文件，那么可以使用前缀data-part-*对这一千个小文件进行批量操作，即使当前目录下还有完全无关的千八百个其它文件也对这个操作不影响，只要前缀不冲突就行。如果没有前缀的话分割后的这一千个小文件就跟其它的文件混在一起了，要批量操作它们很困难。</p>
+<p>总结：对分割为的小文件加相同的前缀是为了方便找到它们，实际上可以将前缀看做是一个组名称，使用组前缀将这些小文件打成一组。</p>
+<p>6、总结<br>使用split可以将一个大文件分割为多个小文件，分割方式可以使用字节或行数，也可以从管道中读入数据流对数据流按照行数或字节数分割。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="page/2/" target="_blank" rel="noopener">2</a><a class="page-number" href="page/3/" target="_blank" rel="noopener">3</a><a class="extend next" rel="next noopener" href="page/2/" target="_blank"><i class="fa fa-angle-right" aria-label="الصفحة التالية"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Yansen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/" target="_blank" rel="noopener">
+        
+          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="tags/" target="_blank" rel="noopener">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">الوسوم</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yansen</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="lib/anime.min.js"></script>
+  <script src="lib/velocity/velocity.min.js"></script>
+  <script src="lib/velocity/velocity.ui.min.js"></script>
+
+<script src="js/utils.js"></script>
+
+<script src="js/motion.js"></script>
+
+
+<script src="js/schemes/muse.js"></script>
+
+
+<script src="js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
