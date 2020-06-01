@@ -1,0 +1,124 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="Yansen"><meta name="renderer" content="webkit"><meta name="copyright" content="Yansen"><meta name="keywords" content="Animal genetic"><meta name="description" content=""><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>1 - Lnear-Ridge_Lasso_Elastic Net model · Animal Genetic</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 4.2.0"></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="img/assets/cat.png"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">Animal Genetic</div><div class="profile-signature">LOVE</div><div class="friends"><div>FRIENDS</div><span><a href="//github.com/Yansen0515" target="_black">friendA</a></span><span><a href="//github.com/" target="_black">friendB</a></span><span><a href="//github.com/" target="_black">friendC</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/" target="_blank" rel="noopener">Yan&amp;Qing</a></div><div class="intro-nav-label-box"><a href="/" target="_blank" rel="noopener">Home</a><a href="/about/" target="_blank" rel="noopener">About</a><a href="/archives/" target="_blank" rel="noopener">Archives</a><a href="/tags/" target="_blank" rel="noopener">Tags</a><a href="/Categories/" target="_blank" rel="noopener">Categories</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/" target="_blank" rel="noopener">Home</a><a href="/about/" target="_blank" rel="noopener">About</a><a href="/archives/" target="_blank" rel="noopener">Archives</a><a href="/tags/" target="_blank" rel="noopener">Tags</a><a href="/Categories/" target="_blank" rel="noopener">Categories</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">1 - Lnear-Ridge_Lasso_Elastic Net model</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-edit"></i><span>2020-05-28 16:32:21</span></span><span class="post-intro-tags"><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="数据挖掘与机器学习"> 数据挖掘与机器学习</a></span></div><div class="post-intro-read"><span> Word count: <span class="post-count">2.2k</span> | Reading time: <span class="post-count">8</span>min</span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><p>主要目标是<br>    1： 回归，对某性状进行预测，      属于有监督学习<br>    2： 分类，将样本进行判别某一类     属于有监督学习<br>    3： clustering: 对整个数据依据一定规则分类，      属于无监督学习</p>
+<p>建立模型的一般步骤：<br>    原始数据 - 筛选出数据  -  预处理数据 -  初步建立模型 - 参数调整  - Cross验证  -  外部数据验证  -  最终使用模型（可能也需要随时间修改）</p>
+<p>得到原始数据时，<br>1 先需要对自己的数据进行查看：<br>    数据有两类：<br>        （1）定量（连续变量）<br>            查看其平均值，中位数，做个箱形图就行，其上下的横线表示的为q3+1.5（q3-q1）与q1-1.5(q3-q1)<br>            查看其方差，标准差， 变异系数(SD/mean)，四分位数差和幅度<br>            看数据的分布，不符合的可能需要使用log,sqar等转化</p>
+<pre><code>    （2）定性（不连续）
+        1）没有顺序排列，如有或无，
+        2）有一定顺序，eg 不及格，及格，良，优
+        需查看频率
+做个列联表，对数据分组表示
+都需要查看数据的来源有哪几种，与以前文献比较，看是否符合正常范围。</code></pre><p>2 异常值：如果数据符合正太分布，不在平均值±3SD范围（覆盖99.6%数据）的数据，可能是异常值。  但对于一些极端值，我们需要查看，可以使用PCA结合一些距离进行查看。<br>    对于异常值，直接删去</p>
+<p>3 缺失值：有三个处理方法<br>        1 如果某一变量缺少的过多（15%样本以上）。可以考虑直接删去<br>        2 如果是一些缺少，可以使用平均值，众数，中位数等来代替。并且有多种算法可以来填充。<br>4 查看变量之间的共线性， 使用热图查看。 可能会删除相关性很高（如&gt;0.9）的变量</p>
+<p>5 Scaling<br>    各变量之间的平均值和方差可能不同。 如果不sacling，有的变量数值较大会导致占比不合理<br>        1 the range xi’ = (xi - xmin)/(xmax - xmin),  xi’会变成0-1之间的数据<br>        2 the standard deviation  xi’ = (xi - xmean)/σx, σx指的是变量x的SD。 这样数据会变成一个mean为0， SD为1的数据</p>
+<p>正题之前，也需要先介绍下linear regression<br>1 单变量线性回归（属于有监督学习）<br>     如： yi = a + bxi +ei,  其中a为截距， b为回归系数，ei为残差（y - yi）, 在求系数时， 要是ei2的和最小（最小二乘法）。<br>        求一阶导数=0，得到极值， 再求二阶导数， 看其是否为最小值。<br>        实践中，y = a + bx; b = cov(x,y)/(σx)2<br>        评价时，需要使用mean square error（MSE）, 即为1/n(sum(ei2))，但我们直接求(σy)2(1-r2), r为相关系数（correlation cofficient）的平方， r = cov(x, y)/(σx*σy),其取值在-1到1之间<br>        对于r=0，需要x,y可能存在非线性关系， 并且求出的r只是表示两者有相关，并不是因果关系<br>        r2代表变量x解释的y偏差平方和的比例， 该系数单位是y的偏差平方和的比例<br>        残差标准偏差（也称为均方根误差，RMSE）是残余方差[MSE]的平方根。 它以与变量y相同的单位表示。 取值范围 0 ≤ RMSE ≤ σy<br>            即当RMSE=σy时， x与y不相干， RMSE接近0时，两个变量相关性大, x越能解释y。<br>        可以执行F检验来确定参数a和b是否具有与0不同的显著差异。<br>2 多变量线性回归（属于有监督学习）<br>    y = Xβ + e, y为观察值向量（vector）， β为回归系数向量， X是将y与β关联的矩阵， e为残差向量。<br>        OLS的解： β = （X’X）-1X’y,<br>        一般来说，变量x越多，会使r2增大，RMSE减小， 这样可能造成过拟合。可以采用外部验证来测试模型</p>
+<pre><code>由于x可能过多，我们需要对其进行筛选
+These are Backward, Forward and Stepwise selections.
+简而言之，Backward selection首先考虑所有解释变量。 然后，迭代地将具有最大p值的变量从回归中一一删除。 当r²的增益变得太低或AIC（Akaike信息标准）增加时，此迭代过程将停止。 
+Forward选择通过在每个回合中采用允许最佳信息增益（例如，最高r²）的变量来逐一添加变量。 
+Stepwise selection法结合了上述两种方法。 变量被一个一个地添加，但超出了变量提供的信息范围，我们还在每一轮中检查先前添加的所有变量是否仍然有效（P值小于5或10％，取决于所需的阈值）。
+
+如果解释变量的数量很大，则Backward方法不可行。 Stepwise 是最有效的，但需要更长的计算时间。</code></pre><p>一般线性回归模型中，应注意这三点：<br>    1 y的数量一般需要大于或等于xi的数量<br>    2 其对极值非常敏感，需要提前查看<br>    3 xi之间需要独立，不能是共线性</p>
+<p>系数的数值估计<br>    y = β1x + e,<br>    当求β1时， 我们需要求MSE最小，因为这只有一个参数，会是一个“u”型图，我们需要找到期最小值，需要使用偏导数。<br>    y = β0 + β1x + e,<br>    直接求β0，β1时， 两个参数会组成三维图（β0，β1，β0：β1组合），我们需要使用偏导数去找出最佳组合值，系数估计的速度取决于使用的初始值（也称为先验，priors）和参数α定义的增量（称为学习率）。<br>    这个增量不能太大（可能导致不收敛），也不能太小（速度太慢）。所以发明一个算法gradient descent（梯度下降）。这个算法可以同时修改β0，β1，每个迭代，都会得到这两个值。下降的方向取决于偏导数。<br>    当改变的值极小时（需要设定），就认为收敛。  这个算法的一个优点是，当接近最优解时，偏导数会变小，所以变化会变小，不会出现跳过最优解。所以迭代中，不需要改变学习率α</p>
+<p>因为变量的取值往往都不同，但为加入参数估计速度，推荐进行以上的feature scaling（也称为标准化）步骤，使其变成-1 到1 或-0.5到0.5之间的值<br>    具有不同的标准化算法：<br>        1 xi直接都除以xmax，得到-1到1之间的值<br>        2 xi-xmean/(h), h可以是SD（其会变成mean为0，SD的1的数据分布）， 或者是max, 或者是range(xmax-xmin,可能更适合FT-MIR)，</p>
+<p>现在开始讲Penalized regressions(惩罚回归)<br>    过度使用预测变量可能会导致模型过拟合的问题， 所有我们在cost function上引入一个惩罚系数，来实现使用小的变量数，得到较优的解。<br>    1 Ridge regression（ L2 正则化）<br>     其是在cost function上加了一个惩罚系数， cost function_Ridge = sum(yi - β1x1 - … - βqxq)2 + λsum(βj)2, 其λ为正则化参数。<br>     在预测变量的数量方面，使用这种惩罚性成本函数将倾向于给出一个更受限制的模型，从而降低了过度调整的风险。 它在校准集上的性能可能会较低，但在验证集上的性能应高于常规线性回归所观察到的性能。 换句话说，Ridge回归允许更好的一般性。<br>    2 Lasso regression(L1 正则化)<br>     cost function_Lasso = sum(yi - β1x1 - … - βqxq)2 + λsum|βj|, 其λ为正则化参数,取了系数的绝对值和。<br>     使用L1调节的结果是系数将严格等于0，这意味着该算法将完全排除预测变量。 因此，它是自动变量选择的一种形式。 这将提供一个易于解释的模型，并轻松揭示最具影响的预测因素。<br>     但是，如果两个变量相关，则算法将仅选择一个，可能导致错误解释的变量。<br>如果预期模型具有许多低到中等的影响，则首选Ridge回归。 如果我们有一些预测变量影响中等到强，我们将倾向于Lasso回归。<br>    3 两者的组合为 Elastic Net regression<br>    cost function_ElasticNet = sum(yi - β1x1 - … - βqxq)2 + λ2sum(βj)2+ λ1sum|βj|</p>
+<p>最后，还要创建新的变量<br>    如在Polynomial regression(在RRM模型中有用到)，可以描述更复杂的曲线，再使用时，一定要进行标准化。</p>
+<p>在R中， Glmnet package可以实现以上算法</p>
+</article><!-- lincense--><div class="license-wrapper"><p> <span>Author:  </span><a href="Yansen0515.github.io.git" target="_blank" rel="noopener">Yansen</a></p><p> <span>Link:  </span><a href="2020/05/27/Ridge_Lasso/" target="_blank" rel="noopener">2020/05/27/Ridge_Lasso/</a></p><p> <span>Copyright:  </span><span>All articles in this blog are licensed under <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/3.0" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.</span></p></div><div class="post-paginator"><a class="nextSlogan" href="2020/05/26/US签证/" target="_blank" rel="noopener" title="中国人在比利时申请美国签证"><span>NextPost ></span><br><span class="nextTitle">中国人在比利时申请美国签证</span></a><div class="clear"></div></div><div id="comment"></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo" target="_blank" rel="noopener"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><div class="toc-wrapper" style="top: 70vh;"><div class="toc-catalog"><i class="fa fa-list"> </i><span>CATALOG</span></div></div><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
