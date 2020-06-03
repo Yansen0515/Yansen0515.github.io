@@ -1,0 +1,166 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="Yansen"><meta name="renderer" content="webkit"><meta name="copyright" content="Yansen"><meta name="keywords" content="Animal genetic"><meta name="description" content=""><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>2 - PCR and PLS · Animal Genetic</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 4.2.0"></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="img/assets/cat.png"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">Animal Genetic</div><div class="profile-signature">LOVE</div><div class="friends"><div>FRIENDS</div><span><a href="//github.com/Yansen0515" target="_black">friendA</a></span><span><a href="//github.com/" target="_black">friendB</a></span><span><a href="//github.com/" target="_black">friendC</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/" target="_blank" rel="noopener">Yan&amp;Qing</a></div><div class="intro-nav-label-box"><a href="/" target="_blank" rel="noopener">Home</a><a href="/about/" target="_blank" rel="noopener">About</a><a href="/archives/" target="_blank" rel="noopener">Archives</a><a href="/tags/" target="_blank" rel="noopener">Tags</a><a href="/Categories/" target="_blank" rel="noopener">Categories</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/" target="_blank" rel="noopener">Home</a><a href="/about/" target="_blank" rel="noopener">About</a><a href="/archives/" target="_blank" rel="noopener">Archives</a><a href="/tags/" target="_blank" rel="noopener">Tags</a><a href="/Categories/" target="_blank" rel="noopener">Categories</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">2 - PCR and PLS</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-edit"></i><span>2020-06-03 20:13:57</span></span><span class="post-intro-tags"><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="数据挖掘与机器学习"> 数据挖掘与机器学习</a></span></div><div class="post-intro-read"><span> Word count: <span class="post-count">1.8k</span> | Reading time: <span class="post-count">7</span>min</span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><p>在1 Ridge and Lasso regression 中对lambda的最优选择， 是需要进行验证的，才能得出。<br>所以一般随机将所有数据分为两个数据集， 建模集（建议2/3）和验证集（建立1/3），两者最好独立。<br>                                                特别是对于重复数据划分上时，不要将一个个体的重复值分到两个数据集中，和最好不要只使用一个外部验证集（其可能不能代表群体）<br>                                                当总数据集不大时，可采用cross-validation(使用较多), Jacknife or boostrap。<br>                                                    cross-validation: 有两种<br>                                                                            1） leave-one-out<br>                                                                            2) K-fold cross-validation(一般k=10或5)<br>                                                                        其一般用于找出最优参数</p>
+<pre><code>                    数据集的大小： 不同的数据需要测试数据量，目的要使建模集和验证集得到的误差都较小，是一个平衡的过程。都有的数据也可能没有。
+    验证集：
+        1） 独立集评价建立的模型
+        2） 避免过建立模型的过拟合
+        3） 可以使用不同计算测量的参考值
+
+R2v = 1 - sum（yi - yp)2/sum(yi-ym)2,  其中yi为实际观察值， yp为预测值， ym为平均值    </code></pre><p>1 Principal component regression(PCR)<br>    PCR允许y的数量小于X的变量数，并且X中的变量可以是共线性。 PCR是结合linear mregression and PCA得到。<br>        PCR的计算大体思路是: 1） 先使用PCA对X的变量，进行降维， 生产PCs（PC1能最大代表X， PC2….）<br>                            包含系数的向量称为：特征向量；     包含每个主成分计算的方差向量为： 特征值向量。<br>                            PCs之间没有相关，为正交， 所以其就可以应用于常规线性模型中了。<br>                            PCs的数量需要选择，这里需要使用上述的交叉验证来选出最优PCs数<br>                         2）  y = Xpcaβ + e; Xpca为X做PCA分析的主成分<br>                         3） 当求出β时，需要使用特征向量按比例转换为原始数据系数</p>
+<pre><code>优点： 1） 解决X之间的共线性问题
+     2） 可以使y数量小于X的变量数
+缺点： 需要使PCs的选择，会是X丢失一定数据信息，</code></pre><p>2 Partial least squares regression(PLSR)<br>    PLSR与PCR相似，但不同在于PLS需要最大化解释X的方差（PCA原理）和最大化解释Y的方差（回归原理）。 降维时需要同时考虑X与Y， 即寻找max-cov(T, y), T为X的降维后数据。<br>        PLSR中降维的成分称为Latent variable(LV，潜在变量)。 大量应用于化学计量学领域。<br>        由Wold et al. 在1983年提成的“Non linear lterative Partial Least Square”(NIPALS)算法实现。<br>        先PLSR分为两类<br>            PLSR1：y只有一个变量<br>            PLSR2：y具有对个变量</p>
+<pre><code>NIPALS算法实现（PLSR1为例）
+1) 先对X与y都标准化（xi-mean(x)）/SD
+2) 先求第一个LV
+    求每个变量x与y的相关性R， 再行T中求出各个变量对y的贡献W。 则第一个LV: t1 = w11x1 + w21x2 + ... + wp1xp.
+    再使用OLS 求y与t1的回归解， 同样也使用OLS求x与t1的回归解。 这样这两个公式都含有t1，可以合并成一个，需要迭代求出，求出一个回归解β。
+3） 求第二LV， 但这次需要使用求第一个LV方程的误差来做为新的y’。再次重复步骤1）与2)，直到自己设定的LV数.
+
+
+求解后，需要返回系数：
+    R = W（βxs&apos;W）-1,   W为xs对y的贡献， βxs为x的loading
+    B = Rβy&apos;，        βy为y的loading, B为x的回归系数（标准化后的）
+    ys =X sB
+    y = (ys*σy)+ ym
+
+
+LV数，
+    1） 需要交叉验证来确定。综合建模集得到的最大R2和最小RMSE，与交叉验证集得到的最小RMSEP。
+    2） Q2统计， Qh2 = 1 - PRESSh/RSSh-1,   PRESSh是残差平方和， RSSh-1为(yi-yh-1)平方和，即是前h-1模型的残差平方和。
+        Q2大于0.0975（1-0.95^2）， LV需要留下。
+
+
+异常值的确定：求T2值，由H组分(LVs)计算， T2 = (n/(n-1))*sum(t2/s2), s2是t成分的方差。
+    统计信息来检测非典型点： (n(n-H))*T2/H(n2-1). 统计检验来自Fisher-Snedecor 在H与n-H的自由度。 
+                    T2≥H(n2-1)*F0.95(H,n-H)/(n(n-H))
+
+    因为残差必须符合随机分布，所以也可以使用：mean±3SD来发现。
+
+LV的的预测和解释能力
+    LV的预测能力由决定系数（R）与RMSE估计
+    在PCA中，变量和主成分之间的相关性与主成分的构造中变量的系数成正比，因此简化了主成分的解释。
+    而在PLSR中，单变量解释，即每个LV和初始变量之间的关系，计算变量X和y与分量t之间的相关性。但是
+    因为这里是多变量解释，第一个LV为每个原始变量的组合而成， 而从第二个LV开始，都不直接与原始变量有关（改为残差）。
+    多变量解释基于系数w，允许从变量x和y构造分量t。 权重w 反映了每个变量x在t的构造中的重要性。
+
+Prediction potentiality（不知道怎么翻译好....， 暂时称为预测潜力）
+    提高预测潜力，就需要预测的观测值的解释变量包括在用于构建模型（校准集）的解释变量的可变性中。
+
+    这可以通过计算校准集解释变量的重心与要预测的观测值之间的距离来完成。 由于可以将解释变量合并在一起，
+    因此首先进行PCA以减小X矩阵的维数，再计算马氏距离： mahalanobis()函数可计算
+                                        D = sqrt((xpca - upca)&apos;S&apos;(xpca - upca)), 其中xpca为观察值i的PCs向量，S为X矩阵降维后PCs的方差-协方差矩阵， 
+                                                                                upca为包含每个LVs均值的向量 
+                                        所以这样，D的变化依靠LVs的取值(实际取前nLVs的解释综合超过99%)，故可以将其标准化，用D/LVs,  称为Global H(GH)距离。
+                                如果GH小于3， 可以认为要预测观测值的解释变量包含在用于构建模型的解释变量的可变性中。 因此可以进行预测。 
+                                如果GH大于5，则将样品视为相对于校准集的异常值。 这可能意味着要预测的样本的解释变量确定不佳，或者校准集的可变性仍然不足，
+                                因此必须努力增加用于构建预测模型的校准集的可变性
+
+Penalized PLSR
+    因为过多的LVs会降低模型的泛化性（robustness）， 在NIPALS算法实现（2）中使用了OLS求解，可以再次加入惩罚系数，这样就称为Penalized PLS
+
+模型的评价： R2， RMSE, RPD=SD/RMSEP（应该大于2）
+优点：
+    1）： 能用于X具有大量共线性变量中    
+    2）： 可以使y数量小于X的变量数   
+    3）： 不需要要求逆（？表示怀疑）， 可以用于大数据分析中</code></pre><p>在R中以“pls”包的plsr（）函数可以实现PLSR算法， PCR为pcr()函数<br>        RMSE = sqrt(MSE)<br>    library(“pls”)<br>    PCRreg &lt;- pcr(y~x, scale=T, center=T, validation=”CV”)#可选出最佳成分数， validation也可选为“LOO”<br>    summary(PCRreg)<br>    R2(PCRreg, “all”)<br>    RMSEP(PCRreg)<br>    PCRreg$coefficients</p>
+<pre><code>PLS类似</code></pre><p>在使用光谱建模时，需要注意：<br>    对奶牛感兴趣的y进行多方面分析：品种， 泌乳阶段， 胎次， 饲喂饲料及方式</p>
+</article><!-- lincense--><div class="license-wrapper"><p> <span>Author:  </span><a href="Yansen0515.github.io.git" target="_blank" rel="noopener">Yansen</a></p><p> <span>Link:  </span><a href="2020/06/01/PLS/" target="_blank" rel="noopener">2020/06/01/PLS/</a></p><p> <span>Copyright:  </span><span>All articles in this blog are licensed under <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/3.0" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.</span></p></div><div class="post-paginator"><a class="nextSlogan" href="2020/05/27/Ridge_Lasso/" target="_blank" rel="noopener" title="1 - Lnear-Ridge_Lasso_Elastic Net model"><span>NextPost ></span><br><span class="nextTitle">1 - Lnear-Ridge_Lasso_Elastic Net model</span></a><div class="clear"></div></div><div id="comment"></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo" target="_blank" rel="noopener"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><div class="toc-wrapper" style="top: 70vh;"><div class="toc-catalog"><i class="fa fa-list"> </i><span>CATALOG</span></div></div><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
