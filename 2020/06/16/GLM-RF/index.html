@@ -1,0 +1,181 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="Yansen"><meta name="renderer" content="webkit"><meta name="copyright" content="Yansen"><meta name="keywords" content="Animal genetic"><meta name="description" content=""><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>3 - GLM and Random forest · Animal Genetic</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 4.2.0"></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="img/assets/cat.png"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">Animal Genetic</div><div class="profile-signature">LOVE</div><div class="friends"><div>FRIENDS</div><span><a href="//github.com/Yansen0515" target="_black">friendA</a></span><span><a href="//github.com/" target="_black">friendB</a></span><span><a href="//github.com/" target="_black">friendC</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/" target="_blank" rel="noopener">Yan&amp;Qing</a></div><div class="intro-nav-label-box"><a href="/" target="_blank" rel="noopener">Home</a><a href="/about/" target="_blank" rel="noopener">About</a><a href="/archives/" target="_blank" rel="noopener">Archives</a><a href="/tags/" target="_blank" rel="noopener">Tags</a><a href="/Categories/" target="_blank" rel="noopener">Categories</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/" target="_blank" rel="noopener">Home</a><a href="/about/" target="_blank" rel="noopener">About</a><a href="/archives/" target="_blank" rel="noopener">Archives</a><a href="/tags/" target="_blank" rel="noopener">Tags</a><a href="/Categories/" target="_blank" rel="noopener">Categories</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">3 - GLM and Random forest</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-edit"></i><span>2020-06-17 15:47:14</span></span><span class="post-intro-tags"><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="数据挖掘与机器学习"> 数据挖掘与机器学习</a></span></div><div class="post-intro-read"><span> Word count: <span class="post-count">5.5k</span> | Reading time: <span class="post-count">21</span>min</span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><p>######以下都是基于R的练习</p>
+<h3 id="一-GLM"><a href="#一-GLM" target="_blank" rel="noopener" class="headerlink" title="一 GLM"></a>一 GLM</h3><p>一般线性回归与方差分析都是在数据符合正太分布的前提假设下进行的。<br>广义线性模型则拓展了这个概念，数据可以符合其他一些分布，如泊松分布和二项分布等</p>
+<p>一般线性模型：<br>mod1 &lt;- lm(y ~ x1 + x2 + …+xn, data)<br>广义线性模型：<br>mod2 &lt;- glm(y ~ x1 + x2 + …+xn, data, family=distribution(link=”fonction”))</p>
+<p>summary(mod1)<br>summary(mod2)</p>
+<p>##对某个数据集练习</p>
+<p>1 #读入数据<br>cyper &lt;- read.table(“cypermethrin.dat”, header=TRUE, sep=”\t”)<br>cyper<br>#创建与性别相关的颜色向量<br>col.sex &lt;- rainbow(length(levels(cyper$sex)))[as.numeric(cyper$sex)]  </p>
+<h1 id="计算被杀率"><a href="#计算被杀率" target="_blank" rel="noopener" class="headerlink" title="计算被杀率"></a>计算被杀率</h1><p>deathrate &lt;- with(cyper, numdead/(numdead+numalive))<br>#画图<br>plot(cyper$dose, deathrate, col=col.sex)</p>
+<p>#调整基本二项式模型<br>#先为空模型<br>cyper.glm0 &lt;- glm(cbind(numdead, numalive)<del>1, data=cyper, family=binomial)<br>#查看剂量的相应<br>cyper.glm1 &lt;- glm(cbind(numdead, numalive)</del>dose, data=cyper, family=binomial)<br>#可以通过将包含该因子的模型与零模型进行比较来检查剂量因子的显着性。<br>#这两个模型是嵌套的，因为其中一个模型（空模型）由另一个模型（独立项）的因子子集组成。 这两个模型的比较测试了嵌套模型中未包括的因素（剂量因素）的重要性。</p>
+<h1 id="必须为嵌套模型，才能进行卡方检验比较"><a href="#必须为嵌套模型，才能进行卡方检验比较" target="_blank" rel="noopener" class="headerlink" title="必须为嵌套模型，才能进行卡方检验比较"></a>必须为嵌套模型，才能进行卡方检验比较</h1><p>annova(cyper.glm0, cyper.glm1, test=”Chisq”)</p>
+<p>所执行的测试基于两个模型之间的残余偏差之间的差异，因此可归因于剂量系数的影响。 当考虑到模型的应用条件时，该测试的值遵循卡方分布。</p>
+<p>要检查拟合的整体质量，我们可以基于模型的剩余偏差执行拟合测试。<br>如果遵守应用条件并正确调整了模型，则残余偏差也会遵循卡方分布。 一个简单的显着性检验可以验证该假设，其无效假设是模型的正确拟合，并且其p值可以通过以下函数计算：<br>pchisq(deviance(cyper.glm1), cyper.glm1$df.resid, lower=FALSE)<br>2 ##模型诊断<br>plot()将提供4张图：<br>    •根据模型的预测值的残差（偏差）；                     第一张图检查残差的独立性。 如果正确调整了模型，则残差在整个域中必须为零均值。 如果出现除以零为中心的水平线以外的其他趋势，则表明该模型拟合不良（缺少因子或公式不正确）。<br>    •亨利的偏差残差线；                           第二个提供有关偏差残差的正态性的信息，如果响应有效地是二项式的，则可以预期。<br>    •残差（偏差）的绝对值的平方根作为模型预测值的函数；    第三个允许检查沿预测值轴的色散的相等性（我们期望沿x轴近似相等的值）。<br>    •影响值图表。                                 最后一个可以识别可能的极端和/或有影响力的数据。 首先，必须特别注意Cook距离超过1（因此超出此阈值在图形上绘制的限制）的观测值。</p>
+<p>plot(cyper.glm1)<br>#将变量改为因子形式， 再与连续型比较<br>cyper.glm2 &lt;- glm(cbind(numdead, numalive)~as.factor(dose), data=cyper, family=binomial)<br>anova(cyper.glm1, cyper.glm2, test=”Chisq”)</p>
+<p>3 #当拟合问题源于对因变量的正确指定时，可以通过线性化响应来探索预测响应和变量之间关系的性质，<br>    其方程为：<br>    z = n + （y - μ）<em>dn/dμ<br>#预期的反应<br>mu &lt;- predict(cyper.glm1, type=”response”)<br>#线性预测器<br>z &lt;- predict(cyper.glm1, type=”link”)+(deathrate-mu)/(mu</em>(1-mu))<br>#剂量与线性预测变量之间的关系<br>plot(z~dose, data=cyper, xlab=”Dose”, ylab=”Réponse linéarisée”)</p>
+<p>如果预测变量正确，则关系必须具有线性外观。 如果没有，我们可以探索预测变量的各种变换，以尝试使这种关系线性化。<br>#剂量平方和线性预测变量之间的关系<br>plot(z~I(dose^2), data=cyper, xlab=”Dose^2”, ylab=”Réponse linéarisée”)</p>
+<h1 id="sqrt"><a href="#sqrt" target="_blank" rel="noopener" class="headerlink" title="sqrt"></a>sqrt</h1><p>plot(z~sqrt(dose), data=cyper, xlab=”Racine(Dose)”, ylab=”Réponse linéarisée”)</p>
+<h1 id="log"><a href="#log" target="_blank" rel="noopener" class="headerlink" title="log"></a>log</h1><p>plot(z~log(dose), data=cyper, xlab=”log(Dose)”, ylab=”Réponse linéarisée”)</p>
+<p>4 #模型改进<br>从上面的分析中，死亡率与剂量实际上是对数之间的关系，我们将从计算这个新的转换变量开始。 鉴于用于剂量的值的规模，使用2的幂，计算剂量的以2为底的对数并测试新模型似乎很自然。<br>我们可以使用线性形式的剂量将新模型与旧模型进行比较，但是无法执行显着性检验，因为这两个模型具有相同数量的剩余自由度。<br>另一方面，我们可以通过测试其新的残差并绘制诊断图来检查其调整是否适当。<br>ldose &lt;- log2(cyper$dose)<br>ldose</p>
+<p>cyper.glm3 &lt;- glm(cbind(numdead, numalive)~ldose, data=cyper, family=binomial)<br>anova(cyper.glm1, cyper.glm3) ##会看到，没有P值，这是不正确的做法<br>summary(cyper.glm3)<br>pchisq(deviance(cyper.glm3), cyper.glm3$df.resid, lower=FALSE)</p>
+<p>plot(cyper.glm3)</p>
+<p>#可以看到现在已经解决了指定剂量变量的问题，我们现在可以介绍并测试性别因素对个人死亡率的影响。<br>cyper.glm4 &lt;- glm(cbind(numdead, numalive)~ldose+sex, data=cyper, family=binomial)<br>anova(cyper.glm3, cyper.glm4, test=”Chisq”)</p>
+<p>#性别因子与log2因子（剂量）的相互作用<br>cyper.glm5 &lt;- glm(cbind(numdead, numalive)~ldose+sex+ldose:sex, data=cyper, family=binomial)<br>anova(cyper.glm4, cyper.glm5, test=”Chisq”)</p>
+<p>5 #模型的使用<br>一旦建立了令人满意的模型，我们就可以开始解释它，从图形上足够的表示开始，使我们可以比较观察到的数据和模型的预测。</p>
+<h1 id="男或女的模型预测，用于0至5之间的log2（剂量）值"><a href="#男或女的模型预测，用于0至5之间的log2（剂量）值" target="_blank" rel="noopener" class="headerlink" title="男或女的模型预测，用于0至5之间的log2（剂量）值"></a>男或女的模型预测，用于0至5之间的log2（剂量）值</h1><p>ypredM &lt;- predict(cyper.glm4, newdata=data.frame(ldose=(0:100)/20, sex=”M”),type=”response”)</p>
+<p>ypredF &lt;- predict(cyper.glm4, newdata=data.frame(ldose=(0:100)/20, sex=”F”),type=”response”)</p>
+<h1 id="观察数据的图形表示，添加预测曲线（男性：实线，女性：虚线）"><a href="#观察数据的图形表示，添加预测曲线（男性：实线，女性：虚线）" target="_blank" rel="noopener" class="headerlink" title="观察数据的图形表示，添加预测曲线（男性：实线，女性：虚线）"></a>观察数据的图形表示，添加预测曲线（男性：实线，女性：虚线）</h1><p>plot(ldose, deathrate, col=col.sex, ylim=c(0,1))<br>lines((0:100)/20, ypredM, lty=”solid”)<br>lines((0:100)/20, ypredF, lty=”dashed”)</p>
+<p>#关于LD50的估算，即消除50％数量所需的剂量，我们已经看到可以通过以下公式进行估算<br>summary(cyper.glm4)#找出所需要的系数<br>coef(cyper.glm4) ##需要看到缺少Female的系数，</p>
+<p>#显然不应忘记获得的值是以2为底的对数值计算的，因此必须将其转换以获得相应的总剂量。<br>#female<br>2^(-coef(cyper.glm4)[1]/coef(cyper.glm4)[2])<br>#DL50 male<br>2^(-(coef(cyper.glm4)[1]+coef(cyper.glm4)[3])/coef(cyper.glm4)[2])</p>
+<h3 id="二-随机森林"><a href="#二-随机森林" target="_blank" rel="noopener" class="headerlink" title="二 随机森林"></a>二 随机森林</h3><p>其由多个决策树组成，所以先看决策树<br>#1 决策树： 将观察值递归地划分为关于其数量分布越来越均匀的组<br>分类规则： 1 从根往叶子处分组<br>       2 将观察值分配给估计后验概率最高的群体</p>
+<pre><code>算法分为：
+    1 CART 
+        1） 二分法单变量选择
+        2） Homogeneity/splitting criteria : Entropy/Shannon’s Index or Gini’s index（同质性/分裂准则：熵/香农指数或基尼指数）
+        划分点的选择信息获得最大的点
+      Pros（优点）
+        （1） 能快速对一个大数据库进行划分
+        （2） 解释性好和可视化
+        （3） 划分规则简单，简单的逻辑
+      cons（缺点）
+        结果不稳定
+    所以将其进行了集合，生产随机森林算法</code></pre><p>#2 随机森林<br>CART树节点的选择对训练数据的变化很敏感。<br>随机森林不使用修剪树来消除这种不稳定性，而是通过使用装袋法和随机特征选择（bagging and random features selection）来构建多个树预测器（森林）来促进这种不稳定性，<br>这些预测器被合并以增加预测的robustness。<br>所以RF的结果是多个决策树投票的结果</p>
+<p>bagging = bootstrap aggregation(引导聚集算法，又称装袋算法)<br>    从大小为n的训练样本中，使用均等概率和替换生成大小为n-n1的B个样本（称为bootstrap samples）。 在每个样本上建立一个模型。 通过平均（回归）或投票（分类）来合并B模型的结果。<br>    这样有利于提高机器学习器结果的准确性和稳定性<br>    同样也减少方差与防止过拟合<br>特征选择（feature selection）<br>  上述的B个模型，如果都相互独立，则预测方差为(σ)2/B<br>  但是在bagging，样本时有放回的抽出样本，所以是有一定关联的。<br>  所以RF又增加了mtry参数，使决策器可以随机抽取特征在每个node上</p>
+<p>RF： 实现的过程：假设有n个样本，每个样本有p个描述自变量， 一个变量Y<br>            1） 对于每个决策树， bootstrap sample用于参与，（boost sample是从原始数据n中随机有放回的抽样）<br>            2） 在每个node上， mtry个描述自变量从p个中随机抽取，然后是基于决策树分区性能的经典选择<br>            3） 重复1） 与 2） 建立ntree 树。<br>            4） 最后对ntree树的结果进行汇总， 如果Y为分类变量，则使用每个树结果投票，某一样本获A类投票最多，其最后为A类；诺Y为连续性变量，则使用每个树预测结果的平均值。<br>    所以实现过程中，有三个设置参数：<br>            1） 树的数量； 默认为500， 对预测连续性变量不敏感<br>            2） 选择的特征数： 默认条件：分类为sqart（p）, 连续性： p/3;   可以优化选择<br>            3） 最小的节点数； 默认条件：分类为 1, 连续性： 5; 对预测连续性变量不敏感<br>    优点：<br>        1） 具有Robustnes和较好的预测性能<br>        2） 不容易过拟合<br>        3） 新的可用信息：<br>            (1) out-of-bag（OOB） error 袋外误差，<br>                在森林建立过程中，因Bootstrapping，所有数据中，没有被选中的样本（平均大约33%），可以对其进行验证，得到验证误差。<br>            (2) variable importance 变量重要性估计<br>                有两种方法可以估计： 1.. MeanDeacreaseAccuracy 根据袋外误差率，对于特征x,首先用训练好的随机森林在对oob数据D进行预测并求出误差率Error1。然后对数据D中每个样本的特征x上加上随机噪音，<br>                                    然后再将x特征上带噪音的样本送入训练好的RF模型中训练得到新的误差率Error2，则Error2 - Error1越大说明该特征越重要。<br>                                    直观上，加一点噪音就极大的影响了准确定那么该特征肯定重要。<br>                               2.. MeanDecreaseGini, RF中的每棵树中生成时都会按照某个节点来分裂，分裂的依据可以是分裂前后Gini系数的减少度，<br>                                                     我们将RF的每棵树中按照特征m进行分裂的Gini系数减少量的总和作为判断特征m重要性的标准<br>            (3) proximity measure 近似性估计<br>                对于两个个体， 被分为同一个类别的决策树的数据/总决策树数据， 即为两个样本间的相似性，会得到一个proximity矩阵，所有值介于0-1之间，越接近1说明两者越相近，但是这样的计算，需要消耗大量memory。<br>                            用途<br>                              1.. 发现异常值： 求出个体i与同类别其他个体之间proximity值，求和，再除去类别内的总数，得到平均值，如果很低，则认为为异常值<br>                              2.. 缺失值的输入： 方法一（na.roughfix）简单粗暴，对于训练集,同一个class下的数据，如果是分类变量缺失，用众数补上，如果是连续型变量缺失，用中位数补。<br>                                             方法二（rfImpute）： 只能补训练集中的缺失值。是先用na.roughfix补上缺失值，然后构建森林并计算proximity matrix，再回头看缺失值，<br>                                                 如果是分类变量，则用没有缺失的观测实例的proximity中的权重进行投票。<br>                                                 如果是连续型变量，则用proximity矩阵进行加权平均的方法补缺失值。然后迭代4-5次。这个补缺失值的思想和Kmeans有些类似。<br>                                                            或者用proximity矩阵中最大的平均proximity值填充<br>                              3.. 聚类： 当然这样得到的数值还可以对个体之间进行聚类。<br>            （4） 变量的选择<br>                变量重要性可以用于变量的选择， 一般基于MeanDeceaseAccuracy.<br>                                还有其他两个方法： VarSelRF(Diaz-Uriarte R., 2006): 使用递归向后消除重要性低于a％的预测变量，并基于OOB误差选择最佳大小<br>                                             VSURF (Genuer R. et al, 2010)： 其分为三步<br>                                                                        1.. 对变量排序，再将最不重要的删去<br>                                                                        2.. 根据最小OOB误差对预测变量进行正向选择（用于解释的选择）<br>                                                                        3.. 仅在OOB错误增益高于阈值时保留变量（用于预测的选择）<br>            (5)平衡预测误差（Balancing prediction error）<br>                对于不平衡数据的训练和预测，不能只关注总体的误差率，比如测试集中class A 99个，classB1个，<br>                现在模型对着一百数据的预测中，classA预测全对，classB全错，总误差率为1%，但是在classB上的误差率是100%，这对于正负样本失衡的数据是非常不友好的（比如风险欺诈问题）。</p>
+<pre><code>            解决方法如下：
+                对比重少的类别加较大的权重，对比重大的类别加小的权重
+缺点
+    1） 比一个决策树更复杂，摈并且难解读
+    2） 较大型数据库计算要求强度大
+可以用一个正方形图表示RF结果的表现， 下方是训练样本的变化，左边是错误率，右边是Noise水平，上方是样本不相关的估计</code></pre><p>QA:为什么要有放回抽样<br>    1. 如果不放回抽样，每棵树用的样本完全不同，结果是有偏的，基学习器之间的相似性小，投票结果差，模型偏差大<br>    2. 如果不抽样，基学习器用所有样本，那么模型的泛化能力弱，基学习器之前相似性太大差异性太小，模型的偏差大<br>    3. 为什么不随机抽样？ 自助采样首先可以产生一部分袋外样本，可以用来做袋外估计，另一方自助采样一定程度上改变了每个基学习器的所用数据的样本分布，一定程度上引入了噪音，增加了模型的泛化能力</p>
+<h4 id="R-code"><a href="#R-code" target="_blank" rel="noopener" class="headerlink" title="R code"></a>R code</h4><p>#读入数据<br>redwine &lt;- read.csv(“winequality-red.csv”)<br>head(redwine)<br>redwine$good.wine &lt;- ifelse(redwine$quality&gt;6,1,0)  ##quality数据转化为二分类，将6以上变为0，增加新变量good.wine<br>redwine$good.wine &lt;- as.factor(redwine$good.wine)   ##good.wine数据变为因子</p>
+<p>summary(redwine)</p>
+<p>#基本随机森林模型建立<br>library(randomForest)<br>set.seed(97)<br>#分类<br>redwineRF.class &lt;- randomForest(good.wine<del>.-quality, data=redwine)#-表示去除<br>redwineRF.class<br>#回归<br>redwineRF.reg &lt;- randomForest(quality</del>.-good.wine, data=redwine)<br>redwineRF.reg</p>
+<p>结果说明：</p>
+<pre><code>在分类中，我们获得了Out-Of-Bag（OOB）错误率的估计值，并且在OOB中也生成了相应的混淆矩阵，从而有可能按类推导错误率。 
+    因此可以看出，平均错误率掩盖了类别之间的精度差异，优质葡萄酒的分类不如劣质葡萄酒。
+
+在回归中，有关拟合质量的信息由模型解释的残差均方和总方差的百分比进行汇总（相当于线性回归中的确定系数）。</code></pre><p>像大多数模型一样，可通过predict（）函数访问预测。 但是，与通常的操作不同，在不提供新数据的情况下执行此功能的操作不会在完整的训练数据上执行，而只会在OOB数据上执行。<br> 因此，我们获得了OOB预测，而不是重新替代。 例如，我们可以通过图形表示质量变量的预测值与观察值之间的关系来获得回归预测质量的概述。</p>
+<p>plot(predict(redwineRF.reg)~redwine$quality)<br>abline(0,1)</p>
+<p>#调整参数<br>#1 mtree<br>我们可以通过生成的树的数量轻松获得该参数演变的图形表示（红线表示使用参数默认值所达到的错误率）。<br>set.seed(97)</p>
+<h1 id="设置为5000"><a href="#设置为5000" target="_blank" rel="noopener" class="headerlink" title="设置为5000"></a>设置为5000</h1><p>redwineRF.T5000 &lt;- randomForest(good.wine~.-quality, data=redwine, ntree=5000)<br>plot(1:5000, redwineRF.T5000$err.rate[,1], type=”l”,<br>        xlab=”Number of trees”, ylab=”OOB error rate”)<br>abline(h=redwineRF.T5000$err.rate[500,1], col=”red”)</p>
+<p>#2 节点<br>对于分类问题，此值默认设置为1，对于回归问题，此值设置为5。</p>
+<p>set.seed(97)<br>oob.node &lt;- NULL<br>for(ns in c(1, 2, 5, 10, 20, 50)) {<br>            rf &lt;- randomForest(good.wine~.-quality, data=redwine, nodesize=ns)<br>            oob.node &lt;- rbind(oob.node, c(ns, rf$err.rate[500, 1]))<br>}</p>
+<p>oob.node<br>plot(oob.node[,1], oob.node[,2], type=”b”, xlab=”Minimum node size”, ylab=”OOB error rate”) #图示</p>
+<h1 id="3-mtry"><a href="#3-mtry" target="_blank" rel="noopener" class="headerlink" title="3 mtry"></a>3 mtry</h1><p> 随机选择的预测变量数量最后一个主要的RF参数是在评估每个节点（mtry）期间随机选择的预测变量数量。默认情况下，此值设置为分类问题的预测变量总数的平方根，以及回归问题的预测变量总数的三分之一。<br> 减少此数量可减少计算时间和森林中树木之间的相关性，还可减少每棵树木的单独性能，尤其是在信息高度稀释的情况下（当预测变量的比例与要预测的响应联系弱）。<br> 因此，我们期望在这两个相反的趋势之间有一个最佳值。与前面的参数一样，需要进行一些编程练习才能评估这种效果。给定示例中的预测变量数量有限，我们将对该参数评估1到11之间的所有值。    </p>
+<p>set.seed(97)<br>oob.mtry &lt;- NULL<br>for(mt in 1:11) {<br>rf &lt;- randomForest(good.wine~.-quality, data=redwine, mtry=mt)<br>oob.mtry &lt;- rbind(oob.mtry, c(mt, rf$err.rate[500, 1]))<br>}<br>oob.mtry<br>plot(oob.mtry[,1], oob.mtry[,2], type=”b”, xlab=”Number of randomly selected features”,ylab=”OOB error rate”) #图示</p>
+<p>#####，用功能（tuneRF）允许自动探索此参数的效果<br>tuneRF(redwine[,1:11], redwine[,13], stepFactor=1)</p>
+<p>总结：<br>    在大多数情况下，生成的树数和节点大小的默认值会产生良好的结果。 在优化错误率方面，只有随机选择的预测变量的数量才是真正有意义的，这基本上与数据集中信息稀释的概念有关。<br>    因此，tuneRF函数在优化时将重点放在此参数上并非巧合。 考虑到此处研究的问题中预测变量的数量有限，默认值仍然是研究案例中的最佳选择。</p>
+<p>###对变量重要性表示<br>可以通过两种方法来计算变量的重要性，即增加OOB预测误差（MeanDecreaseAccuracy）或减少链接到每个变量的基尼标准（MeanDecreaseGini）。<br>                第二种方法可直接用于所有RF，但第一种方法需要额外的步骤，因此会延长与RF模型估算有关的计算时间。<br>                默认情况下，禁用通过MeanDecreaseAccuracy进行变量重要性的计算。 要激活它，只需在调整RF模型时将重要性参数的值传递为TRUE。</p>
+<p>set.seed(97)<br>redwineRF.class &lt;- randomForest(good.wine~.-quality, data=redwine, importance=TRUE)##importance=TRUE<br>importance(redwineRF.class)</p>
+<p>varImpPlot(redwineRF.class)##图示</p>
+<p>####筛选变量<br>各种变量选择过程基于RF方法评估的重要性，更准确地说是借助MeanDecreaseAccuracy方法评估。<br>在最常用的方法中，我们可以引用VarSelRF方法（Diaz-Uriarte R.，2006年）和VSURF方法（Genuer R.等人，2010年），二者均可通过专用软件包在R中访问。</p>
+<p>注意：执行VSURF函数，花费的时间很长，它在计算时间上非常贪婪，即使在这样小的问题上也可能要花费几分钟。<br>set.seed(97)<br>#第一种<br>library(varSelRF)</p>
+<h2 id="Loading-required-package-parallel"><a href="#Loading-required-package-parallel" target="_blank" rel="noopener" class="headerlink" title="Loading required package: parallel"></a>Loading required package: parallel</h2><p>redw.var1 &lt;- varSelRF(redwine[,1:11], redwine[,13], ntree=500)<br>redw.var1<br>#第二种， VSURF方法在方法选择的每个步骤（阈值，解释和预测）之后都会提供3组变量，这些变量越来越受限制。<br>library(VSURF)<br>redw.var2 &lt;- VSURF(redwine[,1:11], redwine[,13], ntree=500)<br>redw.var2$varselect.thres</p>
+<p>redw.var2$varselect.interp<br>redw.var2$varselect.pred<br>names(redwine[,1:11])[redw.var2$varselect.pred]</p>
+<h6 id="proximity-measure-近似性估计"><a href="#proximity-measure-近似性估计" target="_blank" rel="noopener" class="headerlink" title="proximity measure 近似性估计"></a>proximity measure 近似性估计</h6><p>在链接到RF模型的预测阶段，可以基于在生成的不同树的同一终端表中发现两个观测值的次数来获得观测值之间的接近程度的度量。<br>因此，所生成的树的数量越多，此估计将越稳定。 但是，由于此计算产生的矩阵在内存中占据重要位置，因此默认情况下不会对其进行估算，必须通过将接近度参数切换为值TRUE来激活矩阵​​。<br>set.seed(97)<br>redwineRF.class &lt;- randomForest(good.wine~.-quality, data=redwine, proximity=TRUE)</p>
+<p> 该矩阵难以解释，但可以用作其他步骤的入口点，<br>        例如层次分类（通过将邻近矩阵转换为距离矩阵），<br>        极值（通过计算每个观察值与该类其他成员的接近度）<br>        类似于主成分分析的阶乘计划的图形表示，<br>        但仅基于点之间的关系（多维标度，MDS） 。</p>
+<p>hclust.rf &lt;- hclust(as.dist(1-redwineRF.class$proximity), method = “ward.D2”)        </p>
+<p>＃表示两类good.wine类的“异常值”的图形表示<br>plot(outlier(redwineRF.class), type=”h”,<br>    col=c(“red”, “green”)[as.numeric(redwine$good.wine)],<br>    ylab = “Outlying measure”)</p>
+<p>＃确定5个最极端的值<br>rev(sort(outlier(redwineRF.class)))[1:5]</p>
+<p>＃个人的图形表示<br>MDSplot(redwineRF.class, redwine[,13], palette=c(“red”, “green”))</p>
+<p>#预测使用模型<br>RF2_pre &lt;- predict(RF2,  test)<br>#查看混淆矩阵<br>confusionMatrix(RF2_pre, test$obs)</p>
+<p>注意： 在没有增加新的测试集，当plot（ ） RF方程时， 分类中，会出现多个错误率随决策树数目变化的曲线，黑色的为总错误率，其他分别代表各个类别的图线，可以使用print()方程，查看各个类别。<br>对RF更可视化的R包randomForestExplainer</p>
+</article><!-- lincense--><div class="license-wrapper"><p> <span>Author:  </span><a href="Yansen0515.github.io.git" target="_blank" rel="noopener">Yansen</a></p><p> <span>Link:  </span><a href="2020/06/16/GLM-RF/" target="_blank" rel="noopener">2020/06/16/GLM-RF/</a></p><p> <span>Copyright:  </span><span>All articles in this blog are licensed under <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/3.0" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.</span></p></div><div class="post-paginator"><a class="nextSlogan" href="2020/06/01/PLS/" target="_blank" rel="noopener" title="2 - PCR and PLS"><span>NextPost ></span><br><span class="nextTitle">2 - PCR and PLS</span></a><div class="clear"></div></div><div id="comment"></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo" target="_blank" rel="noopener"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><div class="toc-wrapper" style="top: 70vh;"><div class="toc-catalog"><i class="fa fa-list"> </i><span>CATALOG</span></div><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一-GLM" target="_blank" rel="noopener"><span class="toc-number">1.</span> <span class="toc-text">一 GLM</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#计算被杀率" target="_blank" rel="noopener"><span class="toc-number"></span> <span class="toc-text">计算被杀率</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#必须为嵌套模型，才能进行卡方检验比较" target="_blank" rel="noopener"><span class="toc-number"></span> <span class="toc-text">必须为嵌套模型，才能进行卡方检验比较</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sqrt" target="_blank" rel="noopener"><span class="toc-number"></span> <span class="toc-text">sqrt</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#log" target="_blank" rel="noopener"><span class="toc-number"></span> <span class="toc-text">log</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#男或女的模型预测，用于0至5之间的log2（剂量）值" target="_blank" rel="noopener"><span class="toc-number"></span> <span class="toc-text">男或女的模型预测，用于0至5之间的log2（剂量）值</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#观察数据的图形表示，添加预测曲线（男性：实线，女性：虚线）" target="_blank" rel="noopener"><span class="toc-number"></span> <span class="toc-text">观察数据的图形表示，添加预测曲线（男性：实线，女性：虚线）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#二-随机森林" target="_blank" rel="noopener"><span class="toc-number">1.</span> <span class="toc-text">二 随机森林</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#R-code" target="_blank" rel="noopener"><span class="toc-number">1.1.</span> <span class="toc-text">R code</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#设置为5000" target="_blank" rel="noopener"><span class="toc-number"></span> <span class="toc-text">设置为5000</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-mtry" target="_blank" rel="noopener"><span class="toc-number"></span> <span class="toc-text">3 mtry</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Loading-required-package-parallel" target="_blank" rel="noopener"><span class="toc-number"></span> <span class="toc-text">Loading required package: parallel</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#proximity-measure-近似性估计" target="_blank" rel="noopener"><span class="toc-number">0.0.0.1.</span> <span class="toc-text">proximity measure 近似性估计</span></a></li></ol></li></ol></li></ol></li></ol></div><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
