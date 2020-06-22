@@ -1,0 +1,121 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="Yansen"><meta name="renderer" content="webkit"><meta name="copyright" content="Yansen"><meta name="keywords" content="Animal genetic"><meta name="description" content=""><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>5 - ANN · Animal Genetic</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 4.2.0"></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="img/assets/cat.png"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">Animal Genetic</div><div class="profile-signature">LOVE</div><div class="friends"><div>FRIENDS</div><span><a href="//github.com/Yansen0515" target="_black">friendA</a></span><span><a href="//github.com/" target="_black">friendB</a></span><span><a href="//github.com/" target="_black">friendC</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/" target="_blank" rel="noopener">Yan&amp;Qing</a></div><div class="intro-nav-label-box"><a href="/" target="_blank" rel="noopener">Home</a><a href="/about/" target="_blank" rel="noopener">About</a><a href="/archives/" target="_blank" rel="noopener">Archives</a><a href="/tags/" target="_blank" rel="noopener">Tags</a><a href="/Categories/" target="_blank" rel="noopener">Categories</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/" target="_blank" rel="noopener">Home</a><a href="/about/" target="_blank" rel="noopener">About</a><a href="/archives/" target="_blank" rel="noopener">Archives</a><a href="/tags/" target="_blank" rel="noopener">Tags</a><a href="/Categories/" target="_blank" rel="noopener">Categories</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">5 - ANN</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-edit"></i><span>2020-06-22 16:53:07</span></span><span class="post-intro-tags"><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="数据挖掘与机器学习"> 数据挖掘与机器学习</a></span></div><div class="post-intro-read"><span> Word count: <span class="post-count">1.2k</span> | Reading time: <span class="post-count">4</span>min</span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><p>ANN - Artificial neural network (人工神经网络)</p>
+<h1 id="多层感知器-ANN-MLP"><a href="#多层感知器-ANN-MLP" target="_blank" rel="noopener" class="headerlink" title="多层感知器(ANN-MLP)"></a>多层感知器(ANN-MLP)</h1><p>最常见ANN为多层感知器<br>其包含输入层， 隐藏层， 输出层三个结构组成， 需要设定的参数： nodes和layers数。 并且每个nodes与前一层的所有nodes都有联系。<br>    输入层： 每个nodes代表一个输入变量； 输出层:代表输出结果； 隐藏层： 介于上述两层之间<br>    并且前两个结构，都需要一个格外nodes来估计截距。</p>
+<p>所有的变量值都需要santardized or normalized.<br>    mean = 0, SD = 1,</p>
+<p>最终，其最后一个隐含层的所有notes，需要合并（组合与转变），来预测一个值<br>    组合函数，需要使用每个notes的值和其对应的weighs<br>    转变函数，将组合函数得到的值，进行一个转变的得到最终输出值<br>        eg: sigmoid or logistic (线性近交0， 非线性为极值)<br>            g（x） = 1/(1+exp(-x))</p>
+<p>可以进行分类和预测</p>
+<p>算法必须对权重进行估计<br>    误差梯度的反向传播算法：<br>        是最老的算法，需要估计最小误差实现，<br>        并通过迭代优化估计：<br>            首先：给所有权重赋予初始值，进行一次预测，得到误差；  #要注意在初始值设定时，最好加入set.seed()来固定函数<br>                根据误差，对权重值修改，再次计算误差<br>                误差越大，权重的值改变的越大<br>            这与学习率有关，一般初始可以设定在0.7-0.9，随后逐渐降低<br>            第二个参数：moment<br>                •保留权重估计的演变趋势<br>                •该制造商整合了以前实现的调整<br>                •限制振荡<br>    为避免估计值过高，我们可以使用正则化（L2，Ridge penalty），<br>    其他算法：<br>        Levenberg-Marquadt<br>        Quasi-Newton<br>        Conjugated gradient<br>        Fast propagation<br>        Genetic algorithms</p>
+<h2 id="实现过程"><a href="#实现过程" target="_blank" rel="noopener" class="headerlink" title="实现过程"></a>实现过程</h2><p>需要进行以下步骤进行<br>    1） 识别输入和输出变量<br>    2） 对数据进行标准化<br>    3） 开发适当的架构<br>    4） 网络进行学习<br>    5） 使用独立数据进行测试<br>    6） 应用<br>对于原始数据进行转变的数值（如log）需要返回求出原始数据</p>
+<p>对于ANN： 是由学习率决定的， 如果nodes与layers不断增加， R2也会增加，所以有可能过拟合。<br>        每个点/权重需要5-10观察值估计，如16个权重，需要至少80-160个数据来估计</p>
+<h2 id="优化"><a href="#优化" target="_blank" rel="noopener" class="headerlink" title="优化"></a>优化</h2><p>其需要优化的参数：<br>    1） nodes数（每个隐含层内）<br>    2） 隐含层数（经常就一个）<br>    3） 惩罚（decay）<br>    4) 迭代数<br>交叉验证测试模型<br>第一运行时<br>    需要设定高一点的迭代数<br>    使用Grid,测定最佳nodes和decay值</p>
+<h1 id="ANN-RBF-其他ANN"><a href="#ANN-RBF-其他ANN" target="_blank" rel="noopener" class="headerlink" title="ANN-RBF(其他ANN)"></a>ANN-RBF(其他ANN)</h1><p>Radial basis function（RBF）也是现在使用较为广泛的一类ANN， 其激活/transfer功能是Gaussian radial funtion</p>
+<h2 id="特点"><a href="#特点" target="_blank" rel="noopener" class="headerlink" title="特点"></a>特点</h2><pre><code>1. 只有一个隐含层
+2. 会计算每个点到数据中心点的距离
+3. 中心点再迭代中不变
+4. nodes接近独立
+5. 可以很快收敛，在学习过程</code></pre><p>注意： 1） 确定node中心<br>            （1） 随机选择<br>            （2） 移动中心点<br>            （3） Kohonen网络将空间划分为几类，以便与数据分布保持一致： 中心处一般数据密度较高<br>     2） radius = Gaussian分布的宽<br>     3） nodes数往往多于多层感知机<br>radius设定： 所有点到中心点的平均值的2倍<br>    如果设定的太小，则低的收敛度， 太大，又容过度<br>    如果密度太大，则需要选择小的redius： 中心到k个最近点的距离的平均值</p>
+<h1 id="总结"><a href="#总结" target="_blank" rel="noopener" class="headerlink" title="总结"></a>总结</h1><p>ANN对计算力有求高： 需要批量处理数据； 有限的nodes和layer<br>需要优化多个参数： 使用交叉验证进行优化，同时还要使用至少一个独立数据进行验证<br>可能的程序：<br>    固定size和decay，使用多次迭代与交叉验证</p>
+<h1 id="R-code-实现ANN"><a href="#R-code-实现ANN" target="_blank" rel="noopener" class="headerlink" title="R code 实现ANN"></a>R code 实现ANN</h1><h2 id="R-包准备"><a href="#R-包准备" target="_blank" rel="noopener" class="headerlink" title="R 包准备"></a>R 包准备</h2><p>library(“pander”)<br>library(“caret”) ###参数设定<br>library(“FactoMineR”)<br>library(“RSNNS”)</p>
+<h2 id="数据分组"><a href="#数据分组" target="_blank" rel="noopener" class="headerlink" title="数据分组"></a>数据分组</h2><p>set.seed(1001)<br>index &lt;- createDataPartition(irisdata$Species, p=0.75, list=F,times = 1)<br>traindata &lt;- irisdata[index, ]<br>testdata &lt;- irisdata[-index, ]<br>pander(table(traindata$Species))</p>
+<h2 id="ANN建"><a href="#ANN建" target="_blank" rel="noopener" class="headerlink" title="ANN建"></a>ANN建</h2><p>set.seed(1001)<br>ctrl_nnet &lt;- trainControl(<br>            method = “repeatedcv”,<br>                repeats = 3,<br>            classProbs = TRUE,<br>            number = 10 )</p>
+<p>grid &lt;- expand.grid(size = c(1:5),decay = c(0,0.0001,0.001,0.01,0.1,0.2,0.3,0.4,0.5))# decay:##惩罚系数  size : ##隐藏层的nodes 数<br>set.seed(1001)<br>nne1 &lt;- train(traindata[,-5],train$Species,####模型运行<br>                method = “nnet”,<br>                trControl = ctrl_nnet,<br>                preProc = c(“center”, “scale”),<br>                maxit = 100, ##最大迭代数<br>                tuneGrid = grid,<br>                trace=TRUE, # to check the iterations<br>                linout=0    # the results should be a class value<br>)<br>nne1<br>ggplot(nne1)</p>
+<p>pander(nne1$results)<br>#预测<br>nne1_pre &lt;- predict(nne1, testdata[,1:4])<br>connne1 &lt;-  confusionMatrix(nne1_pre,testdata$Species)</p>
+</article><!-- lincense--><div class="license-wrapper"><p> <span>Author:  </span><a href="Yansen0515.github.io.git" target="_blank" rel="noopener">Yansen</a></p><p> <span>Link:  </span><a href="2020/06/22/ANN/" target="_blank" rel="noopener">2020/06/22/ANN/</a></p><p> <span>Copyright:  </span><span>All articles in this blog are licensed under <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/3.0" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.</span></p></div><div class="post-paginator"><a class="prevSlogan" href="2020/06/22/MIR预处理/" target="_blank" rel="noopener" title="MIR预处理"><span>< PreviousPost</span><br><span class="prevTitle">MIR预处理</span></a><a class="nextSlogan" href="2020/06/17/PLS-DAandSVM/" target="_blank" rel="noopener" title="4 - caret - PLS-DA and SVM"><span>NextPost ></span><br><span class="nextTitle">4 - caret - PLS-DA and SVM</span></a><div class="clear"></div></div><div id="comment"></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo" target="_blank" rel="noopener"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><div class="toc-wrapper" style="top: 70vh;"><div class="toc-catalog"><i class="fa fa-list"> </i><span>CATALOG</span></div><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#多层感知器-ANN-MLP" target="_blank" rel="noopener"><span class="toc-number">1.</span> <span class="toc-text">多层感知器(ANN-MLP)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#实现过程" target="_blank" rel="noopener"><span class="toc-number">1.1.</span> <span class="toc-text">实现过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#优化" target="_blank" rel="noopener"><span class="toc-number">1.2.</span> <span class="toc-text">优化</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ANN-RBF-其他ANN" target="_blank" rel="noopener"><span class="toc-number">2.</span> <span class="toc-text">ANN-RBF(其他ANN)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#特点" target="_blank" rel="noopener"><span class="toc-number">2.1.</span> <span class="toc-text">特点</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结" target="_blank" rel="noopener"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#R-code-实现ANN" target="_blank" rel="noopener"><span class="toc-number">4.</span> <span class="toc-text">R code 实现ANN</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#R-包准备" target="_blank" rel="noopener"><span class="toc-number">4.1.</span> <span class="toc-text">R 包准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据分组" target="_blank" rel="noopener"><span class="toc-number">4.2.</span> <span class="toc-text">数据分组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ANN建" target="_blank" rel="noopener"><span class="toc-number">4.3.</span> <span class="toc-text">ANN建</span></a></li></ol></li></ol></div><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
