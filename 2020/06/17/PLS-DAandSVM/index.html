@@ -1,0 +1,161 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="Yansen"><meta name="renderer" content="webkit"><meta name="copyright" content="Yansen"><meta name="keywords" content="Animal genetic"><meta name="description" content=""><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>4 - caret - PLS-DA and SVM · Animal Genetic</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 4.2.0"></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="img/assets/cat.png"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">Animal Genetic</div><div class="profile-signature">LOVE</div><div class="friends"><div>FRIENDS</div><span><a href="//github.com/Yansen0515" target="_black">friendA</a></span><span><a href="//github.com/" target="_black">friendB</a></span><span><a href="//github.com/" target="_black">friendC</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/" target="_blank" rel="noopener">Yan&amp;Qing</a></div><div class="intro-nav-label-box"><a href="/" target="_blank" rel="noopener">Home</a><a href="/about/" target="_blank" rel="noopener">About</a><a href="/archives/" target="_blank" rel="noopener">Archives</a><a href="/tags/" target="_blank" rel="noopener">Tags</a><a href="/Categories/" target="_blank" rel="noopener">Categories</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/" target="_blank" rel="noopener">Home</a><a href="/about/" target="_blank" rel="noopener">About</a><a href="/archives/" target="_blank" rel="noopener">Archives</a><a href="/tags/" target="_blank" rel="noopener">Tags</a><a href="/Categories/" target="_blank" rel="noopener">Categories</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">4 - caret - PLS-DA and SVM</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-edit"></i><span>2020-06-19 10:30:09</span></span><span class="post-intro-tags"><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="数据挖掘与机器学习"> 数据挖掘与机器学习</a></span></div><div class="post-intro-read"><span> Word count: <span class="post-count">1.7k</span> | Reading time: <span class="post-count">7</span>min</span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><p>今天才发现，上次写得博客，其自己进行了编号。。。。<br>  “#” 一个最大， 随着数目增多，逐渐减小。。。<br>  对于公式的写法，还是不了解怎么搞，等慢慢使用，应该会有解决办法， “实践才是硬道理”<br>这次先写下caret包的一个总的使用，其真的是太好用了，而后就是PLS-DA和SVM了  </p>
+<h1 id="caret-package"><a href="#caret-package" target="_blank" rel="noopener" class="headerlink" title="caret package"></a>caret package</h1><p>install.packages(“caret”, dependencies = c(“Depends”, “Suggests”))</p>
+<p>其主要的函数之一为： train()函数<br>            其主要有三方面作用：<br>                1 使用重采样来估计模型，调整参数<br>                2 在这些参数中选择最佳模型<br>                3 从训练集中估计模型性能<br>    一般形式为：<br>            设定一系列的参数<br>            for 参数设定集 do<br>                for 每次从采样的数据 do<br>                    在特殊样本下进行<br>                        （optional） 对数据预处理<br>                    将模型预测剩余样本<br>                    对特殊样本进行预测<br>                end<br>                根据特殊样本的额预测值计算平均值<br>            end<br>            觉得最佳参数<br>            使用最优参数预测整个训练集的数据</p>
+<h2 id="R-code"><a href="#R-code" target="_blank" rel="noopener" class="headerlink" title="R code"></a>R code</h2><p>library(caret)<br>library(mlbench)<br>data(Sonar)</p>
+<p>set.seed(107)<br>inTrain &lt;- createDataPartition(<br>  y = Sonar$Class,<br>  ##the outcome data are needed<br>  p = .75,<br>  ##The percentage of data in the</p>
+<h2 id="training-set"><a href="#training-set" target="_blank" rel="noopener" class="headerlink" title="training set"></a>training set</h2><p>  list = FALSE<br>)<br>##The format of the results<br>str(inTrain)</p>
+<p>注意： createDataPartition是随机分层抽取</p>
+<p>training &lt;- Sonar[ inTrain,]<br>testing  &lt;- Sonar[-inTrain,]<br>nrow(training)</p>
+<h2 id="PLS-DA-partial-least-squares-discriminant-analysis"><a href="#PLS-DA-partial-least-squares-discriminant-analysis" target="_blank" rel="noopener" class="headerlink" title="PLS-DA (partial least squares discriminant analysis)"></a>PLS-DA (partial least squares discriminant analysis)</h2><p>plsFit &lt;- train(<br>  Class ~ .,<br>  data = training,<br>  method = “pls”,<br>  preProc = c(“center”, “scale”),<br>  ##added:<br>  tuneLength = 15<br>)<br>添加的参数tuneLength意思为前15个主成分都要做一遍， tuneGrid是会为模型特殊值</p>
+<h3 id="trainControl-函数"><a href="#trainControl-函数" target="_blank" rel="noopener" class="headerlink" title="trainControl()函数"></a>trainControl()函数</h3><p>ctrl &lt;- trainControl(method = “repeatedcv”,number= 10,  repeats = 3)<br>method参数有: boot, boot632, cv, repeatedcv, LOOCV, LGOCV<br>number: K=10<br>repeats: 重复运作的测试</p>
+<p>plsFit &lt;- train(<br>                  Class ~ .,<br>                  data = training,<br>                  method = “pls”,<br>                  preProc = c(“center”, “scale”),<br>                  tuneLength = 15,<br>                  ## added:<br>                  trControl = ctrl<br>                )</p>
+<p>ctrl &lt;- trainControl(<br>                  method = “repeatedcv”, #默认K=10，<br>                  repeats = 3,            #重复3次<br>                  classProbs = TRUE,     为计算ROC值<br>                  summaryFunction = twoClassSummary  ##只针对2分类，还可以写defaultSummary（多分类）<br>                )</p>
+<p>set.seed(123)<br>plsFit &lt;- train(<br>                  Class ~ .,<br>                  data = training,<br>                  method = “pls”,<br>                  preProc = c(“center”, “scale”),<br>                  tuneLength = 15,<br>                  trControl = ctrl,<br>                  metric = “ROC”<br>                )<br>plsFit<br>这样会给出最佳LVs值，作为参数可以预测未来新数据</p>
+<p>ggplot(plsFit)  #图示出选择最佳LVs数的依据， 是选择ROC值最大的LVs</p>
+<h3 id="模型预测新数据"><a href="#模型预测新数据" target="_blank" rel="noopener" class="headerlink" title="模型预测新数据"></a>模型预测新数据</h3><p>plsClasses &lt;- predict(plsFit, newdata = testing)<br>str(plsClasses)</p>
+<h3 id="给出具体每个个体的分类概率"><a href="#给出具体每个个体的分类概率" target="_blank" rel="noopener" class="headerlink" title="给出具体每个个体的分类概率"></a>给出具体每个个体的分类概率</h3><p>plsProbs &lt;- predict(plsFit, newdata = testing, type = “prob”)<br>head(plsProbs)</p>
+<h3 id="混淆矩阵"><a href="#混淆矩阵" target="_blank" rel="noopener" class="headerlink" title="混淆矩阵"></a>混淆矩阵</h3><p>confusionMatrix(data = plsClasses, testing$Class)</p>
+<h2 id="正则化判别模型（regularized-discriminant-model）"><a href="#正则化判别模型（regularized-discriminant-model）" target="_blank" rel="noopener" class="headerlink" title="正则化判别模型（regularized discriminant model）"></a>正则化判别模型（regularized discriminant model）</h2><h2 id="To-illustrate-a-custom-grid-is-used"><a href="#To-illustrate-a-custom-grid-is-used" target="_blank" rel="noopener" class="headerlink" title="To illustrate, a custom grid is used"></a>To illustrate, a custom grid is used</h2><p>rdaGrid = data.frame(gamma = (0:4)/4, lambda = 3/4)<br>set.seed(123)<br>rdaFit &lt;- train(<br>                  Class ~ .,<br>                  data = training,<br>                  method = “rda”,<br>                  tuneGrid = rdaGrid,<br>                  trControl = ctrl,<br>                  metric = “ROC”<br>                )<br>rdaFit</p>
+<h3 id="预测and混淆矩阵"><a href="#预测and混淆矩阵" target="_blank" rel="noopener" class="headerlink" title="预测and混淆矩阵"></a>预测and混淆矩阵</h3><p>rdaClasses &lt;- predict(rdaFit, newdata = testing)<br>confusionMatrix(rdaClasses, testing$Class)</p>
+<h2 id="不同算法的结果比较"><a href="#不同算法的结果比较" target="_blank" rel="noopener" class="headerlink" title="不同算法的结果比较"></a>不同算法的结果比较</h2><p>这些模型如何比较其重采样结果？ resamples()功能可用于收集，汇总和对比重采样结果。 由于在调用`train}之前将随机数种子初始化为相同的值，因此对每个模型使用相同的倍数</p>
+<p>resamps &lt;- resamples(list(pls = plsFit, rda = rdaFit))<br>summary(resamps)</p>
+<p>xyplot(resamps, what = “BlandAltman”) #可视化结果</p>
+<p>#模型结果之间差异性检验（t-test）<br>diffs &lt;- diff(resamps)<br>summary(diffs)</p>
+<h2 id="SVM（support-vector-machine）"><a href="#SVM（support-vector-machine）" target="_blank" rel="noopener" class="headerlink" title="SVM（support vector machine）"></a>SVM（support vector machine）</h2><h3 id="建模型SVM"><a href="#建模型SVM" target="_blank" rel="noopener" class="headerlink" title="建模型SVM"></a>建模型SVM</h3><p>ctrl &lt;- trainControl(method = “repeatedcv”, number=10, repeats = 3)<br>set.seed(123)<br>svm_Linear &lt;- train(<br>                  Class ~ .,<br>                  data = training,<br>                  method = “svmLinear”,<br>                  preProc = c(“center”, “scale”),  ##(nean=0, sd=1)<br>                  tuneLength = 10,<br>                  trControl = ctrl,<br>                )</p>
+<p>svm_Linear##cost = 1</p>
+<h3 id="SVM模型预测"><a href="#SVM模型预测" target="_blank" rel="noopener" class="headerlink" title="SVM模型预测"></a>SVM模型预测</h3><p>test_pred &lt;- predict(svm_Linear, newdata = testing)<br>confusionMatrix(data = test_pred, testing$Class)</p>
+<h3 id="调整C值"><a href="#调整C值" target="_blank" rel="noopener" class="headerlink" title="调整C值"></a>调整C值</h3><p>grid &lt;- expand.grd(C= c(0, 0.01, 0.05, 0.1, 0.25, 0.75, 1))<br>set.seed(123)<br>svm_Linear_Grid &lt;- train(<br>                  Class ~ .,<br>                  data = training,<br>                  method = “svmLinear”,<br>                  preProc = c(“center”, “scale”),  ##(nean=0, sd=1)<br>                  tuneLength = 10,<br>                  trControl = ctrl,<br>                  ##added<br>                  tuneGrid = grid<br>                )<br>svm_Linear_Grid</p>
+<p>plot(svm_Linear_Grid)</p>
+<p>test_pred_Grid &lt;- predict(svm_Linear_Grid, newdata = testing)<br>test_pred_Grid </p>
+<p>confusionMatrix(data = test_pred_Grid , testing$Class)</p>
+<h3 id="SVM的非线性核"><a href="#SVM的非线性核" target="_blank" rel="noopener" class="headerlink" title="SVM的非线性核"></a>SVM的非线性核</h3><p>我们将使用Radial Basis function, “svmRadial”, 此算法需要选择参数C(Cost)和sigma<br>ctrl &lt;- trainControl(method = “repeatedcv”, number=10, repeats = 3)<br>set.seed(123)<br>svm_Radial &lt;- train(<br>                  Class ~ .,<br>                  data = training,<br>                  method = “svmRadial”,<br>                  preProc = c(“center”, “scale”),  ##(nean=0, sd=1)<br>                  tuneLength = 10,<br>                  trControl = ctrl,<br>                  ##added<br>                  ##tuneGrid = grid<br>                )<br>ggplot(svm_Radial)</p>
+<h3 id="SVM的非线性核预测"><a href="#SVM的非线性核预测" target="_blank" rel="noopener" class="headerlink" title="SVM的非线性核预测"></a>SVM的非线性核预测</h3><p>test_pred_Radial &lt;- predict(svm_Radial, newdata = testing)<br>test_pred_Grid<br>confusionMatrix(data = test_pred_Radial , testing$Class)</p>
+<h3 id="调参数"><a href="#调参数" target="_blank" rel="noopener" class="headerlink" title="调参数"></a>调参数</h3><p>gird_radial &lt;- expand.grid(C=c(0, 0.05, 0.1, 0.25, 0.5, 0.75,1,1.5,2,5),<br>                           sigma =c(0, 0.01:1,0.25,0.5,0.75,0.9 ) )</p>
+<p>set.seed(123)<br>svm_Radial_Grid &lt;- train(<br>                  Class ~ .,<br>                  data = training,<br>                  method = “svmRadial”,<br>                  preProc = c(“center”, “scale”),  ##(nean=0, sd=1)<br>                  tuneLength = 10,<br>                  trControl = ctrl,<br>                  ##added<br>                  tuneGrid = gird_radial<br>                )<br>svm_Radial_Grid<br>ggplot(svm_Radial_Grid)</p>
+<p>test_pred_Radial_Grid &lt;- predict(svm_Radial_Grid, newdata = testing)</p>
+<p>confusionMatrix(data = test_pred_Radial_Grid , testing$Class)</p>
+<h2 id="理论部分"><a href="#理论部分" target="_blank" rel="noopener" class="headerlink" title="理论部分"></a>理论部分</h2><h3 id="PLS-DA"><a href="#PLS-DA" target="_blank" rel="noopener" class="headerlink" title="PLS-DA"></a>PLS-DA</h3><pre><code>和PLS一样，都可以在变量多于样本数时使用。同时其也是基于PLS， 加了转换函数。
+这里从新简写下PLS：
+分解: X = TP‘ + E , Y = UQ&apos; + F
+再   U = TC， or这里求出C
+最后： Y = TCQ&apos; + F, 与 X = TP&apos; + E， 联合得D = Tβ + H（OLS法）， 求出β，即为系数
+需要返回原函数，B = W(P&apos;W)-1CQ&apos;，  其中W： 先对X与Y标准化， 再求x对Y的相关性R， 根据相关性求出x对y的贡献w
+以上y为连续性变量的求解， 当为分类时， 也可以先按连续性变量， 对于得到的Yp，可以使用阈值对其划分，如Y为A与B分类，阈值可以是0.5， Yp＞0.5为A类， ＜则为B类
+当然，可以看到阈值设定不同，会有不同的结果，需要找到最合适的阈值设定（以前的文献有报道，这里不具体写）
+
+我们认为PLS-DA为双线性模型（bilinear model）， 因为其基于PLS， 也需要选择最佳的LVs数，
+这里的可以根据，在交叉验证集中最小错分率得出。错分率：= 错误分类样本数/总样本数
+
+
+当Y为多分类时，是和上面相同步骤，先求出Y的实际一个值，再根据设定的阈值，进行判别。
+
+如果需要Strict， 需要估计每个样本划分到这一类的概率，且概率需要＞0.5，
+Most probable: 则可以根据样本划分到某一类的最大概率来决定。
+如某一样本属于A：0.4，B与类都为0.3， 则这个样本按strict来说，不能分离，而Most probable则认为其属于A类</code></pre><h3 id="SVM"><a href="#SVM" target="_blank" rel="noopener" class="headerlink" title="SVM"></a>SVM</h3><pre><code>其是可以进行分类和回归的，和RF类似</code></pre><h4 id="边界法（boundary-methods）"><a href="#边界法（boundary-methods）" target="_blank" rel="noopener" class="headerlink" title="边界法（boundary methods）"></a>边界法（boundary methods）</h4><pre><code>假设只有两类，需要在平面上找出能够很好划分两个的一个超平面，建议在训练集中找出到所有样本的最大margin的线（假设为线性分类器）
+线性的分类器： f(x) = w&apos;x + b ,  w为超平面的
+y = sign{f(x)} = [ +1     f(x) ≥ 0
+                   -1     f(x) &lt; 0]
+
+计算最大的margin是计算 2/||w||, ||w||2 = &lt;w, w&gt;
+即转化为求最小的1/2*||w||2,  目标为： y(&lt;w, x&gt; + b)≥1， Vi =1,...,m
+这里需要引起拉格朗日（Lagrangian）:
+L(w, b, λ) = 1/2*||w||2 - sum(λ{y(&lt;w,x&gt;+b&gt;)-1}), Vi, λ≥0, i=1,..m</code></pre></article><!-- lincense--><div class="license-wrapper"><p> <span>Author:  </span><a href="Yansen0515.github.io.git" target="_blank" rel="noopener">Yansen</a></p><p> <span>Link:  </span><a href="2020/06/17/PLS-DAandSVM/" target="_blank" rel="noopener">2020/06/17/PLS-DAandSVM/</a></p><p> <span>Copyright:  </span><span>All articles in this blog are licensed under <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/3.0" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.</span></p></div><div class="post-paginator"><a class="nextSlogan" href="2020/06/16/GLM-RF/" target="_blank" rel="noopener" title="3 - GLM and Random forest"><span>NextPost ></span><br><span class="nextTitle">3 - GLM and Random forest</span></a><div class="clear"></div></div><div id="comment"></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo" target="_blank" rel="noopener"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><div class="toc-wrapper" style="top: 70vh;"><div class="toc-catalog"><i class="fa fa-list"> </i><span>CATALOG</span></div><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#caret-package" target="_blank" rel="noopener"><span class="toc-number">1.</span> <span class="toc-text">caret package</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#R-code" target="_blank" rel="noopener"><span class="toc-number">1.1.</span> <span class="toc-text">R code</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#training-set" target="_blank" rel="noopener"><span class="toc-number">1.2.</span> <span class="toc-text">training set</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PLS-DA-partial-least-squares-discriminant-analysis" target="_blank" rel="noopener"><span class="toc-number">1.3.</span> <span class="toc-text">PLS-DA (partial least squares discriminant analysis)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#trainControl-函数" target="_blank" rel="noopener"><span class="toc-number">1.3.1.</span> <span class="toc-text">trainControl()函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模型预测新数据" target="_blank" rel="noopener"><span class="toc-number">1.3.2.</span> <span class="toc-text">模型预测新数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#给出具体每个个体的分类概率" target="_blank" rel="noopener"><span class="toc-number">1.3.3.</span> <span class="toc-text">给出具体每个个体的分类概率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#混淆矩阵" target="_blank" rel="noopener"><span class="toc-number">1.3.4.</span> <span class="toc-text">混淆矩阵</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正则化判别模型（regularized-discriminant-model）" target="_blank" rel="noopener"><span class="toc-number">1.4.</span> <span class="toc-text">正则化判别模型（regularized discriminant model）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#To-illustrate-a-custom-grid-is-used" target="_blank" rel="noopener"><span class="toc-number">1.5.</span> <span class="toc-text">To illustrate, a custom grid is used</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#预测and混淆矩阵" target="_blank" rel="noopener"><span class="toc-number">1.5.1.</span> <span class="toc-text">预测and混淆矩阵</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#不同算法的结果比较" target="_blank" rel="noopener"><span class="toc-number">1.6.</span> <span class="toc-text">不同算法的结果比较</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SVM（support-vector-machine）" target="_blank" rel="noopener"><span class="toc-number">1.7.</span> <span class="toc-text">SVM（support vector machine）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#建模型SVM" target="_blank" rel="noopener"><span class="toc-number">1.7.1.</span> <span class="toc-text">建模型SVM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SVM模型预测" target="_blank" rel="noopener"><span class="toc-number">1.7.2.</span> <span class="toc-text">SVM模型预测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#调整C值" target="_blank" rel="noopener"><span class="toc-number">1.7.3.</span> <span class="toc-text">调整C值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SVM的非线性核" target="_blank" rel="noopener"><span class="toc-number">1.7.4.</span> <span class="toc-text">SVM的非线性核</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SVM的非线性核预测" target="_blank" rel="noopener"><span class="toc-number">1.7.5.</span> <span class="toc-text">SVM的非线性核预测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#调参数" target="_blank" rel="noopener"><span class="toc-number">1.7.6.</span> <span class="toc-text">调参数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#理论部分" target="_blank" rel="noopener"><span class="toc-number">1.8.</span> <span class="toc-text">理论部分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PLS-DA" target="_blank" rel="noopener"><span class="toc-number">1.8.1.</span> <span class="toc-text">PLS-DA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SVM" target="_blank" rel="noopener"><span class="toc-number">1.8.2.</span> <span class="toc-text">SVM</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#边界法（boundary-methods）" target="_blank" rel="noopener"><span class="toc-number">1.8.2.1.</span> <span class="toc-text">边界法（boundary methods）</span></a></li></ol></li></ol></li></ol></li></ol></div><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
