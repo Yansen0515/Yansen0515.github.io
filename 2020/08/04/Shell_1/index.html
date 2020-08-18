@@ -1,0 +1,204 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="Yansen"><meta name="renderer" content="webkit"><meta name="copyright" content="Yansen"><meta name="keywords" content="Animal genetic"><meta name="description" content=""><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>Shell_1 · Animal Genetic</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 4.2.0"></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="img/assets/cat.png"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">Animal Genetic</div><div class="profile-signature">LOVE</div><div class="friends"><div>FRIENDS</div><span><a href="//github.com/Yansen0515" target="_black">friendA</a></span><span><a href="//github.com/" target="_black">friendB</a></span><span><a href="//github.com/" target="_black">friendC</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/" target="_blank" rel="noopener">Yan&amp;Qing</a></div><div class="intro-nav-label-box"><a href="/" target="_blank" rel="noopener">Home</a><a href="/about/" target="_blank" rel="noopener">About</a><a href="/archives/" target="_blank" rel="noopener">Archives</a><a href="/tags/" target="_blank" rel="noopener">Tags</a><a href="/Categories/" target="_blank" rel="noopener">Categories</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/" target="_blank" rel="noopener">Home</a><a href="/about/" target="_blank" rel="noopener">About</a><a href="/archives/" target="_blank" rel="noopener">Archives</a><a href="/tags/" target="_blank" rel="noopener">Tags</a><a href="/Categories/" target="_blank" rel="noopener">Categories</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">Shell_1</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-edit"></i><span>2020-08-16 23:18:24</span></span><span class="post-intro-tags"><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="Shell"> Shell</a></span></div><div class="post-intro-read"><span> Word count: <span class="post-count">931</span> | Reading time: <span class="post-count">3</span>min</span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><p>必须第一行为： #！/bin/bash</p>
+<h1 id="传递参数"><a href="#传递参数" target="_blank" rel="noopener" class="headerlink" title="传递参数"></a>传递参数</h1><p>文件名字为： test.sh</p>
+<p>echo “执行的文件名： $0”<br>echo “第一个参数为： $1”<br>….</p>
+<p>授权<br>chmod +x test.sh</p>
+<p>使用<br>./test.sh 1 …</p>
+<p>$# 可以统计传递参数的个数<br>$* 以一个字符串显示所有脚本传递的参数</p>
+<p>如果传递的参数包含空格，应使用单引号或者双引号将该参数括起来，以便脚本将这个参数作为整体来接收<br>eg:<br>if [ -n “$1” ]; then               #([]内部两边要有空格)<br>    echo “包含第一个参数”<br>else<br>    echo “没有包含第一个参数”<br>fi</p>
+<p>$<em>与$@的区别， 前者会将所有的参数以一个字符串显示； 后者会分别显示<br>eg:<br>echo “….$*演示……”<br>for i in “$</em>“; do<br>    echo $i<br>doen</p>
+<p>echo “….$@演示……”<br>for i in “$@”; do<br>    echo $i<br>doen</p>
+<p>运行命令： ./test.sh 1 2 3</p>
+<h1 id="echo命令"><a href="#echo命令" target="_blank" rel="noopener" class="headerlink" title="echo命令"></a>echo命令</h1><p>1 直接显示字符串： echo “This is a test”<br>2 显示转义字符： echo “&quot;This is a test&quot;“<br>3 显示变量：<br>    read name<br>    echo “$name This is a test”</p>
+<p>4 显示换行： (加一行空格)<br>    echo -e “YES, \n”  #-e 开启转义</p>
+<p>5 不换行：<br>    echo -e “OK！ \c”<br>    echo -n “ “  #输出内容不换行<br>echo * #匹配当前目录下的所有文件， 应该使用 echo “*”</p>
+<h1 id="printf-输出命令"><a href="#printf-输出命令" target="_blank" rel="noopener" class="headerlink" title="printf 输出命令"></a>printf 输出命令</h1><p>需要自己加入换行符号 \n</p>
+<p>printf “%-10s  %-8 %-4.2f\n”<br>%-10, 是指一个宽度为10个字符（-表示左对齐），  %-4.2f 指格式化为小数，其中.2指保留两位小数、</p>
+<p>%d 对应位置参数必须是十进制整数， 否则会报错<br>%s   必须是字符串<br>%c   Char字符<br>%f   Float浮点， 默认为支持6为小数</p>
+<h1 id="流程控制"><a href="#流程控制" target="_blank" rel="noopener" class="headerlink" title="流程控制"></a>流程控制</h1><h2 id="if-else"><a href="#if-else" target="_blank" rel="noopener" class="headerlink" title="if else"></a>if else</h2><p>if condiction<br>then<br>    command1<br>    command2<br>else<br>    command3<br>    ….<br>fi<br>适用于一次性的简单判断条件<br>if [ $(ps -ef | grep -c “ssh”) -gt 1]; then echo “true”; fi #适用于终端</p>
+<h2 id="if-else-if-elif"><a href="#if-else-if-elif" target="_blank" rel="noopener" class="headerlink" title="if else-if elif"></a>if else-if elif</h2><p>if condiction<br>then<br>    command1<br>elif condiction2<br>then<br>    command2<br>else<br>    command3<br>fi</p>
+<h2 id="for循环"><a href="#for循环" target="_blank" rel="noopener" class="headerlink" title="for循环"></a>for循环</h2><p>for var in item1 item2 item…<br>do                   #新的<br>  command1<br>  command2<br>  …..<br>done<br>也可以写成一行： for var in item1 item2…; do command1; command2… done; </p>
+<h2 id="while"><a href="#while" target="_blank" rel="noopener" class="headerlink" title="while"></a>while</h2><p>使用较多<br>while condiction<br>do<br>   command1<br>done</p>
+<h2 id="until"><a href="#until" target="_blank" rel="noopener" class="headerlink" title="until"></a>until</h2><p>until condiction<br>do<br>  command1<br>done</p>
+<h2 id="跳出循环"><a href="#跳出循环" target="_blank" rel="noopener" class="headerlink" title="跳出循环"></a>跳出循环</h2><p>有的时候，想要强制跳出循环， shell有两个函数： break and continue<br> break: 会跳出所有的循环<br> continue: 只会跳出当前循环， 其他循环还继续 </p>
+<p>while :<br>do<br>    echo -n “输入 1 到 5 之间的数字:”<br>    read aNum<br>    case $aNum in<br>        1|2|3|4|5) echo “你输入的数字为 $aNum!”<br>        ;;<br>        *) echo “你输入的数字不是 1 到 5 之间的! 游戏结束”<br>            break<br>        ;;<br>    esac<br>done</p>
+<h1 id="case-…-esac"><a href="#case-…-esac" target="_blank" rel="noopener" class="headerlink" title="case … esac"></a>case … esac</h1><p>是一种多分支选择结构， 每个case分支用 ） 开始， 用 ；； 表此分支结束，  esac 表示结束（反过来）<br>case后面可以取值， 值可以是变量或常数<br>case vale in<br>  modl)<br>     command1<br>  ;;<br>  mod2)<br>      command2<br>  ;;<br>  mod…<br>      command…<br>  ;;<br>esac</p>
+<p>$? 仅对上一条命令的结果，进行获取。</p>
+<h1 id="sed"><a href="#sed" target="_blank" rel="noopener" class="headerlink" title="sed"></a>sed</h1><p>其主要用来自动编辑一个或多个文件，简化对文件的反复操作、编写转换程序等<br>sed -e<script> filename<br>    命令有： a 表示新增  eg: sed -e 3a\newLine filename  在文件的第三行以后添加一行<br>          c    取代，<br>          d    删除  sed '2, 5d' 删去2-5行； 但是要删除第三行到尾， sed '3,$d'<br>          i    插入<br>          p    打印<br>          s    取代， </p>
+<p>sed 's/要被取代的字符串/新的字符串/g'</p>
+<h1 id="shell输入与输出重定向"><a href="#shell输入与输出重定向" target="_blank" rel="noopener" class="headerlink" title="shell输入与输出重定向"></a>shell输入与输出重定向</h1><p>一个命令一般从一个标注输入的地方读取输入， 默认为你的终端<br>一个命令通常将其输出写入到标准输出， 默认为你的终端</p>
+<p>1 command > file   #将输出从新定向到file<br>2 command < file   #将输入重定向到file<br>3 command >> file  # 将命令加到的file<br>4 n > file         # 将文件描述为n的文件重定向到file<br>5 n >> file        # 将文件描述为n的文件以追加的方式重定向到file<br>6 n >& m           # 将输出文件m与n合并<br>7 n <& m           # 将输入文件m与n合并<br>8 <<tag            # 将开始标记为tag和结束标记tag之间的内容作为输入。</p>
+<p>一般情况下，每个 Unix/Linux 命令运行时都会打开三个文件：<br>    标准输入文件(stdin)：stdin的文件描述符为0，Unix程序默认从stdin读取数据。<br>    标准输出文件(stdout)：stdout 的文件描述符为1，Unix程序默认向stdout输出数据。<br>    标准错误文件(stderr)：stderr的文件描述符为2，Unix程序会向stderr流中写入错误信息。</p>
+<h1 id="shell文件引用"><a href="#shell文件引用" target="_blank" rel="noopener" class="headerlink" title="shell文件引用"></a>shell文件引用</h1><p>方便封装一些公用的代码作为一个独立的文件使用<br>格式<br>. filename  #注意点号（.） 和文件名之间有一个空格</p>
+<p>或者<br>source filename</p>
+<p>eg：<br>先创建两个shell脚本：<br>test1.sh<br>    a = "this is yin yong"</p>
+<p>test2.sh<br>    . ./test1.sh<br>    or<br>    source ./test1.sh<br>    echo "I want to say: $a"</p>
+<p>再运行test2.sh即可。</p>
+<h1 id="符号"><a href="#符号" target="_blank" rel="noopener" class="headerlink" title="符号"></a>符号</h1><p>& 表示任务在后台进行， eg:后台运行 bash blup.sh ， 则有 bash blup &<br>-a or && 表示前一个命令成功时，才会执行下一个命令，在数据筛选时，也可以表示并且，<br>| 表示管道， 前一个命令的输出，作为下一个命令的输入<br>-0 || 表示上一条命令失败后，才执行下一个命令， 在数据筛选时，可以表示或者<br>;分号， 表示两个命令可以写在一行，</p>
+<p>*： 表示通配符</p>
+<h1 id="expr-计算命令"><a href="#expr-计算命令" target="_blank" rel="noopener" class="headerlink" title="expr 计算命令"></a>expr 计算命令</h1><p>expr 5 + 5   # 加个表达式<br>expr $var1 - 5<br>expr $var1 * $var2  # 乘法 , 多加了一个<br>需要使用 ··， 为反引号</p>
+<h1 id="read-表示交互"><a href="#read-表示交互" target="_blank" rel="noopener" class="headerlink" title="read 表示交互"></a>read 表示交互</h1><p>read -p ".."  #表示不换行<br>read</p>
+<h1 id="test-变量测试语句"><a href="#test-变量测试语句" target="_blank" rel="noopener" class="headerlink" title="test 变量测试语句"></a>test 变量测试语句</h1><p>可以测试： 整数， 字符串， 文件</p>
+<h2 id="测试字符串"><a href="#测试字符串" target="_blank" rel="noopener" class="headerlink" title="测试字符串"></a>测试字符串</h2><p>test str1=str2 是否相等<br>test str1  测试字符串是否不空<br>test -n str1 测试是否为空</p>
+<p>##测试整数<br> test  int1 -eq int2 相等</p>
+<p>去其他的： -ge: >= ; -gt: >; -le: <=; -lt: <; -ne: ！=<br>或<br>      者省去test， 使用 [int1 -lt int2]</p>
+<h2 id="测试文件"><a href="#测试文件" target="_blank" rel="noopener" class="headerlink" title="测试文件"></a>测试文件</h2><p>test -d file  #测试是否为目录<br>test -f file  #是否为文件<br>其他： -e 是否存在， -s 大小，是否为空文件</p>
+<pre><code>也可以简写为[-x file]</code></pre><h1 id="（（））运算的使用方法"><a href="#（（））运算的使用方法" target="_blank" rel="noopener" class="headerlink" title="（（））运算的使用方法"></a>（（））运算的使用方法</h1><p>先前使用[], 必须保证预算符号和算数之间有空格。四则运算只能借助expr完成。 （（））会扩充其运算</p>
+<p>使用： （（表达式1，表达式2....））<br>特点：<br> 1， 在双括号中，所有表达可以像c语言一样，如a++(表示a=a+1), b--等<br> 2. ........所有变量可以不加入：$前缀<br> 3. 可以减小逻辑和四则运算<br> 4. 扩展了for, while, if条件测试运算<br> 5. 支持多个表达运算， 各个表达之间用 逗号 隔开</p>
+<h1 id="循环嵌套"><a href="#循环嵌套" target="_blank" rel="noopener" class="headerlink" title="循环嵌套"></a>循环嵌套</h1><h2 id="while语句嵌套"><a href="#while语句嵌套" target="_blank" rel="noopener" class="headerlink" title="while语句嵌套"></a>while语句嵌套</h2><pre><code>外层用来控制行数
+内层控制每行输出的内容：*的个数
+        eg:
+        #!/bin/bash
+        read -p &quot;Please Enter the line number:&quot; Line
+        read -p  &quot;Please Enter the char number:&quot; char
+        i=1   # 控制行数
+        while [ $i -le $Line ]
+        do    
+            b=1
+            while [ $b -le $i ]   ## 需要与本行行数比较
+            do
+                echo -n &quot;$char&quot;   #-n 保持不换行
+                b=`expr $b + 1`
+            done
+            echo      # change line  
+            i=`expr $i + 1`
+        done 
+    eg: 输入3 ， *
+
+    结果
+    *
+    **
+    ***</code></pre><p>正三角<br>cat <<EOX<br>   *</p>
+<hr>
+<hr>
+<p>EOX</p>
+<p>eg: 1. 外层控制行数<br>    2.<br>        2.1 控制空格的个数<br>        2.2 控制符号数</p>
+<pre><code>#!/bin/bash
+read -p &quot;Please Enter a number:&quot; Line  # get the number of line
+for ((i=1;i&lt;=Line; i++))  #行号来控制一共的循环次数
+do
+    for ((j=$Line-$i; j&gt;0; j--)); # 给出空格数， 总行数-当前行号
+    do
+        echo -n &apos; &apos;
+    done
+    for ((h=1; h&lt;=$((2*$i-1)); h++))  # 给出*数， 2乘以当前行号-1
+    do
+        echo -n &apos;*&apos;
+    done
+    echo  # 加换行
+done</code></pre><h1 id="Windows"><a href="#Windows" target="_blank" rel="noopener" class="headerlink" title="Windows"></a>Windows</h1><p>Windows中的脚本导入到Liunx系统后，执行报错<br>  报错为： bash:/......./bans^M: bed in.......or directory<br>安装dos2unix包</p>
+<h1 id="shift"><a href="#shift" target="_blank" rel="noopener" class="headerlink" title="shift"></a>shift</h1><p>参数左移命令<br>每执行一次，参数序列顺次左移一个位置， $#的值减1， 英语处理每个参数， 移除的参数，就不再可用</p>
+<h1 id="报错提示"><a href="#报错提示" target="_blank" rel="noopener" class="headerlink" title="报错提示"></a>报错提示</h1><p>在运行多个组合命令时，可用中间加入测试条件， 不符合就返回报错<br>echo "err!: No..."<br>Exit</p>
+<h1 id="自定义函数"><a href="#自定义函数" target="_blank" rel="noopener" class="headerlink" title="自定义函数"></a>自定义函数</h1><p>函数是将一个功能封装起来， 使用时直接调用， 脚本模块化<br>函数的定义：<br>语法：<br>function    函数名 （）  #function 可用不写<br>    {<br>    命令序列<br>    }</p>
+<p>注意： 函数调用不用带（）</p>
+<p>调用语法： 函数名 参数1 参数2 。。。</p>
+<h1 id="mysql"><a href="#mysql" target="_blank" rel="noopener" class="headerlink" title="mysql"></a>mysql</h1><p>安装： yum install -y mysql mysql-server<br>mysql:客户端<br>sysql-server: 数据库</p>
+<p> ect/init.d/mysql start  #启动<br> mysql    #连接<br>mysql -uroot -p   #连接数据库<br>show databases;  #查看数据库<br>exit  # 退出</p>
+<p>判断目录(BAKDIR)是否存在<br>    if<br>        [ ! -d $BAKDIR ]; then<br>        mkdir -p $BAKDIR<br>    else<br>        echo This is $BAKDIR exists....<br>    fi</p>
+<p>mysqldump -u$MYSQLUSR -d $MYSQLDB > $BAKDIR/webapp.sql   #备份数据到BAKDIR下的webapp.sql</p>
+<p>cd $BAKDIR ; tar -czf webapp.tar.gz *.sql   #进行压缩打包<br>find . -type f -name *.sql | xargs rm -rf   </p>
+<p>显示年月日： date +%Y-%m-%d</p>
+<p>[ $? -eq 0 ] && echo "This ''"#判断是否成功</p>
+<h1 id="寻找文件"><a href="#寻找文件" target="_blank" rel="noopener" class="headerlink" title="寻找文件"></a>寻找文件</h1><p>find . -name '*.zip' #搜索当前目录下所有的.zip文件<br>find . -type f -name *.sql | xargs rm -rf   #查找备份目录下以.sql结尾的文件， 并删除</p>
+<h1 id="正则表达式"><a href="#正则表达式" target="_blank" rel="noopener" class="headerlink" title="正则表达式"></a>正则表达式</h1><p>指一个用来描述或匹配一系列符合某个句子法则的字符的字符串， 即用某种模式去匹配一类字符串<br>如： grep<br>    -v ：不匹配<br>    -n ：显示行号</p>
+<h2 id="特殊字符"><a href="#特殊字符" target="_blank" rel="noopener" class="headerlink" title="特殊字符"></a>特殊字符</h2><pre><code>（1） ^word   : 以word为开头的行；
+（2） word$   : .......结尾的行</code></pre><h1 id="awk"><a href="#awk" target="_blank" rel="noopener" class="headerlink" title="awk"></a>awk</h1><p>awk -F. '{print $2}'  # 常对 列 操作<br>-F. 以 . 作为分隔符<br>print 第二列</p>
+</article><!-- lincense--><div class="license-wrapper"><p> <span>Author:  </span><a href="Yansen0515.github.io.git" target="_blank" rel="noopener">Yansen</a></p><p> <span>Link:  </span><a href="2020/08/04/Shell_1/" target="_blank" rel="noopener">2020/08/04/Shell_1/</a></p><p> <span>Copyright:  </span><span>All articles in this blog are licensed under <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/3.0" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.</span></p></div><div class="post-paginator"><a class="prevSlogan" href="2020/08/09/BLUPF90/" target="_blank" rel="noopener" title="BLUPF90 软件"><span>< PreviousPost</span><br><span class="prevTitle">BLUPF90 软件</span></a><a class="nextSlogan" href="2020/07/27/Python2/" target="_blank" rel="noopener" title="Python2"><span>NextPost ></span><br><span class="nextTitle">Python2</span></a><div class="clear"></div></div><div id="comment"></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo" target="_blank" rel="noopener"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><div class="toc-wrapper" style="top: 70vh;"><div class="toc-catalog"><i class="fa fa-list"> </i><span>CATALOG</span></div><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#传递参数" target="_blank" rel="noopener"><span class="toc-number">1.</span> <span class="toc-text">传递参数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#echo命令" target="_blank" rel="noopener"><span class="toc-number">2.</span> <span class="toc-text">echo命令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#printf-输出命令" target="_blank" rel="noopener"><span class="toc-number">3.</span> <span class="toc-text">printf 输出命令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#流程控制" target="_blank" rel="noopener"><span class="toc-number">4.</span> <span class="toc-text">流程控制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#if-else" target="_blank" rel="noopener"><span class="toc-number">4.1.</span> <span class="toc-text">if else</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#if-else-if-elif" target="_blank" rel="noopener"><span class="toc-number">4.2.</span> <span class="toc-text">if else-if elif</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#for循环" target="_blank" rel="noopener"><span class="toc-number">4.3.</span> <span class="toc-text">for循环</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#while" target="_blank" rel="noopener"><span class="toc-number">4.4.</span> <span class="toc-text">while</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#until" target="_blank" rel="noopener"><span class="toc-number">4.5.</span> <span class="toc-text">until</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#跳出循环" target="_blank" rel="noopener"><span class="toc-number">4.6.</span> <span class="toc-text">跳出循环</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#case-…-esac" target="_blank" rel="noopener"><span class="toc-number">5.</span> <span class="toc-text">case … esac</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sed" target="_blank" rel="noopener"><span class="toc-number">6.</span> <span class="toc-text">sed</span></a></li></ol></div><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="Yansen"><meta name="renderer" content="webkit"><meta name="copyright" content="Yansen"><meta name="keywords" content="Animal genetic"><meta name="description" content=""><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>BLUPF90 软件 · Animal Genetic</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 4.2.0"></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="img/assets/cat.png"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">Animal Genetic</div><div class="profile-signature">LOVE</div><div class="friends"><div>FRIENDS</div><span><a href="//github.com/Yansen0515" target="_black">friendA</a></span><span><a href="//github.com/" target="_black">friendB</a></span><span><a href="//github.com/" target="_black">friendC</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/" target="_blank" rel="noopener">Yan&amp;Qing</a></div><div class="intro-nav-label-box"><a href="/" target="_blank" rel="noopener">Home</a><a href="/about/" target="_blank" rel="noopener">About</a><a href="/archives/" target="_blank" rel="noopener">Archives</a><a href="/tags/" target="_blank" rel="noopener">Tags</a><a href="/Categories/" target="_blank" rel="noopener">Categories</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/" target="_blank" rel="noopener">Home</a><a href="/about/" target="_blank" rel="noopener">About</a><a href="/archives/" target="_blank" rel="noopener">Archives</a><a href="/tags/" target="_blank" rel="noopener">Tags</a><a href="/Categories/" target="_blank" rel="noopener">Categories</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">BLUPF90 软件</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-edit"></i><span>2020-08-11 10:18:21</span></span><span class="post-intro-tags"><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="数量遗传软件"> 数量遗传软件</a></span></div><div class="post-intro-read"><span> Word count: <span class="post-count">790</span> | Reading time: <span class="post-count">4</span>min</span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><p>使用参数文件的命令<br>运作renumf90：<br>echo renum.par | renumf90 | tee renum.log</p>
+<p>blupf90家族的其他program 类似。</p>
+<h1 id="使用shell命令"><a href="#使用shell命令" target="_blank" rel="noopener" class="headerlink" title="使用shell命令"></a>使用shell命令</h1><h2 id="做基因型数据的QC"><a href="#做基因型数据的QC" target="_blank" rel="noopener" class="headerlink" title="做基因型数据的QC"></a>做基因型数据的QC</h2><pre><code>### #!/bin/bash
+## 创建文件
+cd ../
+mkdir pregsf90
+### 拷贝参数文件
+cd NL12yuan
+cp renaireml.par ../pregsf90
+cd ../pregsf90
+
+### add more options
+echo &quot;OPTION callrate 0.95&quot; &gt;&gt; renaireml.par
+echo &quot;OPTION minfreq 0.02&quot; &gt;&gt; renaireml.par
+echo &quot;OPTION hwe&quot; &gt;&gt; renaireml.par
+echo &quot;OPTION high_correlation&quot; &gt;&gt; renaireml.par
+echo &quot;OPTION saveCleanSNPs 0.95&quot; &gt;&gt; renaireml.par
+
+### data file change
+sed -i &apos;s:renf90.dat:../NL12yuan/renf90.data:g&apos; renaireml.par
+sed -i &apos;s:renadd05.ped:../NL12yuan/renadd05.ped:g&apos; renaireml.par
+sed -i &apos;s:mmapa.txt:../mapa.txt:g&apos; renaireml.par
+## run
+echo renaireml.par | preGSf90 | tee pregs.log</code></pre><h2 id="做aireml的运行"><a href="#做aireml的运行" target="_blank" rel="noopener" class="headerlink" title="做aireml的运行"></a>做aireml的运行</h2><pre><code>### #!/bin/bash
+cd ../
+mkdir airemlf_90
+cd pregsf90
+cp renaireml.par ../airemlf_90
+cd ../airemlf_90
+
+### delete the old opition in .par file
+sed -i &apos;/OPTION/d&apos; renaireml.par
+
+###  add new options
+echo &quot;OPTION conv_crit 1d-8&quot; &gt;&gt; renaireml.par
+echo &quot;OPTION tol 1d-18&quot; &gt;&gt; renaireml.par
+echo &quot;OPTION maxrounds 500&quot; &gt;&gt; renaireml.par
+echo &quot;OPTION sol se&quot; &gt;&gt; renaireml.par
+### run 
+echo renaireml.par | airemlf90 | tee aireml.log
+mv solutions solutions_ebv
+cp solution_ebv ../</code></pre><h2 id="做blupf90的运行"><a href="#做blupf90的运行" target="_blank" rel="noopener" class="headerlink" title="做blupf90的运行"></a>做blupf90的运行</h2><pre><code>### 创建file
+cd ../
+mkdir blupf9
+### 创建新变量，提取估计得到的方差-协方差
+vargen=$(sed &apos;5!d&apos; airemlf90.log)
+varres=$(sed &apos;7!d&apos; airemlf90.log)
+###
+cp renaireml.par ../blupf90
+cd blupf90
+### 以计算得到的方差协方差 代替 原理假设的
+sed -i &quot;s/1.000/$vargen/g&quot; renaireml.par
+sed -i &quot;s/0.500/$varres/g&quot; renaireml.par
+
+###  delete原有的option
+sed -i &apos;/OPTION/d&apos; renaireml.par
+
+###  增加新的option
+echo &quot;OPTION SNP_file ../pregsf90/snp.txt_clean&quot; &gt;&gt; renaireml.par
+echo &quot;OPTION no_quality_control&quot; &gt;&gt; renaireml.par
+###  run
+echo renaireml.par | blupf90 | tee blup.log
+### results
+mv solutions solution_gebv</code></pre><h2 id="比较ebv和GEBV"><a href="#比较ebv和GEBV" target="_blank" rel="noopener" class="headerlink" title="比较ebv和GEBV"></a>比较ebv和GEBV</h2><pre><code>awk &apos;{if ($2==7) print $3,$4}&apos; solution_ebv &gt; ebv.tem  # 这个是选出个体的ebv， 7表示的是个体ebv的位置
+awk &apos;{if ($2==7) print $3,$4}&apos; solution_gebv &gt; gebv.tem  #同上
+join -1 1 -2 1 ebv.tem gebv.tem | sort +0 -1 &gt; ebv_gebv.tem</code></pre><h1 id="LIUNX运行R"><a href="#LIUNX运行R" target="_blank" rel="noopener" class="headerlink" title="LIUNX运行R"></a>LIUNX运行R</h1><p>Rscript script.R</p>
+<h1 id="SHELL使用规范"><a href="#SHELL使用规范" target="_blank" rel="noopener" class="headerlink" title="SHELL使用规范"></a>SHELL使用规范</h1><p>.log  表示输出文件<br>.temp    临时文件<br>.par     程序参数文件<br>_original 原始文件</p>
+<h1 id="原始ped文件编辑"><a href="#原始ped文件编辑" target="_blank" rel="noopener" class="headerlink" title="原始ped文件编辑"></a>原始ped文件编辑</h1><p>cp ped_original ped.txt<br>sed -i ‘1 d’ ped.txt # 删除标头</p>
+<h1 id="SNP文件"><a href="#SNP文件" target="_blank" rel="noopener" class="headerlink" title="SNP文件"></a>SNP文件</h1><h2 id="对基因型的代表数字进行转化，"><a href="#对基因型的代表数字进行转化，" target="_blank" rel="noopener" class="headerlink" title="对基因型的代表数字进行转化，"></a>对基因型的代表数字进行转化，</h2><p>这里转为0 1 2 形式， 0: AA， 1: Aa, 2: aa<br>awk ‘{print $2}’ snp_original | tr 3 1 | tr 4 1 | tr 0 9 | tr 2 0 | tr 9 2 &gt; snp_gen.temp</p>
+<p>awk ‘{print $1}’ snp_original &gt; snp_id.temp</p>
+<p>paste -d” “ snp_id.temp snp_gen.temp &gt; snp1.temp</p>
+<p>expand snp1.tem &gt; snp.txt  # 将TAB转换为空格</p>
+<p>sed -i ‘1 d’ snp.txt  # 删除标头</p>
+<h1 id="map文件"><a href="#map文件" target="_blank" rel="noopener" class="headerlink" title="map文件"></a>map文件</h1><p>cp mapa_original mapa1.temp<br>sed -i ‘1 d’ mapa1.temp<br>awk ‘$1=(FNR FS $1)’ mapa1.temp | awk ‘{print $1, $3, $4}’ &gt; mapa2.temp # 替换标记的编码<br>awk ‘{print $1, $2}’ mapa2.temp &gt; mapa_id.temp<br>awk ‘{printf “%i\n”, $3*100000}’ mapa2.temp &gt; mapa_pos.temp<br>paste -d’ ‘ mapa_id.temp mapa_pos.temp &gt; mapa.txt<br>rm *.temp</p>
+<h1 id="跟踪脚本的进度"><a href="#跟踪脚本的进度" target="_blank" rel="noopener" class="headerlink" title="跟踪脚本的进度"></a>跟踪脚本的进度</h1><p>top<br>tail -f nohup.out</p>
+<h1 id="NR-AND-FNR"><a href="#NR-AND-FNR" target="_blank" rel="noopener" class="headerlink" title="NR AND FNR"></a>NR AND FNR</h1><p>NR：表示awk开始执行程序后所读取的数据行数。</p>
+<p>FNR：awk当前读取的记录数，其变量值小于等于NR（比如当读取第二个文件时，FNR是从0开始重新计数，而NR不会）。</p>
+<p>NR==FNR：用于在读取两个或两个以上的文件时，判断是不是在读取第一个文件。</p>
+<h1 id="BLUPF90的参数"><a href="#BLUPF90的参数" target="_blank" rel="noopener" class="headerlink" title="BLUPF90的参数"></a>BLUPF90的参数</h1><p>OPTION method VCE 在blupf90test中的意思为： Run airemlf90 for variance component estimation (default running blupf90)</p>
+</article><!-- lincense--><div class="license-wrapper"><p> <span>Author:  </span><a href="Yansen0515.github.io.git" target="_blank" rel="noopener">Yansen</a></p><p> <span>Link:  </span><a href="2020/08/09/BLUPF90/" target="_blank" rel="noopener">2020/08/09/BLUPF90/</a></p><p> <span>Copyright:  </span><span>All articles in this blog are licensed under <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/3.0" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.</span></p></div><div class="post-paginator"><a class="nextSlogan" href="2020/08/04/Shell_1/" target="_blank" rel="noopener" title="Shell_1"><span>NextPost ></span><br><span class="nextTitle">Shell_1</span></a><div class="clear"></div></div><div id="comment"></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo" target="_blank" rel="noopener"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><div class="toc-wrapper" style="top: 70vh;"><div class="toc-catalog"><i class="fa fa-list"> </i><span>CATALOG</span></div><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#使用shell命令" target="_blank" rel="noopener"><span class="toc-number">1.</span> <span class="toc-text">使用shell命令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#做基因型数据的QC" target="_blank" rel="noopener"><span class="toc-number">1.1.</span> <span class="toc-text">做基因型数据的QC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#做aireml的运行" target="_blank" rel="noopener"><span class="toc-number">1.2.</span> <span class="toc-text">做aireml的运行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#做blupf90的运行" target="_blank" rel="noopener"><span class="toc-number">1.3.</span> <span class="toc-text">做blupf90的运行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#比较ebv和GEBV" target="_blank" rel="noopener"><span class="toc-number">1.4.</span> <span class="toc-text">比较ebv和GEBV</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#LIUNX运行R" target="_blank" rel="noopener"><span class="toc-number">2.</span> <span class="toc-text">LIUNX运行R</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SHELL使用规范" target="_blank" rel="noopener"><span class="toc-number">3.</span> <span class="toc-text">SHELL使用规范</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#原始ped文件编辑" target="_blank" rel="noopener"><span class="toc-number">4.</span> <span class="toc-text">原始ped文件编辑</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SNP文件" target="_blank" rel="noopener"><span class="toc-number">5.</span> <span class="toc-text">SNP文件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#对基因型的代表数字进行转化，" target="_blank" rel="noopener"><span class="toc-number">5.1.</span> <span class="toc-text">对基因型的代表数字进行转化，</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#map文件" target="_blank" rel="noopener"><span class="toc-number">6.</span> <span class="toc-text">map文件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#跟踪脚本的进度" target="_blank" rel="noopener"><span class="toc-number">7.</span> <span class="toc-text">跟踪脚本的进度</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#NR-AND-FNR" target="_blank" rel="noopener"><span class="toc-number">8.</span> <span class="toc-text">NR AND FNR</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#BLUPF90的参数" target="_blank" rel="noopener"><span class="toc-number">9.</span> <span class="toc-text">BLUPF90的参数</span></a></li></ol></div><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
